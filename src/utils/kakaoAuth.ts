@@ -1,13 +1,18 @@
-import { makeRedirectUri } from 'expo-auth-session';
-import * as WebBrowser from 'expo-web-browser';
-import * as Linking from 'expo-linking';
+import { Platform } from 'react-native';
 import { supabase } from '../config/supabase';
 
-WebBrowser.maybeCompleteAuthSession();
+// Only call maybeCompleteAuthSession on native
+if (Platform.OS !== 'web') {
+  import('expo-web-browser').then((WebBrowser) => {
+    WebBrowser.maybeCompleteAuthSession();
+  });
+}
 
 // Use Supabase OAuth for Kakao - handles redirect properly
 export async function signInWithKakao() {
   try {
+    const { makeRedirectUri } = await import('expo-auth-session');
+
     // Create redirect URL for the app
     const redirectTo = makeRedirectUri({
       scheme: 'parchment',
@@ -28,7 +33,14 @@ export async function signInWithKakao() {
     if (error) throw error;
     if (!data.url) throw new Error('No OAuth URL returned');
 
-    // Open the OAuth URL in browser
+    if (Platform.OS === 'web') {
+      // On web, redirect directly
+      window.location.href = data.url;
+      return null;
+    }
+
+    // On native, open in-app browser
+    const WebBrowser = await import('expo-web-browser');
     const result = await WebBrowser.openAuthSessionAsync(
       data.url,
       redirectTo,

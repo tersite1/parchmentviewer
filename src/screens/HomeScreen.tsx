@@ -11,6 +11,7 @@ import {
   Animated as RNAnimated,
   Modal,
   StatusBar,
+  Platform,
 } from 'react-native';
 import { MapViewWrapper as MapView } from '../components/MapViewWrapper';
 import { LinearGradient } from 'expo-linear-gradient';
@@ -20,7 +21,6 @@ import Animated, {
   SlideInRight,
 } from 'react-native-reanimated';
 import * as Haptics from '../utils/haptics';
-import * as Location from 'expo-location';
 import { COLORS, SPACING, CITIES, CATEGORIES, TYPOGRAPHY } from '../config/constants';
 import { usePlacesStore } from '../stores/placesStore';
 import { useLanguageStore, getMapLanguage } from '../stores/languageStore';
@@ -95,9 +95,11 @@ export function HomeScreen({ navigation }: HomeScreenProps) {
     loadBookmarks(userId);
   }, [userId]);
 
-  // Request location permission and get user location
+  // Request location permission and get user location (native only)
   useEffect(() => {
+    if (Platform.OS === 'web') return;
     (async () => {
+      const Location = await import('expo-location');
       const { status } = await Location.requestForegroundPermissionsAsync();
       if (status === 'granted') {
         const location = await Location.getCurrentPositionAsync({});
