@@ -1,0 +1,14 @@
+<svg width="1024" height="1024" viewBox="0 0 1024 1024" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Background: Coal -->
+  <rect width="1024" height="1024" fill="#1A1A1A"/>
+
+  <!-- Parchment mark: folded corner abstraction -->
+  <!-- Main square representing parchment/map -->
+  <rect x="192" y="192" width="640" height="640" fill="none" stroke="#E3DAC9" stroke-width="16"/>
+
+  <!-- Folded corner triangle - top right -->
+  <path d="M640 192 L832 384 L640 384 Z" fill="#1A1A1A" stroke="#E3DAC9" stroke-width="16" stroke-linejoin="miter"/>
+
+  <!-- Place marker dot - offset for visual balance -->
+  <circle cx="416" cy="512" r="48" fill="#E3DAC9"/>
+</svg>

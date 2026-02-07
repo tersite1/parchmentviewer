@@ -1,0 +1,11 @@
+<svg width="200" height="200" viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Parchment mark: folded corner abstraction -->
+  <!-- Main square representing parchment/map -->
+  <rect x="32" y="32" width="136" height="136" fill="none" stroke="#E3DAC9" stroke-width="4"/>
+
+  <!-- Folded corner triangle - top right -->
+  <path d="M128 32 L168 72 L128 72 Z" fill="#1A1A1A" stroke="#E3DAC9" stroke-width="4" stroke-linejoin="miter"/>
+
+  <!-- Place marker dot -->
+  <circle cx="80" cy="100" r="12" fill="#E3DAC9"/>
+</svg>
