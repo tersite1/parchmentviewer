@@ -16,7 +16,7 @@ import {
 } from 'react-native';
 import * as Haptics from '../utils/haptics';
 import { LinearGradient } from 'expo-linear-gradient';
-import { COLORS, CATEGORIES } from '../config/constants';
+import { COLORS, CATEGORIES, SPACING, TYPOGRAPHY } from '../config/constants';
 import { Icon } from './Icon';
 import { useBookmarksStore } from '../stores/bookmarksStore';
 import { useAuthStore } from '../stores/authStore';
@@ -255,22 +255,22 @@ const styles = StyleSheet.create({
   },
   overlay: {
     ...StyleSheet.absoluteFillObject,
-    backgroundColor: 'rgba(0,0,0,0.5)',
+    backgroundColor: COLORS.overlay,
   },
   sheet: {
     height: SHEET_HEIGHT,
-    backgroundColor: '#1a1a1a',
+    backgroundColor: COLORS.coal,
     borderTopLeftRadius: 16,
     borderTopRightRadius: 16,
   },
   handleBar: {
     alignItems: 'center',
-    paddingVertical: 16,
+    paddingVertical: SPACING.md,
   },
   handle: {
     width: 36,
     height: 4,
-    backgroundColor: 'rgba(255,255,255,0.2)',
+    backgroundColor: COLORS.glassMedium,
     borderRadius: 2,
   },
   imageWrap: {
@@ -285,7 +285,7 @@ const styles = StyleSheet.create({
   noImage: {
     width: width,
     height: 200,
-    backgroundColor: '#111',
+    backgroundColor: COLORS.obsidian,
     alignItems: 'center',
     justifyContent: 'center',
   },
@@ -309,23 +309,23 @@ const styles = StyleSheet.create({
     width: 6,
     height: 6,
     borderRadius: 3,
-    backgroundColor: 'rgba(255,255,255,0.3)',
+    backgroundColor: COLORS.glass,
   },
   dotActive: {
-    backgroundColor: '#fff',
+    backgroundColor: COLORS.surface,
   },
   content: {
     flex: 1,
-    paddingHorizontal: 20,
+    paddingHorizontal: SPACING.lg,
   },
   header: {
-    marginBottom: 16,
+    marginBottom: SPACING.md,
   },
   catRow: {
     flexDirection: 'row',
     alignItems: 'center',
     gap: 6,
-    marginBottom: 8,
+    marginBottom: SPACING.sm,
   },
   catDot: {
     width: 6,
@@ -333,49 +333,49 @@ const styles = StyleSheet.create({
     borderRadius: 3,
   },
   catText: {
-    fontSize: 11,
-    fontWeight: '500',
-    color: 'rgba(227,218,201,0.6)',
+    fontSize: TYPOGRAPHY.sizes.sm,
+    fontWeight: TYPOGRAPHY.weights.medium,
+    color: COLORS.parchmentDefault,
     textTransform: 'uppercase',
     letterSpacing: 1,
   },
   divider: {
-    fontSize: 11,
-    color: 'rgba(227,218,201,0.3)',
+    fontSize: TYPOGRAPHY.sizes.sm,
+    color: COLORS.parchmentGhost,
   },
   cityText: {
-    fontSize: 11,
-    color: 'rgba(227,218,201,0.4)',
+    fontSize: TYPOGRAPHY.sizes.sm,
+    color: COLORS.parchmentMuted,
   },
   name: {
-    fontSize: 24,
-    fontWeight: '300',
+    fontSize: TYPOGRAPHY.sizes.xxl,
+    fontWeight: TYPOGRAPHY.weights.light,
     color: COLORS.bone,
     letterSpacing: -0.5,
   },
   address: {
     fontSize: 13,
-    color: 'rgba(227,218,201,0.45)',
+    color: COLORS.parchmentTertiary,
     marginTop: 4,
   },
   vibeWrap: {
-    marginBottom: 16,
+    marginBottom: SPACING.md,
   },
   vibe: {
-    fontSize: 14,
-    color: 'rgba(227,218,201,0.7)',
+    fontSize: TYPOGRAPHY.sizes.body,
+    color: COLORS.parchmentStrong,
     lineHeight: 20,
   },
   curator: {
-    fontSize: 12,
-    color: 'rgba(227,218,201,0.35)',
+    fontSize: TYPOGRAPHY.sizes.caption,
+    color: COLORS.parchmentFaded,
     marginTop: 6,
   },
   menuWrap: {
-    marginBottom: 16,
-    paddingTop: 12,
+    marginBottom: SPACING.md,
+    paddingTop: SPACING.sm + SPACING.xs,
     borderTopWidth: 1,
-    borderTopColor: 'rgba(255,255,255,0.06)',
+    borderTopColor: COLORS.glassHint,
   },
   menuRow: {
     flexDirection: 'row',
@@ -384,17 +384,17 @@ const styles = StyleSheet.create({
   },
   menuName: {
     fontSize: 13,
-    color: 'rgba(227,218,201,0.8)',
+    color: COLORS.parchment,
   },
   menuPrice: {
     fontSize: 13,
-    color: 'rgba(227,218,201,0.5)',
+    color: COLORS.parchmentSecondary,
   },
   actions: {
     flexDirection: 'row',
     gap: 12,
     marginTop: 'auto',
-    paddingBottom: 20,
+    paddingBottom: SPACING.lg,
   },
   dirBtn: {
     flex: 1,
@@ -405,25 +405,25 @@ const styles = StyleSheet.create({
     borderRadius: 10,
   },
   dirText: {
-    fontSize: 15,
-    fontWeight: '600',
-    color: '#1a1a1a',
+    fontSize: TYPOGRAPHY.sizes.md,
+    fontWeight: TYPOGRAPHY.weights.semiBold,
+    color: COLORS.coal,
   },
   shareBtn: {
     width: 52,
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: 'rgba(255,255,255,0.08)',
+    backgroundColor: COLORS.glassSubtle,
     borderRadius: 10,
   },
   heartBtn: {
     width: 52,
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: 'rgba(255,255,255,0.08)',
+    backgroundColor: COLORS.glassSubtle,
     borderRadius: 10,
   },
   heartBtnActive: {
-    backgroundColor: 'rgba(231,76,60,0.15)',
+    backgroundColor: 'rgba(231,76,60,0.15)', // heartBtnActive accent
   },
 });

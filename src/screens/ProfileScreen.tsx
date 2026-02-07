@@ -17,7 +17,7 @@ import Animated, { FadeIn, FadeInRight } from 'react-native-reanimated';
 import * as Haptics from '../utils/haptics';
 import * as SecureStore from '../utils/secureStore';
 import { storage } from '../utils/storage';
-import { COLORS, SPACING, CATEGORIES } from '../config/constants';
+import { COLORS, SPACING, CATEGORIES, TYPOGRAPHY } from '../config/constants';
 import { Icon } from '../components/Icon';
 import { Toast } from '../components/Toast';
 import { useLanguageStore, LanguageOption } from '../stores/languageStore';
@@ -212,7 +212,7 @@ export function ProfileScreen({ navigation }: ProfileScreenProps) {
             <Text style={styles.settingsSectionDesc}>Parchment를 만드는 데 도움을 주세요</Text>
 
             <TouchableOpacity style={styles.donateButton} onPress={handleDonate}>
-              <Icon name="heart" size={20} color="#FFFFFF" />
+              <Icon name="heart" size={20} color={COLORS.textInverse} />
               <Text style={styles.donateButtonText}>개발자에게 기부하기</Text>
             </TouchableOpacity>
           </View>
@@ -370,8 +370,8 @@ export function ProfileScreen({ navigation }: ProfileScreenProps) {
               <Switch
                 value={rememberPassword}
                 onValueChange={setRememberPassword}
-                trackColor={{ false: '#E0E0E0', true: COLORS.coal }}
-                thumbColor={rememberPassword ? COLORS.bone : '#F4F4F4'}
+                trackColor={{ false: COLORS.border, true: COLORS.coal }}
+                thumbColor={rememberPassword ? COLORS.bone : COLORS.surfaceElevated}
               />
             </View>
           )}
@@ -396,7 +396,7 @@ export function ProfileScreen({ navigation }: ProfileScreenProps) {
             disabled={kakaoLoading}
           >
             {kakaoLoading ? (
-              <ActivityIndicator color="#191919" />
+              <ActivityIndicator color={COLORS.kakaoText} />
             ) : (
               <Text style={styles.kakaoButtonText}>카카오로 {isSignUp ? '가입하기' : '로그인'}</Text>
             )}
@@ -437,8 +437,8 @@ const styles = StyleSheet.create({
     backgroundColor: COLORS.coal,
   },
   title: {
-    fontSize: 24,
-    fontWeight: '600',
+    fontSize: TYPOGRAPHY.sizes.xxl,
+    fontWeight: TYPOGRAPHY.weights.semiBold,
     color: COLORS.bone,
   },
   profileSection: {
@@ -461,36 +461,36 @@ const styles = StyleSheet.create({
     marginBottom: SPACING.md,
   },
   avatarText: {
-    fontSize: 32,
-    fontWeight: '600',
+    fontSize: TYPOGRAPHY.sizes.hero,
+    fontWeight: TYPOGRAPHY.weights.semiBold,
     color: COLORS.bone,
   },
   profileName: {
-    fontSize: 20,
-    fontWeight: '600',
+    fontSize: TYPOGRAPHY.sizes.xl,
+    fontWeight: TYPOGRAPHY.weights.semiBold,
     color: COLORS.text,
   },
   profileEmail: {
-    fontSize: 14,
+    fontSize: TYPOGRAPHY.sizes.body,
     color: COLORS.textLight,
     marginTop: SPACING.xs,
   },
   menuSection: {
     borderTopWidth: 1,
-    borderTopColor: '#E0E0E0',
+    borderTopColor: COLORS.border,
   },
   menuItem: {
     flexDirection: 'row',
     alignItems: 'center',
     padding: SPACING.lg,
     borderBottomWidth: 1,
-    borderBottomColor: '#E0E0E0',
+    borderBottomColor: COLORS.border,
     gap: SPACING.md,
-    backgroundColor: '#FFFFFF',
+    backgroundColor: COLORS.surface,
   },
   menuText: {
     flex: 1,
-    fontSize: 16,
+    fontSize: TYPOGRAPHY.sizes.lg,
     color: COLORS.text,
   },
   logoutButton: {
@@ -499,11 +499,11 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     borderRadius: 8,
     borderWidth: 1,
-    borderColor: '#E0E0E0',
-    backgroundColor: '#FFFFFF',
+    borderColor: COLORS.border,
+    backgroundColor: COLORS.surface,
   },
   logoutText: {
-    fontSize: 14,
+    fontSize: TYPOGRAPHY.sizes.body,
     color: COLORS.textLight,
   },
   authContainer: {
@@ -515,13 +515,13 @@ const styles = StyleSheet.create({
     marginBottom: SPACING.xl,
   },
   authTitle: {
-    fontSize: 28,
-    fontWeight: '600',
+    fontSize: TYPOGRAPHY.sizes.display,
+    fontWeight: TYPOGRAPHY.weights.semiBold,
     color: COLORS.text,
     textAlign: 'center',
   },
   authSubtitle: {
-    fontSize: 14,
+    fontSize: TYPOGRAPHY.sizes.body,
     color: COLORS.textLight,
     textAlign: 'center',
     marginTop: SPACING.sm,
@@ -533,19 +533,19 @@ const styles = StyleSheet.create({
     gap: SPACING.xs,
   },
   inputLabel: {
-    fontSize: 14,
-    fontWeight: '500',
+    fontSize: TYPOGRAPHY.sizes.body,
+    fontWeight: TYPOGRAPHY.weights.medium,
     color: COLORS.text,
   },
   input: {
-    backgroundColor: '#FFFFFF',
+    backgroundColor: COLORS.surface,
     borderRadius: 8,
     paddingHorizontal: SPACING.md,
     paddingVertical: SPACING.sm + 4,
-    fontSize: 16,
+    fontSize: TYPOGRAPHY.sizes.lg,
     color: COLORS.text,
     borderWidth: 1,
-    borderColor: '#E0E0E0',
+    borderColor: COLORS.border,
   },
   authButton: {
     backgroundColor: COLORS.coal,
@@ -555,8 +555,8 @@ const styles = StyleSheet.create({
     marginTop: SPACING.sm,
   },
   authButtonText: {
-    fontSize: 16,
-    fontWeight: '600',
+    fontSize: TYPOGRAPHY.sizes.lg,
+    fontWeight: TYPOGRAPHY.weights.semiBold,
     color: COLORS.bone,
   },
   switchAuthMode: {
@@ -564,12 +564,12 @@ const styles = StyleSheet.create({
     marginTop: SPACING.md,
   },
   switchText: {
-    fontSize: 14,
+    fontSize: TYPOGRAPHY.sizes.body,
     color: COLORS.textLight,
   },
   switchTextHighlight: {
     color: COLORS.text,
-    fontWeight: '500',
+    fontWeight: TYPOGRAPHY.weights.medium,
   },
   rememberRow: {
     flexDirection: 'row',
@@ -578,7 +578,7 @@ const styles = StyleSheet.create({
     paddingVertical: SPACING.xs,
   },
   rememberText: {
-    fontSize: 14,
+    fontSize: TYPOGRAPHY.sizes.body,
     color: COLORS.text,
   },
   divider: {
@@ -589,23 +589,23 @@ const styles = StyleSheet.create({
   dividerLine: {
     flex: 1,
     height: 1,
-    backgroundColor: '#E0E0E0',
+    backgroundColor: COLORS.border,
   },
   dividerText: {
-    fontSize: 12,
+    fontSize: TYPOGRAPHY.sizes.caption,
     color: COLORS.textLight,
     marginHorizontal: SPACING.md,
   },
   kakaoButton: {
-    backgroundColor: '#FEE500',
+    backgroundColor: COLORS.kakaoYellow,
     borderRadius: 8,
     padding: SPACING.md,
     alignItems: 'center',
   },
   kakaoButtonText: {
-    fontSize: 16,
-    fontWeight: '600',
-    color: '#191919',
+    fontSize: TYPOGRAPHY.sizes.lg,
+    fontWeight: TYPOGRAPHY.weights.semiBold,
+    color: COLORS.kakaoText,
   },
   // Settings styles
   settingsContent: {
@@ -616,13 +616,13 @@ const styles = StyleSheet.create({
     marginBottom: SPACING.xl,
   },
   settingsSectionTitle: {
-    fontSize: 18,
-    fontWeight: '600',
+    fontSize: TYPOGRAPHY.sizes.title,
+    fontWeight: TYPOGRAPHY.weights.semiBold,
     color: COLORS.text,
     marginBottom: SPACING.xs,
   },
   settingsSectionDesc: {
-    fontSize: 14,
+    fontSize: TYPOGRAPHY.sizes.body,
     color: COLORS.textLight,
     marginBottom: SPACING.md,
   },
@@ -633,11 +633,11 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
-    backgroundColor: '#FFFFFF',
+    backgroundColor: COLORS.surface,
     padding: SPACING.md,
     borderRadius: 8,
     borderWidth: 1,
-    borderColor: '#E0E0E0',
+    borderColor: COLORS.border,
   },
   languageOptionActive: {
     backgroundColor: COLORS.bone,
@@ -645,39 +645,39 @@ const styles = StyleSheet.create({
     borderWidth: 2,
   },
   languageOptionText: {
-    fontSize: 16,
+    fontSize: TYPOGRAPHY.sizes.lg,
     color: COLORS.text,
   },
   languageOptionTextActive: {
-    fontWeight: '600',
+    fontWeight: TYPOGRAPHY.weights.semiBold,
   },
   donateButton: {
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: '#FF6B6B',
+    backgroundColor: COLORS.errorAction,
     padding: SPACING.md,
     borderRadius: 8,
     gap: SPACING.sm,
   },
   donateButtonText: {
-    fontSize: 16,
-    fontWeight: '600',
-    color: '#FFFFFF',
+    fontSize: TYPOGRAPHY.sizes.lg,
+    fontWeight: TYPOGRAPHY.weights.semiBold,
+    color: COLORS.textInverse,
   },
   infoRow: {
     flexDirection: 'row',
     justifyContent: 'space-between',
     paddingVertical: SPACING.sm,
     borderBottomWidth: 1,
-    borderBottomColor: '#E0E0E0',
+    borderBottomColor: COLORS.border,
   },
   infoLabel: {
-    fontSize: 14,
+    fontSize: TYPOGRAPHY.sizes.body,
     color: COLORS.textLight,
   },
   infoValue: {
-    fontSize: 14,
+    fontSize: TYPOGRAPHY.sizes.body,
     color: COLORS.text,
   },
 });

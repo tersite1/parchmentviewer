@@ -1,7 +1,7 @@
 import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 import { MarkerWrapper as Marker } from './MapViewWrapper';
-import { COLORS, CATEGORIES } from '../config/constants';
+import { COLORS, CATEGORIES, SPACING, TYPOGRAPHY } from '../config/constants';
 import { Icon } from './Icon';
 import type { Place } from '../types/database';
 
@@ -56,12 +56,12 @@ const styles = StyleSheet.create({
   },
   nameLabel: {
     backgroundColor: COLORS.coal,
-    paddingHorizontal: 8,
-    paddingVertical: 4,
+    paddingHorizontal: SPACING.sm,
+    paddingVertical: SPACING.xs,
     borderRadius: 6,
-    marginBottom: 4,
+    marginBottom: SPACING.xs,
     maxWidth: 120,
-    shadowColor: '#000',
+    shadowColor: COLORS.shadow,
     shadowOffset: { width: 0, height: 1 },
     shadowOpacity: 0.3,
     shadowRadius: 2,
@@ -69,8 +69,8 @@ const styles = StyleSheet.create({
   },
   nameLabelText: {
     color: COLORS.bone,
-    fontSize: 11,
-    fontWeight: '600',
+    fontSize: TYPOGRAPHY.sizes.sm,
+    fontWeight: TYPOGRAPHY.weights.semiBold,
     textAlign: 'center',
   },
   marker: {
@@ -85,8 +85,8 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     borderWidth: 2,
-    borderColor: '#FFFFFF',
-    shadowColor: '#000',
+    borderColor: COLORS.surface,
+    shadowColor: COLORS.shadow,
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.3,
     shadowRadius: 4,

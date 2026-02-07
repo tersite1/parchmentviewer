@@ -54,7 +54,7 @@ function WebMarkerPlaceholder(_props: MarkerWrapperProps) {
 
 const webStyles = StyleSheet.create({
   container: {
-    backgroundColor: '#1a1a1a',
+    backgroundColor: COLORS.coal,
     alignItems: 'center',
     justifyContent: 'center',
   },

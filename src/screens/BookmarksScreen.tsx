@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { View, Text, StyleSheet, FlatList, TouchableOpacity, Image } from 'react-native';
-import { COLORS, SPACING, CATEGORIES } from '../config/constants';
+import { COLORS, SPACING, CATEGORIES, TYPOGRAPHY } from '../config/constants';
 import { Icon } from '../components/Icon';
 import { BookmarkEmptyState } from '../components/EmptyState';
 import { useBookmarksStore } from '../stores/bookmarksStore';
@@ -99,12 +99,12 @@ const styles = StyleSheet.create({
     backgroundColor: COLORS.coal,
   },
   title: {
-    fontSize: 24,
-    fontWeight: '600',
+    fontSize: TYPOGRAPHY.sizes.xxl,
+    fontWeight: TYPOGRAPHY.weights.semiBold,
     color: COLORS.bone,
   },
   subtitle: {
-    fontSize: 14,
+    fontSize: TYPOGRAPHY.sizes.body,
     color: COLORS.graphite,
     marginTop: SPACING.xs,
   },
@@ -114,11 +114,11 @@ const styles = StyleSheet.create({
   bookmarkItem: {
     flexDirection: 'row',
     alignItems: 'center',
-    backgroundColor: '#FFFFFF',
+    backgroundColor: COLORS.surface,
     borderRadius: 12,
     padding: SPACING.sm,
     marginBottom: SPACING.sm,
-    shadowColor: '#000',
+    shadowColor: COLORS.shadow,
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.08,
     shadowRadius: 6,
@@ -133,7 +133,7 @@ const styles = StyleSheet.create({
     width: 64,
     height: 64,
     borderRadius: 10,
-    backgroundColor: '#F0F0F0',
+    backgroundColor: COLORS.surfaceDim,
     alignItems: 'center',
     justifyContent: 'center',
   },
@@ -142,8 +142,8 @@ const styles = StyleSheet.create({
     marginLeft: SPACING.md,
   },
   bookmarkName: {
-    fontSize: 16,
-    fontWeight: '600',
+    fontSize: TYPOGRAPHY.sizes.lg,
+    fontWeight: TYPOGRAPHY.weights.semiBold,
     color: COLORS.text,
     letterSpacing: -0.3,
   },

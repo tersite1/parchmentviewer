@@ -1,5 +1,6 @@
 import React, { useEffect, useRef } from 'react';
 import { Animated, Text, StyleSheet } from 'react-native';
+import { COLORS, TYPOGRAPHY } from '../config/constants';
 
 interface ToastProps {
   message: string;
@@ -53,7 +54,7 @@ export function Toast({ message, type = 'info', visible, onHide, duration = 3000
 
   if (!visible) return null;
 
-  const bgColor = type === 'success' ? '#2D5A3D' : type === 'error' ? '#5A2D2D' : '#333333';
+  const bgColor = type === 'success' ? COLORS.success : type === 'error' ? COLORS.error : COLORS.info;
 
   return (
     <Animated.View style={[
@@ -77,9 +78,9 @@ const styles = StyleSheet.create({
     zIndex: 9999,
   },
   text: {
-    color: '#F5F5F0',
-    fontSize: 14,
-    fontWeight: '500',
+    color: COLORS.bone,
+    fontSize: TYPOGRAPHY.sizes.body,
+    fontWeight: TYPOGRAPHY.weights.medium,
     textAlign: 'center',
   },
 });

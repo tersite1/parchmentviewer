@@ -13,7 +13,7 @@ import Animated, {
   FadeInUp,
 } from 'react-native-reanimated';
 import * as Haptics from '../utils/haptics';
-import { COLORS, SPACING } from '../config/constants';
+import { COLORS, SPACING, CATEGORIES, TYPOGRAPHY } from '../config/constants';
 import { storage } from '../utils/storage';
 import { Icon, IconName } from '../components/Icon';
 
@@ -32,7 +32,7 @@ const SLIDES: OnboardingSlide[] = [
   {
     id: '1',
     icon: 'map',
-    iconColor: '#A8D5BA',
+    iconColor: CATEGORIES.cafe.color,
     title: '큐레이팅된 공간',
     subtitle: 'Curated Spaces',
     description: '감각적인 카페, 레스토랑, 문화공간을\n직접 발굴하고 엄선했습니다.',
@@ -48,7 +48,7 @@ const SLIDES: OnboardingSlide[] = [
   {
     id: '3',
     icon: 'heart',
-    iconColor: '#E8B4B8',
+    iconColor: CATEGORIES.bar.color,
     title: '나만의 컬렉션',
     subtitle: 'Your Collection',
     description: '마음에 드는 공간을 북마크하고\n나만의 리스트를 만들어보세요.',
@@ -173,7 +173,7 @@ const styles = StyleSheet.create({
     padding: SPACING.sm,
   },
   skipText: {
-    fontSize: 14,
+    fontSize: TYPOGRAPHY.sizes.body,
     color: COLORS.graphite,
   },
   slide: {
@@ -195,8 +195,8 @@ const styles = StyleSheet.create({
     marginBottom: SPACING.xl,
   },
   subtitle: {
-    fontSize: 12,
-    fontWeight: '400',
+    fontSize: TYPOGRAPHY.sizes.caption,
+    fontWeight: TYPOGRAPHY.weights.regular,
     color: COLORS.graphite,
     textTransform: 'uppercase',
     letterSpacing: 2,
@@ -204,15 +204,15 @@ const styles = StyleSheet.create({
     marginBottom: SPACING.xs,
   },
   title: {
-    fontSize: 32,
-    fontWeight: '700',
+    fontSize: TYPOGRAPHY.sizes.hero,
+    fontWeight: TYPOGRAPHY.weights.bold,
     color: COLORS.bone,
     textAlign: 'center',
     letterSpacing: -1,
     marginBottom: SPACING.md,
   },
   description: {
-    fontSize: 16,
+    fontSize: TYPOGRAPHY.sizes.lg,
     color: COLORS.graphite,
     textAlign: 'center',
     lineHeight: 24,
@@ -248,8 +248,8 @@ const styles = StyleSheet.create({
     gap: SPACING.xs,
   },
   nextButtonText: {
-    fontSize: 16,
-    fontWeight: '600',
+    fontSize: TYPOGRAPHY.sizes.lg,
+    fontWeight: TYPOGRAPHY.weights.semiBold,
     color: COLORS.coal,
   },
   brand: {
@@ -258,8 +258,8 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
   },
   brandText: {
-    fontSize: 10,
-    fontWeight: '300',
+    fontSize: TYPOGRAPHY.sizes.xs,
+    fontWeight: TYPOGRAPHY.weights.light,
     color: COLORS.graphite,
     letterSpacing: 4,
   },

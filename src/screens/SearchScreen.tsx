@@ -12,7 +12,7 @@ import {
   UIManager,
 } from 'react-native';
 import * as Haptics from '../utils/haptics';
-import { COLORS, SPACING, CATEGORIES } from '../config/constants';
+import { COLORS, SPACING, CATEGORIES, TYPOGRAPHY } from '../config/constants';
 import { Icon } from '../components/Icon';
 import { usePlacesStore } from '../stores/placesStore';
 import { useRegionsStore, Region } from '../stores/regionsStore';
@@ -402,12 +402,12 @@ const styles = StyleSheet.create({
     backgroundColor: COLORS.bone,
   },
   title: {
-    fontSize: 24,
-    fontWeight: '600',
+    fontSize: TYPOGRAPHY.sizes.xxl,
+    fontWeight: TYPOGRAPHY.weights.semiBold,
     color: COLORS.coal,
   },
   subtitle: {
-    fontSize: 14,
+    fontSize: TYPOGRAPHY.sizes.body,
     color: COLORS.textLight,
     marginTop: SPACING.xs,
   },
@@ -416,17 +416,17 @@ const styles = StyleSheet.create({
     paddingVertical: SPACING.md,
     backgroundColor: COLORS.bone,
     borderBottomWidth: 1,
-    borderBottomColor: '#E0E0E0',
+    borderBottomColor: COLORS.border,
   },
   searchBar: {
     flexDirection: 'row',
     alignItems: 'center',
-    backgroundColor: '#FFFFFF',
+    backgroundColor: COLORS.surface,
     borderRadius: 8,
     paddingHorizontal: SPACING.md,
     paddingVertical: SPACING.sm,
     gap: SPACING.sm,
-    shadowColor: '#000',
+    shadowColor: COLORS.shadow,
     shadowOffset: { width: 0, height: 1 },
     shadowOpacity: 0.08,
     shadowRadius: 4,
@@ -434,7 +434,7 @@ const styles = StyleSheet.create({
   },
   searchInput: {
     flex: 1,
-    fontSize: 16,
+    fontSize: TYPOGRAPHY.sizes.lg,
     color: COLORS.text,
   },
   content: {
@@ -442,14 +442,14 @@ const styles = StyleSheet.create({
   },
   countrySection: {
     borderBottomWidth: 1,
-    borderBottomColor: '#E0E0E0',
+    borderBottomColor: COLORS.border,
   },
   countryHeader: {
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
     padding: SPACING.lg,
-    backgroundColor: '#FFFFFF',
+    backgroundColor: COLORS.surface,
   },
   countryInfo: {
     flexDirection: 'row',
@@ -463,13 +463,13 @@ const styles = StyleSheet.create({
     marginRight: 4,
   },
   countryName: {
-    fontSize: 18,
-    fontWeight: '700',
+    fontSize: TYPOGRAPHY.sizes.title,
+    fontWeight: TYPOGRAPHY.weights.bold,
     color: COLORS.coal,
     letterSpacing: 1,
   },
   countryCount: {
-    fontSize: 14,
+    fontSize: TYPOGRAPHY.sizes.body,
     color: COLORS.textLight,
   },
   citiesContainer: {
@@ -477,7 +477,7 @@ const styles = StyleSheet.create({
   },
   citySection: {
     borderBottomWidth: 1,
-    borderBottomColor: '#E0E0E0',
+    borderBottomColor: COLORS.border,
   },
   cityHeader: {
     flexDirection: 'row',
@@ -500,8 +500,8 @@ const styles = StyleSheet.create({
     marginRight: 4,
   },
   cityName: {
-    fontSize: 16,
-    fontWeight: '600',
+    fontSize: TYPOGRAPHY.sizes.lg,
+    fontWeight: TYPOGRAPHY.weights.semiBold,
     color: COLORS.text,
   },
   cityCount: {
@@ -509,9 +509,9 @@ const styles = StyleSheet.create({
     color: COLORS.textLight,
   },
   placesContainer: {
-    backgroundColor: '#FFFFFF',
+    backgroundColor: COLORS.surface,
     borderTopWidth: 1,
-    borderTopColor: '#E8E8E8',
+    borderTopColor: COLORS.borderLight,
   },
   placeItem: {
     flexDirection: 'row',
@@ -519,7 +519,7 @@ const styles = StyleSheet.create({
     padding: SPACING.md,
     paddingLeft: SPACING.xl + SPACING.sm,
     borderBottomWidth: 1,
-    borderBottomColor: '#E8E8E8',
+    borderBottomColor: COLORS.borderLight,
     gap: SPACING.sm,
   },
   placeCategoryDot: {
@@ -531,8 +531,8 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   placeName: {
-    fontSize: 15,
-    fontWeight: '500',
+    fontSize: TYPOGRAPHY.sizes.md,
+    fontWeight: TYPOGRAPHY.weights.medium,
     color: COLORS.text,
   },
   placeVibe: {
@@ -547,13 +547,13 @@ const styles = StyleSheet.create({
     paddingVertical: SPACING.xl * 3,
   },
   emptyTitle: {
-    fontSize: 18,
-    fontWeight: '600',
+    fontSize: TYPOGRAPHY.sizes.title,
+    fontWeight: TYPOGRAPHY.weights.semiBold,
     color: COLORS.text,
     marginTop: SPACING.md,
   },
   emptyText: {
-    fontSize: 14,
+    fontSize: TYPOGRAPHY.sizes.body,
     color: COLORS.textLight,
     marginTop: SPACING.xs,
   },

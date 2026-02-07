@@ -21,7 +21,7 @@ import Animated, {
 } from 'react-native-reanimated';
 import * as Haptics from '../utils/haptics';
 import * as Location from 'expo-location';
-import { COLORS, SPACING, CITIES, CATEGORIES } from '../config/constants';
+import { COLORS, SPACING, CITIES, CATEGORIES, TYPOGRAPHY } from '../config/constants';
 import { usePlacesStore } from '../stores/placesStore';
 import { useLanguageStore, getMapLanguage } from '../stores/languageStore';
 import { useBookmarksStore } from '../stores/bookmarksStore';
@@ -238,7 +238,7 @@ export function HomeScreen({ navigation }: HomeScreenProps) {
           </View>
         )}
         <LinearGradient
-          colors={['transparent', 'rgba(0,0,0,0.4)', 'rgba(0,0,0,0.85)']}
+          colors={['transparent', COLORS.overlayLight, COLORS.overlayStrong]}
           locations={[0, 0.5, 1]}
           style={styles.heroGradient}
         />
@@ -252,7 +252,7 @@ export function HomeScreen({ navigation }: HomeScreenProps) {
             <Text style={styles.heroVibe} numberOfLines={2}>{item.vibe}</Text>
           )}
           <View style={styles.heroMeta}>
-            <Icon name="pin" size={12} color="rgba(255,255,255,0.7)" />
+            <Icon name="pin" size={12} color={COLORS.glassStrong} />
             <Text style={styles.heroMetaText}>{item.city}</Text>
           </View>
         </View>
@@ -268,7 +268,7 @@ export function HomeScreen({ navigation }: HomeScreenProps) {
           <Icon
             name="heart"
             size={20}
-            color={isBookmarked(item.id) ? CATEGORIES.bar.color : '#FFFFFF'}
+            color={isBookmarked(item.id) ? CATEGORIES.bar.color : COLORS.textInverse}
           />
         </TouchableOpacity>
       </TouchableOpacity>
@@ -307,7 +307,7 @@ export function HomeScreen({ navigation }: HomeScreenProps) {
             <Icon
               name="heart"
               size={16}
-              color={isBookmarked(item.id) ? CATEGORIES.bar.color : '#FFFFFF'}
+              color={isBookmarked(item.id) ? CATEGORIES.bar.color : COLORS.textInverse}
             />
           </TouchableOpacity>
         </View>
@@ -629,9 +629,9 @@ const styles = StyleSheet.create({
     paddingHorizontal: SPACING.md + 2,
     paddingVertical: SPACING.xs + 3,
     borderRadius: 20,
-    backgroundColor: '#FFFFFF',
+    backgroundColor: COLORS.surface,
     borderWidth: 1,
-    borderColor: '#E0E0E0',
+    borderColor: COLORS.border,
     marginRight: SPACING.xs,
   },
   filterChipActive: {
@@ -640,12 +640,12 @@ const styles = StyleSheet.create({
   },
   filterText: {
     fontSize: 13,
-    fontWeight: '500',
+    fontWeight: TYPOGRAPHY.weights.medium,
     color: COLORS.text,
     letterSpacing: -0.2,
   },
   filterTextActive: {
-    color: '#FFFFFF',
+    color: COLORS.textInverse,
   },
   content: {
     flex: 1,
@@ -674,7 +674,7 @@ const styles = StyleSheet.create({
     borderRadius: 8,
     alignItems: 'center',
     justifyContent: 'center',
-    shadowColor: '#000',
+    shadowColor: COLORS.shadow,
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.3,
     shadowRadius: 4,
@@ -691,15 +691,15 @@ const styles = StyleSheet.create({
     marginBottom: SPACING.sm,
   },
   sectionTitle: {
-    fontSize: 18,
-    fontWeight: '700',
+    fontSize: TYPOGRAPHY.sizes.title,
+    fontWeight: TYPOGRAPHY.weights.bold,
     color: COLORS.text,
     letterSpacing: -0.5,
   },
   sectionCount: {
     fontSize: 13,
     color: COLORS.textLight,
-    fontWeight: '500',
+    fontWeight: TYPOGRAPHY.weights.medium,
   },
   heroPagination: {
     flexDirection: 'row',
@@ -709,7 +709,7 @@ const styles = StyleSheet.create({
     width: 6,
     height: 6,
     borderRadius: 3,
-    backgroundColor: '#D0D0D0',
+    backgroundColor: COLORS.disabled,
   },
   paginationDotActive: {
     backgroundColor: COLORS.coal,
@@ -727,7 +727,7 @@ const styles = StyleSheet.create({
     borderRadius: 16,
     overflow: 'hidden',
     backgroundColor: COLORS.obsidian,
-    shadowColor: '#000',
+    shadowColor: COLORS.shadow,
     shadowOffset: { width: 0, height: 8 },
     shadowOpacity: 0.4,
     shadowRadius: 16,
@@ -769,22 +769,22 @@ const styles = StyleSheet.create({
     marginBottom: SPACING.sm,
   },
   heroBadgeText: {
-    fontSize: 11,
-    fontWeight: '600',
+    fontSize: TYPOGRAPHY.sizes.sm,
+    fontWeight: TYPOGRAPHY.weights.semiBold,
     color: COLORS.coal,
     letterSpacing: -0.2,
   },
   heroTitle: {
     fontSize: 22,
-    fontWeight: '700',
-    color: '#FFFFFF',
+    fontWeight: TYPOGRAPHY.weights.bold,
+    color: COLORS.textInverse,
     lineHeight: 28,
     letterSpacing: -0.5,
     marginBottom: 4,
   },
   heroVibe: {
     fontSize: 13,
-    color: 'rgba(255,255,255,0.8)',
+    color: COLORS.glassStrong,
     lineHeight: 18,
     letterSpacing: -0.2,
   },
@@ -795,8 +795,8 @@ const styles = StyleSheet.create({
     marginTop: SPACING.sm,
   },
   heroMetaText: {
-    fontSize: 12,
-    color: 'rgba(255,255,255,0.7)',
+    fontSize: TYPOGRAPHY.sizes.caption,
+    color: COLORS.glassStrong,
     letterSpacing: -0.2,
   },
   bookmarkButton: {
@@ -806,7 +806,7 @@ const styles = StyleSheet.create({
     width: 36,
     height: 36,
     borderRadius: 18,
-    backgroundColor: 'rgba(0,0,0,0.4)',
+    backgroundColor: COLORS.overlayLight,
     alignItems: 'center',
     justifyContent: 'center',
   },
@@ -825,7 +825,7 @@ const styles = StyleSheet.create({
     position: 'relative',
     borderRadius: 12,
     overflow: 'hidden',
-    shadowColor: '#000',
+    shadowColor: COLORS.shadow,
     shadowOffset: { width: 0, height: 4 },
     shadowOpacity: 0.2,
     shadowRadius: 8,
@@ -860,7 +860,7 @@ const styles = StyleSheet.create({
     width: 28,
     height: 28,
     borderRadius: 14,
-    backgroundColor: 'rgba(0,0,0,0.4)',
+    backgroundColor: COLORS.overlayLight,
     alignItems: 'center',
     justifyContent: 'center',
   },
@@ -869,13 +869,13 @@ const styles = StyleSheet.create({
     paddingHorizontal: 2,
   },
   placeName: {
-    fontSize: 15,
-    fontWeight: '600',
+    fontSize: TYPOGRAPHY.sizes.md,
+    fontWeight: TYPOGRAPHY.weights.semiBold,
     color: COLORS.text,
     letterSpacing: -0.3,
   },
   placeMeta: {
-    fontSize: 12,
+    fontSize: TYPOGRAPHY.sizes.caption,
     color: COLORS.textLight,
     marginTop: 3,
     letterSpacing: -0.2,
@@ -902,7 +902,7 @@ const styles = StyleSheet.create({
     paddingTop: SPACING.xl + SPACING.lg,
     paddingHorizontal: SPACING.md,
     paddingBottom: SPACING.md,
-    backgroundColor: 'rgba(26, 26, 26, 0.9)',
+    backgroundColor: COLORS.overlayModal,
   },
   fullscreenCloseButton: {
     width: 40,
@@ -912,11 +912,11 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     borderWidth: 1,
-    borderColor: 'rgba(255, 255, 255, 0.15)',
+    borderColor: COLORS.glassMedium,
   },
   fullscreenTitle: {
     fontSize: 17,
-    fontWeight: '600',
+    fontWeight: TYPOGRAPHY.weights.semiBold,
     color: COLORS.bone,
     letterSpacing: -0.3,
   },
@@ -936,7 +936,7 @@ const styles = StyleSheet.create({
     borderRadius: 24,
     alignItems: 'center',
     justifyContent: 'center',
-    shadowColor: '#000',
+    shadowColor: COLORS.shadow,
     shadowOffset: { width: 0, height: 4 },
     shadowOpacity: 0.3,
     shadowRadius: 8,
@@ -956,7 +956,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: SPACING.md + 2,
     paddingVertical: SPACING.sm,
     borderRadius: 20,
-    backgroundColor: 'rgba(26, 26, 26, 0.85)',
+    backgroundColor: COLORS.overlayStrong,
     marginRight: SPACING.xs,
   },
   fullscreenFilterChipActive: {
@@ -964,7 +964,7 @@ const styles = StyleSheet.create({
   },
   fullscreenFilterText: {
     fontSize: 13,
-    fontWeight: '500',
+    fontWeight: TYPOGRAPHY.weights.medium,
     color: COLORS.bone,
     letterSpacing: -0.2,
   },
@@ -978,10 +978,10 @@ const styles = StyleSheet.create({
     right: SPACING.md,
     flexDirection: 'row',
     alignItems: 'center',
-    backgroundColor: '#FFFFFF',
+    backgroundColor: COLORS.surface,
     borderRadius: 16,
     padding: SPACING.sm,
-    shadowColor: '#000',
+    shadowColor: COLORS.shadow,
     shadowOffset: { width: 0, height: 4 },
     shadowOpacity: 0.15,
     shadowRadius: 12,
@@ -993,7 +993,7 @@ const styles = StyleSheet.create({
     borderRadius: 12,
   },
   fullscreenPlacePlaceholder: {
-    backgroundColor: '#F0F0F0',
+    backgroundColor: COLORS.surfaceDim,
     alignItems: 'center',
     justifyContent: 'center',
   },
@@ -1002,8 +1002,8 @@ const styles = StyleSheet.create({
     marginLeft: SPACING.md,
   },
   fullscreenPlaceName: {
-    fontSize: 16,
-    fontWeight: '600',
+    fontSize: TYPOGRAPHY.sizes.lg,
+    fontWeight: TYPOGRAPHY.weights.semiBold,
     color: COLORS.text,
     letterSpacing: -0.3,
   },

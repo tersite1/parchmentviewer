@@ -16,7 +16,7 @@ import { SearchScreen } from './src/screens/SearchScreen';
 import { ProfileScreen } from './src/screens/ProfileScreen';
 import { OnboardingScreen } from './src/screens/OnboardingScreen';
 import { Icon } from './src/components/Icon';
-import { COLORS, SPACING } from './src/config/constants';
+import { COLORS, SPACING, TYPOGRAPHY } from './src/config/constants';
 import { useAuthStore } from './src/stores/authStore';
 import { useLanguageStore } from './src/stores/languageStore';
 
@@ -29,8 +29,8 @@ const theme = {
     ...DefaultTheme.colors,
     background: COLORS.bone,
     card: COLORS.bone,
-    text: COLORS.text || '#2A2A2A',
-    border: '#E0E0E0',
+    text: COLORS.text,
+    border: COLORS.border,
     primary: COLORS.coal,
   },
 };
@@ -41,18 +41,18 @@ function TabNavigator() {
       screenOptions={{
         headerShown: false,
         tabBarStyle: {
-          backgroundColor: '#FFFFFF',
-          borderTopColor: '#E0E0E0',
+          backgroundColor: COLORS.surface,
+          borderTopColor: COLORS.border,
           borderTopWidth: 1,
           height: 80,
           paddingBottom: SPACING.lg,
           paddingTop: SPACING.sm,
         },
         tabBarActiveTintColor: COLORS.coal,
-        tabBarInactiveTintColor: '#AAAAAA',
+        tabBarInactiveTintColor: COLORS.tabInactive,
         tabBarLabelStyle: {
-          fontSize: 10,
-          fontWeight: '500',
+          fontSize: TYPOGRAPHY.sizes.xs,
+          fontWeight: TYPOGRAPHY.weights.medium,
           marginTop: 4,
         },
       }}
@@ -171,8 +171,8 @@ export default function App() {
             },
             headerTintColor: COLORS.bone,
             headerTitleStyle: {
-              fontSize: 14,
-              fontWeight: '300',
+              fontSize: TYPOGRAPHY.sizes.body,
+              fontWeight: TYPOGRAPHY.weights.light,
             },
             headerShadowVisible: false,
           }}

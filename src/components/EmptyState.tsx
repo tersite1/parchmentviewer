@@ -1,7 +1,7 @@
 import React from 'react';
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 import Animated, { FadeInDown } from 'react-native-reanimated';
-import { COLORS, SPACING } from '../config/constants';
+import { COLORS, SPACING, CATEGORIES, TYPOGRAPHY } from '../config/constants';
 import { Icon, IconName } from './Icon';
 
 interface EmptyStateProps {
@@ -14,9 +14,9 @@ interface EmptyStateProps {
 }
 
 const VARIANT_COLORS = {
-  default: '#A8D5BA',
+  default: CATEGORIES.cafe.color,
   search: '#B8C5D6',
-  bookmark: '#E8B4B8',
+  bookmark: CATEGORIES.bar.color,
   error: '#D4A5A5',
 };
 
@@ -135,15 +135,15 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   title: {
-    fontSize: 18,
-    fontWeight: '600',
+    fontSize: TYPOGRAPHY.sizes.title,
+    fontWeight: TYPOGRAPHY.weights.semiBold,
     color: COLORS.text,
     textAlign: 'center',
     marginBottom: SPACING.xs,
     letterSpacing: -0.3,
   },
   description: {
-    fontSize: 14,
+    fontSize: TYPOGRAPHY.sizes.body,
     color: COLORS.textLight,
     textAlign: 'center',
     lineHeight: 20,
@@ -157,8 +157,8 @@ const styles = StyleSheet.create({
     borderRadius: 8,
   },
   actionText: {
-    fontSize: 14,
-    fontWeight: '500',
+    fontSize: TYPOGRAPHY.sizes.body,
+    fontWeight: TYPOGRAPHY.weights.medium,
     color: COLORS.bone,
   },
 });

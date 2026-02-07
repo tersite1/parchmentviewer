@@ -12,7 +12,7 @@ import {
 } from 'react-native';
 // import * as ImagePicker from 'expo-image-picker'; // Requires native rebuild
 import * as Haptics from '../utils/haptics';
-import { COLORS, SPACING, CATEGORIES } from '../config/constants';
+import { COLORS, SPACING, CATEGORIES, TYPOGRAPHY } from '../config/constants';
 import { Icon } from '../components/Icon';
 import { Toast } from '../components/Toast';
 import { supabase } from '../config/supabase';
@@ -215,7 +215,7 @@ export function AddReviewScreen({ navigation }: AddReviewScreenProps) {
             {/* Add Photo Buttons — disabled until native rebuild */}
             <TouchableOpacity style={[styles.addPhotoButton, styles.addPhotoDisabled]} onPress={takePhoto}>
               <View style={styles.addPhotoIcon}>
-                <Icon name="camera" size={28} color="#C0C0C0" />
+                <Icon name="camera" size={28} color={COLORS.disabledText} />
               </View>
               <Text style={styles.addPhotoTextDisabled}>카메라</Text>
               <Text style={styles.comingSoonBadge}>준비중</Text>
@@ -223,7 +223,7 @@ export function AddReviewScreen({ navigation }: AddReviewScreenProps) {
 
             <TouchableOpacity style={[styles.addPhotoButton, styles.addPhotoDisabled]} onPress={pickImage}>
               <View style={styles.addPhotoIcon}>
-                <Icon name="image" size={28} color="#C0C0C0" />
+                <Icon name="image" size={28} color={COLORS.disabledText} />
               </View>
               <Text style={styles.addPhotoTextDisabled}>갤러리</Text>
               <Text style={styles.comingSoonBadge}>준비중</Text>
@@ -237,7 +237,7 @@ export function AddReviewScreen({ navigation }: AddReviewScreenProps) {
                   style={styles.removePhotoButton}
                   onPress={() => removeImage(index)}
                 >
-                  <Icon name="close" size={14} color="#FFFFFF" />
+                  <Icon name="close" size={14} color={COLORS.textInverse} />
                 </TouchableOpacity>
               </View>
             ))}
@@ -426,8 +426,8 @@ const styles = StyleSheet.create({
     backgroundColor: COLORS.coal,
   },
   headerTitle: {
-    fontSize: 16,
-    fontWeight: '600',
+    fontSize: TYPOGRAPHY.sizes.lg,
+    fontWeight: TYPOGRAPHY.weights.semiBold,
     color: COLORS.bone,
   },
   submitButton: {
@@ -437,11 +437,11 @@ const styles = StyleSheet.create({
     borderRadius: 16,
   },
   submitButtonDisabled: {
-    backgroundColor: '#E0E0E0',
+    backgroundColor: COLORS.border,
   },
   submitText: {
-    fontSize: 14,
-    fontWeight: '500',
+    fontSize: TYPOGRAPHY.sizes.body,
+    fontWeight: TYPOGRAPHY.weights.medium,
     color: COLORS.bone,
   },
   submitTextDisabled: {
@@ -461,20 +461,20 @@ const styles = StyleSheet.create({
     marginBottom: SPACING.xs,
   },
   sectionTitle: {
-    fontSize: 14,
-    fontWeight: '500',
+    fontSize: TYPOGRAPHY.sizes.body,
+    fontWeight: TYPOGRAPHY.weights.medium,
     color: COLORS.text,
     marginBottom: SPACING.xs,
   },
   sectionHint: {
-    fontSize: 12,
+    fontSize: TYPOGRAPHY.sizes.caption,
     color: COLORS.textLight,
     marginBottom: SPACING.sm,
   },
   addButton: {
-    fontSize: 14,
+    fontSize: TYPOGRAPHY.sizes.body,
     color: CATEGORIES.cafe.color,
-    fontWeight: '500',
+    fontWeight: TYPOGRAPHY.weights.medium,
   },
   // Photo section styles
   photoScrollContent: {
@@ -484,10 +484,10 @@ const styles = StyleSheet.create({
   addPhotoButton: {
     width: 100,
     height: 100,
-    backgroundColor: '#FFFFFF',
+    backgroundColor: COLORS.surface,
     borderRadius: 12,
     borderWidth: 2,
-    borderColor: '#E0E0E0',
+    borderColor: COLORS.border,
     borderStyle: 'dashed',
     alignItems: 'center',
     justifyContent: 'center',
@@ -496,19 +496,19 @@ const styles = StyleSheet.create({
     marginBottom: SPACING.xs,
   },
   addPhotoDisabled: {
-    borderColor: '#ECECEC',
-    backgroundColor: '#F8F8F8',
+    borderColor: COLORS.borderLight,
+    backgroundColor: COLORS.surfaceElevated,
     opacity: 0.7,
   },
   addPhotoTextDisabled: {
-    fontSize: 12,
-    color: '#C0C0C0',
+    fontSize: TYPOGRAPHY.sizes.caption,
+    color: COLORS.disabledText,
   },
   comingSoonBadge: {
-    fontSize: 9,
-    fontWeight: '600',
-    color: '#FFFFFF',
-    backgroundColor: '#C0C0C0',
+    fontSize: TYPOGRAPHY.sizes.xxs,
+    fontWeight: TYPOGRAPHY.weights.semiBold,
+    color: COLORS.textInverse,
+    backgroundColor: COLORS.disabledText,
     paddingHorizontal: 6,
     paddingVertical: 2,
     borderRadius: 4,
@@ -532,28 +532,28 @@ const styles = StyleSheet.create({
     width: 24,
     height: 24,
     borderRadius: 12,
-    backgroundColor: 'rgba(0,0,0,0.6)',
+    backgroundColor: COLORS.overlay,
     alignItems: 'center',
     justifyContent: 'center',
   },
   // Input styles
   input: {
-    backgroundColor: '#FFFFFF',
+    backgroundColor: COLORS.surface,
     borderRadius: 8,
     paddingHorizontal: SPACING.md,
     paddingVertical: SPACING.sm + 2,
-    fontSize: 16,
+    fontSize: TYPOGRAPHY.sizes.lg,
     color: COLORS.text,
     borderWidth: 1,
-    borderColor: '#E0E0E0',
+    borderColor: COLORS.border,
   },
   inputError: {
-    borderColor: '#D4604E',
+    borderColor: COLORS.borderFocus,
     borderWidth: 1.5,
   },
   errorText: {
-    fontSize: 12,
-    color: '#D4604E',
+    fontSize: TYPOGRAPHY.sizes.caption,
+    color: COLORS.borderFocus,
     marginTop: 4,
     marginBottom: 2,
   },
@@ -596,22 +596,22 @@ const styles = StyleSheet.create({
     paddingVertical: SPACING.sm,
     borderRadius: 20,
     borderWidth: 1,
-    borderColor: '#E0E0E0',
-    backgroundColor: '#FFFFFF',
+    borderColor: COLORS.border,
+    backgroundColor: COLORS.surface,
   },
   categoryText: {
-    fontSize: 14,
-    fontWeight: '500',
+    fontSize: TYPOGRAPHY.sizes.body,
+    fontWeight: TYPOGRAPHY.weights.medium,
   },
   notice: {
     flexDirection: 'row',
     alignItems: 'center',
     gap: SPACING.sm,
     padding: SPACING.md,
-    backgroundColor: '#FFFFFF',
+    backgroundColor: COLORS.surface,
     borderRadius: 8,
     borderWidth: 1,
-    borderColor: '#E0E0E0',
+    borderColor: COLORS.border,
   },
   noticeText: {
     fontSize: 13,
@@ -629,13 +629,13 @@ const styles = StyleSheet.create({
     padding: SPACING.xl,
   },
   loginTitle: {
-    fontSize: 20,
-    fontWeight: '600',
+    fontSize: TYPOGRAPHY.sizes.xl,
+    fontWeight: TYPOGRAPHY.weights.semiBold,
     color: COLORS.text,
     marginTop: SPACING.lg,
   },
   loginDesc: {
-    fontSize: 14,
+    fontSize: TYPOGRAPHY.sizes.body,
     color: COLORS.textLight,
     textAlign: 'center',
     marginTop: SPACING.sm,
@@ -649,8 +649,8 @@ const styles = StyleSheet.create({
     marginTop: SPACING.lg,
   },
   loginButtonText: {
-    fontSize: 16,
-    fontWeight: '600',
+    fontSize: TYPOGRAPHY.sizes.lg,
+    fontWeight: TYPOGRAPHY.weights.semiBold,
     color: COLORS.bone,
   },
 });

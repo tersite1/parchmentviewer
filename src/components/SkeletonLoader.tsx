@@ -40,7 +40,7 @@ export function Skeleton({ width: w = '100%', height = 20, borderRadius = 8, sty
           width: w,
           height,
           borderRadius,
-          backgroundColor: '#E0E0E0',
+          backgroundColor: COLORS.border,
         },
         animatedStyle,
         style,
@@ -77,7 +77,7 @@ export function PlaceCardSkeleton() {
 export function MapSkeleton() {
   return (
     <View style={styles.mapSkeleton}>
-      <Skeleton width="100%" height="100%" borderRadius={16} />
+      <Skeleton width="100%" height={300} borderRadius={16} />
       <View style={styles.mapSkeletonOverlay}>
         <Skeleton width={100} height={32} borderRadius={16} />
       </View>

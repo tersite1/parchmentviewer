@@ -2,34 +2,94 @@
 // Lemaire × Le Corbusier aesthetics
 
 export const COLORS = {
-  coal: '#1A1A1A',      // Cards/Map background
-  bone: '#F5F5F0',      // Light background
-  graphite: '#666666',  // Lines/borders
-  rust: '#8B3A3A',      // Accent/error
-  obsidian: '#0A0A0A',  // Map water
-  text: '#2A2A2A',      // Primary text
-  textLight: '#888888', // Secondary text
-} as const;
+  // Core palette
+  coal: '#1A1A1A',
+  bone: '#F5F5F0',
+  graphite: '#666666',
+  rust: '#8B3A3A',
+  obsidian: '#0A0A0A',
+  text: '#2A2A2A',
+  textLight: '#888888',
 
-// Pastel colors for category icons
-export const PASTEL_COLORS = {
-  mint: '#A8E6CF',      // 민트 - cafe
-  orange: '#FFB347',    // 주황 - restaurant
-  purple: '#D4A5FF',    // 보라 - culture
-  pink: '#FFB6C1',      // 핑크 - bar
-  yellow: '#FDFD96',    // 노랑 - stay
+  // Surfaces
+  surface: '#FFFFFF',
+  surfaceDim: '#F0F0F0',
+  surfaceElevated: '#F8F8F8',
+
+  // Borders
+  border: '#E0E0E0',
+  borderLight: '#E8E8E8',
+  borderFocus: '#D4604E',
+
+  // Disabled
+  disabled: '#D0D0D0',
+  disabledText: '#C0C0C0',
+
+  // Inverse (on dark backgrounds)
+  textInverse: '#FFFFFF',
+
+  // Parchment card palette (#E3DAC9 base)
+  parchment: 'rgba(227,218,201,0.8)',
+  parchmentStrong: 'rgba(227,218,201,0.7)',
+  parchmentDefault: 'rgba(227,218,201,0.6)',
+  parchmentSecondary: 'rgba(227,218,201,0.5)',
+  parchmentTertiary: 'rgba(227,218,201,0.45)',
+  parchmentMuted: 'rgba(227,218,201,0.4)',
+  parchmentFaded: 'rgba(227,218,201,0.35)',
+  parchmentGhost: 'rgba(227,218,201,0.3)',
+
+  // Status
+  success: '#2D5A3D',
+  error: '#5A2D2D',
+  errorAction: '#FF6B6B',
+  info: '#333333',
+
+  // Overlays
+  overlay: 'rgba(0,0,0,0.5)',
+  overlayStrong: 'rgba(0,0,0,0.85)',
+  overlayLight: 'rgba(0,0,0,0.4)',
+  overlayModal: 'rgba(10,10,10,0.9)',
+
+  // Glass (light on dark)
+  glass: 'rgba(255,255,255,0.3)',
+  glassMedium: 'rgba(255,255,255,0.2)',
+  glassSubtle: 'rgba(255,255,255,0.08)',
+  glassHint: 'rgba(255,255,255,0.06)',
+  glassStrong: 'rgba(255,255,255,0.7)',
+
+  // Brand
+  kakaoYellow: '#FEE500',
+  kakaoText: '#191919',
+
+  // Shadow (iOS/Android)
+  shadow: '#000000',
+
+  // Tab bar
+  tabInactive: '#AAAAAA',
 } as const;
 
 export const TYPOGRAPHY = {
   fontFamily: 'Inter',
   weights: {
-    light: '300',
-    regular: '400',
+    light: '300' as const,
+    regular: '400' as const,
+    medium: '500' as const,
+    semiBold: '600' as const,
+    bold: '700' as const,
   },
   sizes: {
-    title: 18,
-    body: 14,
+    xxs: 9,
+    xs: 10,
+    sm: 11,
     caption: 12,
+    body: 14,
+    md: 15,
+    lg: 16,
+    title: 18,
+    xl: 20,
+    xxl: 24,
+    display: 28,
+    hero: 32,
   },
 } as const;
 
