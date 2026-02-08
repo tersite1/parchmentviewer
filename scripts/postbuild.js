@@ -1,10 +1,30 @@
 const fs = require('fs');
 const path = require('path');
 
-const indexPath = path.join(__dirname, '..', 'dist', 'index.html');
+const distDir = path.join(__dirname, '..', 'dist');
+const jsDir = path.join(distDir, '_expo', 'static', 'js', 'web');
+
+// 1. Fix import.meta in JS bundles (SyntaxError in non-module scripts)
+if (fs.existsSync(jsDir)) {
+  const jsFiles = fs.readdirSync(jsDir).filter(f => f.endsWith('.js'));
+  for (const file of jsFiles) {
+    const filePath = path.join(jsDir, file);
+    let content = fs.readFileSync(filePath, 'utf8');
+    if (content.includes('import.meta')) {
+      // Replace import.meta.url with a compatible equivalent
+      content = content.replace(/import\.meta\.url/g, '(document.currentScript&&document.currentScript.src||location.href)');
+      // Replace any remaining import.meta with empty object
+      content = content.replace(/import\.meta/g, '({})');
+      fs.writeFileSync(filePath, content);
+      console.log('Fixed import.meta in:', file);
+    }
+  }
+}
+
+// 2. Add global error handler to index.html
+const indexPath = path.join(distDir, 'index.html');
 let html = fs.readFileSync(indexPath, 'utf8');
 
-// Add global error handler before other scripts
 const errorScript = `<script>
 window.onerror = function(msg, url, line, col, err) {
   var el = document.createElement('div');
@@ -21,6 +41,6 @@ window.addEventListener('unhandledrejection', function(e) {
 </script>`;
 
 html = html.replace('<div id="root"></div>', '<div id="root"></div>' + errorScript);
-
 fs.writeFileSync(indexPath, html);
-console.log('Postbuild: error handler injected into index.html');
+
+console.log('Postbuild complete: import.meta fixed + error handler added');
