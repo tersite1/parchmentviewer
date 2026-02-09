@@ -148,7 +148,7 @@ const styles = StyleSheet.create({
     letterSpacing: -0.3,
   },
   bookmarkMeta: {
-    fontSize: 13,
+    fontSize: TYPOGRAPHY.sizes.meta,
     color: COLORS.textLight,
     marginTop: 3,
   },

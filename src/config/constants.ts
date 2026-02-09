@@ -49,6 +49,11 @@ export const COLORS = {
   overlayStrong: 'rgba(0,0,0,0.85)',
   overlayLight: 'rgba(0,0,0,0.4)',
   overlayModal: 'rgba(10,10,10,0.9)',
+  coalTranslucent: 'rgba(26,26,26,0.6)',
+
+  // Heart / bookmark
+  heartActive: '#E74C3C',
+  heartActiveSubtle: 'rgba(231,76,60,0.15)',
 
   // Glass (light on dark)
   glass: 'rgba(255,255,255,0.3)',
@@ -82,6 +87,7 @@ export const TYPOGRAPHY = {
     xs: 10,
     sm: 11,
     caption: 12,
+    meta: 13,
     body: 14,
     md: 15,
     lg: 16,

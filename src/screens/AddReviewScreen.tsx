@@ -614,7 +614,7 @@ const styles = StyleSheet.create({
     borderColor: COLORS.border,
   },
   noticeText: {
-    fontSize: 13,
+    fontSize: TYPOGRAPHY.sizes.meta,
     color: COLORS.textLight,
     flex: 1,
   },

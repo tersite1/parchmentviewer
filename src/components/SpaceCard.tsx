@@ -16,7 +16,8 @@ import {
 } from 'react-native';
 import * as Haptics from '../utils/haptics';
 import { LinearGradient } from 'expo-linear-gradient';
-import { COLORS, CATEGORIES, SPACING, TYPOGRAPHY } from '../config/constants';
+import { COLORS, SPACING, TYPOGRAPHY } from '../config/constants';
+import { getCategoryColor, getCategoryLabel } from '../utils/category';
 import { Icon } from './Icon';
 import { useBookmarksStore } from '../stores/bookmarksStore';
 import { useAuthStore } from '../stores/authStore';
@@ -37,8 +38,8 @@ export function SpaceCard({ place, onClose }: SpaceCardProps) {
   const bookmarked = isBookmarked(place.id);
   const [imgIndex, setImgIndex] = useState(0);
 
-  const catColor = CATEGORIES[place.category as keyof typeof CATEGORIES]?.color || COLORS.bone;
-  const catLabel = CATEGORIES[place.category as keyof typeof CATEGORIES]?.label || place.category;
+  const catColor = getCategoryColor(place.category || '');
+  const catLabel = getCategoryLabel(place.category || '');
 
   const slideAnim = useRef(new Animated.Value(SHEET_HEIGHT)).current;
   const fadeAnim = useRef(new Animated.Value(0)).current;
@@ -175,7 +176,7 @@ export function SpaceCard({ place, onClose }: SpaceCardProps) {
           )}
 
           <LinearGradient
-            colors={['transparent', 'rgba(26,26,26,1)']}
+            colors={['transparent', COLORS.coal]}
             style={styles.gradient}
           />
 
@@ -354,7 +355,7 @@ const styles = StyleSheet.create({
     letterSpacing: -0.5,
   },
   address: {
-    fontSize: 13,
+    fontSize: TYPOGRAPHY.sizes.meta,
     color: COLORS.parchmentTertiary,
     marginTop: 4,
   },
@@ -383,11 +384,11 @@ const styles = StyleSheet.create({
     marginBottom: 6,
   },
   menuName: {
-    fontSize: 13,
+    fontSize: TYPOGRAPHY.sizes.meta,
     color: COLORS.parchment,
   },
   menuPrice: {
-    fontSize: 13,
+    fontSize: TYPOGRAPHY.sizes.meta,
     color: COLORS.parchmentSecondary,
   },
   actions: {
@@ -424,6 +425,6 @@ const styles = StyleSheet.create({
     borderRadius: 10,
   },
   heartBtnActive: {
-    backgroundColor: 'rgba(231,76,60,0.15)', // heartBtnActive accent
+    backgroundColor: COLORS.heartActiveSubtle,
   },
 });

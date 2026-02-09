@@ -26,17 +26,23 @@ const indexPath = path.join(distDir, 'index.html');
 let html = fs.readFileSync(indexPath, 'utf8');
 
 const errorScript = `<script>
-window.onerror = function(msg, url, line, col, err) {
+function showError(title, msg) {
   var el = document.createElement('div');
   el.style.cssText = 'position:fixed;top:0;left:0;right:0;bottom:0;background:#1a1a1a;color:#f5f5f0;padding:40px;font-family:monospace;z-index:99999;overflow:auto';
-  el.innerHTML = '<h2 style="color:#ff6b6b">Runtime Error</h2><pre>' + msg + '\\n\\nFile: ' + url + '\\nLine: ' + line + ':' + col + '\\n\\n' + (err && err.stack ? err.stack : '') + '</pre>';
+  var h = document.createElement('h2');
+  h.style.color = '#ff6b6b';
+  h.textContent = title;
+  var p = document.createElement('pre');
+  p.textContent = msg;
+  el.appendChild(h);
+  el.appendChild(p);
   document.body.appendChild(el);
+}
+window.onerror = function(msg, url, line, col, err) {
+  showError('Runtime Error', msg + '\\n\\nFile: ' + url + '\\nLine: ' + line + ':' + col + (err && err.stack ? '\\n\\n' + err.stack : ''));
 };
 window.addEventListener('unhandledrejection', function(e) {
-  var el = document.createElement('div');
-  el.style.cssText = 'position:fixed;top:0;left:0;right:0;bottom:0;background:#1a1a1a;color:#f5f5f0;padding:40px;font-family:monospace;z-index:99999;overflow:auto';
-  el.innerHTML = '<h2 style="color:#ff6b6b">Unhandled Promise Rejection</h2><pre>' + (e.reason && e.reason.stack ? e.reason.stack : e.reason) + '</pre>';
-  document.body.appendChild(el);
+  showError('Unhandled Promise Rejection', (e.reason && e.reason.stack ? e.reason.stack : String(e.reason)));
 });
 </script>`;
 

@@ -59,7 +59,7 @@ export function CityModal({ onCitySelect }: CityModalProps) {
 const styles = StyleSheet.create({
   overlay: {
     flex: 1,
-    backgroundColor: 'rgba(10, 10, 10, 0.9)',
+    backgroundColor: COLORS.overlayModal,
     justifyContent: 'center',
     alignItems: 'center',
   },

@@ -1,6 +1,6 @@
 import React, { forwardRef } from 'react';
 import { View, Text, StyleSheet } from 'react-native';
-import { COLORS, SPACING } from '../config/constants';
+import { COLORS, SPACING, TYPOGRAPHY } from '../config/constants';
 
 export type MapRegion = {
   latitude: number;
@@ -46,12 +46,12 @@ const styles = StyleSheet.create({
     marginBottom: SPACING.sm,
   },
   title: {
-    fontSize: 16,
-    fontWeight: '500',
+    fontSize: TYPOGRAPHY.sizes.lg,
+    fontWeight: TYPOGRAPHY.weights.medium,
     color: COLORS.bone,
   },
   subtitle: {
-    fontSize: 13,
+    fontSize: TYPOGRAPHY.sizes.meta,
     color: COLORS.graphite,
   },
 });

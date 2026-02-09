@@ -12,7 +12,8 @@ import {
   UIManager,
 } from 'react-native';
 import * as Haptics from '../utils/haptics';
-import { COLORS, SPACING, CATEGORIES, TYPOGRAPHY } from '../config/constants';
+import { COLORS, SPACING, TYPOGRAPHY } from '../config/constants';
+import { getCategoryColor } from '../utils/category';
 import { Icon } from '../components/Icon';
 import { usePlacesStore } from '../stores/placesStore';
 import { useRegionsStore, Region } from '../stores/regionsStore';
@@ -258,10 +259,6 @@ export function SearchScreen({ navigation }: SearchScreenProps) {
     navigation.navigate('홈');
   };
 
-  const getCategoryColor = (category: string) => {
-    return CATEGORIES[category as keyof typeof CATEGORIES]?.color || COLORS.textLight;
-  };
-
   const totalPlaces = places.length;
 
   return (
@@ -505,7 +502,7 @@ const styles = StyleSheet.create({
     color: COLORS.text,
   },
   cityCount: {
-    fontSize: 13,
+    fontSize: TYPOGRAPHY.sizes.meta,
     color: COLORS.textLight,
   },
   placesContainer: {
@@ -536,7 +533,7 @@ const styles = StyleSheet.create({
     color: COLORS.text,
   },
   placeVibe: {
-    fontSize: 13,
+    fontSize: TYPOGRAPHY.sizes.meta,
     color: COLORS.textLight,
     marginTop: 2,
   },

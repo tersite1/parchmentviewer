@@ -91,10 +91,3 @@ export async function signInWithKakao() {
     throw error;
   }
 }
-
-// Hook for components - simplified
-export function useKakaoAuth() {
-  return {
-    signIn: signInWithKakao,
-  };
-}

@@ -22,6 +22,7 @@ import Animated, {
 } from 'react-native-reanimated';
 import * as Haptics from '../utils/haptics';
 import { COLORS, SPACING, CITIES, CATEGORIES, TYPOGRAPHY } from '../config/constants';
+import { getCategoryColor, getCategoryLabel } from '../utils/category';
 import { usePlacesStore } from '../stores/placesStore';
 import { useLanguageStore, getMapLanguage } from '../stores/languageStore';
 import { useBookmarksStore } from '../stores/bookmarksStore';
@@ -205,14 +206,6 @@ export function HomeScreen({ navigation }: HomeScreenProps) {
     const dist = getDistance(userLocation.lat, userLocation.lng, place.lat, place.lng);
     if (dist < 1) return `${Math.round(dist * 1000)}m`;
     return `${dist.toFixed(1)}km`;
-  };
-
-  const getCategoryLabel = (cat: string) => {
-    return CATEGORIES[cat as keyof typeof CATEGORIES]?.label || cat;
-  };
-
-  const getCategoryColor = (cat: string) => {
-    return CATEGORIES[cat as keyof typeof CATEGORIES]?.color || COLORS.bone;
   };
 
   // Map parallax effect
@@ -641,7 +634,7 @@ const styles = StyleSheet.create({
     borderColor: COLORS.coal,
   },
   filterText: {
-    fontSize: 13,
+    fontSize: TYPOGRAPHY.sizes.meta,
     fontWeight: TYPOGRAPHY.weights.medium,
     color: COLORS.text,
     letterSpacing: -0.2,
@@ -699,7 +692,7 @@ const styles = StyleSheet.create({
     letterSpacing: -0.5,
   },
   sectionCount: {
-    fontSize: 13,
+    fontSize: TYPOGRAPHY.sizes.meta,
     color: COLORS.textLight,
     fontWeight: TYPOGRAPHY.weights.medium,
   },
@@ -785,7 +778,7 @@ const styles = StyleSheet.create({
     marginBottom: 4,
   },
   heroVibe: {
-    fontSize: 13,
+    fontSize: TYPOGRAPHY.sizes.meta,
     color: COLORS.glassStrong,
     lineHeight: 18,
     letterSpacing: -0.2,
@@ -910,7 +903,7 @@ const styles = StyleSheet.create({
     width: 40,
     height: 40,
     borderRadius: 20,
-    backgroundColor: 'rgba(26, 26, 26, 0.6)',
+    backgroundColor: COLORS.coalTranslucent,
     alignItems: 'center',
     justifyContent: 'center',
     borderWidth: 1,
@@ -965,7 +958,7 @@ const styles = StyleSheet.create({
     backgroundColor: COLORS.bone,
   },
   fullscreenFilterText: {
-    fontSize: 13,
+    fontSize: TYPOGRAPHY.sizes.meta,
     fontWeight: TYPOGRAPHY.weights.medium,
     color: COLORS.bone,
     letterSpacing: -0.2,
@@ -1010,7 +1003,7 @@ const styles = StyleSheet.create({
     letterSpacing: -0.3,
   },
   fullscreenPlaceMeta: {
-    fontSize: 13,
+    fontSize: TYPOGRAPHY.sizes.meta,
     color: COLORS.textLight,
     marginTop: 2,
   },
