@@ -240,7 +240,7 @@ export function SpaceCard({ place, onClose }: SpaceCardProps) {
               style={[styles.heartBtn, bookmarked && styles.heartBtnActive]}
               onPress={handleToggleBookmark}
             >
-              <Icon name="heart" size={20} color={bookmarked ? '#E74C3C' : COLORS.bone} />
+              <Icon name="heart" size={20} color={bookmarked ? COLORS.heartActive : COLORS.bone} />
             </TouchableOpacity>
           </View>
         </View>

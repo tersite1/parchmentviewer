@@ -51,6 +51,8 @@ export function ProfileScreen({ navigation }: ProfileScreenProps) {
   }, []);
 
   const loadSavedCredentials = async () => {
+    // Disable credential storage on web (localStorage is not secure for passwords)
+    if (Platform.OS === 'web') return;
     const savedEmail = await SecureStore.getItemAsync('savedEmail');
     const savedPassword = await SecureStore.getItemAsync('savedPassword');
     const savedRemember = await storage.getItem('rememberPassword');
@@ -63,6 +65,8 @@ export function ProfileScreen({ navigation }: ProfileScreenProps) {
   };
 
   const saveCredentials = async () => {
+    // Disable credential storage on web (localStorage is not secure for passwords)
+    if (Platform.OS === 'web') return;
     if (rememberPassword) {
       await SecureStore.setItemAsync('savedEmail', email);
       await SecureStore.setItemAsync('savedPassword', password);
@@ -363,8 +367,8 @@ export function ProfileScreen({ navigation }: ProfileScreenProps) {
             />
           </View>
 
-          {/* Remember Password */}
-          {!isSignUp && (
+          {/* Remember Password (native only — web localStorage is insecure) */}
+          {!isSignUp && Platform.OS !== 'web' && (
             <View style={styles.rememberRow}>
               <Text style={styles.rememberText}>로그인 정보 저장</Text>
               <Switch

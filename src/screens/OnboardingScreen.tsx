@@ -40,7 +40,7 @@ const SLIDES: OnboardingSlide[] = [
   {
     id: '2',
     icon: 'pin',
-    iconColor: '#F5C6AA',
+    iconColor: COLORS.warmAccent,
     title: '지도에서 발견',
     subtitle: 'Discover on Map',
     description: '주변의 숨겨진 공간들을\n지도에서 한눈에 확인하세요.',

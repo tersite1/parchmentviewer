@@ -15,9 +15,9 @@ interface EmptyStateProps {
 
 const VARIANT_COLORS = {
   default: CATEGORIES.cafe.color,
-  search: '#B8C5D6',
+  search: COLORS.searchAccent,
   bookmark: CATEGORIES.bar.color,
-  error: '#D4A5A5',
+  error: COLORS.errorSubtle,
 };
 
 export function EmptyState({

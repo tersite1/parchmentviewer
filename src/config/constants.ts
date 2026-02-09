@@ -55,6 +55,11 @@ export const COLORS = {
   heartActive: '#E74C3C',
   heartActiveSubtle: 'rgba(231,76,60,0.15)',
 
+  // Accent (empty states, onboarding)
+  searchAccent: '#B8C5D6',
+  errorSubtle: '#D4A5A5',
+  warmAccent: '#F5C6AA',
+
   // Glass (light on dark)
   glass: 'rgba(255,255,255,0.3)',
   glassMedium: 'rgba(255,255,255,0.2)',

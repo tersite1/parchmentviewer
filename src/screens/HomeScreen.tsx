@@ -770,7 +770,7 @@ const styles = StyleSheet.create({
     letterSpacing: -0.2,
   },
   heroTitle: {
-    fontSize: 22,
+    fontSize: TYPOGRAPHY.sizes.xxl,
     fontWeight: TYPOGRAPHY.weights.bold,
     color: COLORS.textInverse,
     lineHeight: 28,
@@ -910,7 +910,7 @@ const styles = StyleSheet.create({
     borderColor: COLORS.glassMedium,
   },
   fullscreenTitle: {
-    fontSize: 17,
+    fontSize: TYPOGRAPHY.sizes.title,
     fontWeight: TYPOGRAPHY.weights.semiBold,
     color: COLORS.bone,
     letterSpacing: -0.3,
