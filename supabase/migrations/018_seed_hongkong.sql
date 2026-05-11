@@ -1,0 +1,178 @@
+-- Seed: Hong Kong curated places (12) — Perplexity 큐레이션 결과
+-- city = 'Hongkong'
+-- 멱등 (id 고정 + ON CONFLICT DO UPDATE).
+
+insert into public.places (
+  id, name, address, lat, lng, city, category, vibe,
+  image_url, gallery_urls, source_post_url, status, curator_notes, published_at
+) values
+(
+  'ffffffff-ffff-ffff-ffff-aabbcc000001',
+  '하프웨이 커피 셩완 (Halfway Coffee)',
+  '26 Upper Lascar Row, Sheung Wan, Hong Kong',
+  22.2844, 114.1495, 'Hongkong', 'cafe',
+  '골동품 거리의 빈티지 휴식',
+  'https://www.discoverhongkong.com/kr/place-to-go/travel.guide-colour-brown-x-go-on-space.html',
+  array['https://www.discoverhongkong.com/kr/place-to-go/travel.guide-colour-brown-x-go-on-space.html'],
+  'https://www.google.com/maps/search/?api=1&query=26%20Upper%20Lascar%20Row%2C%20Sheung%20Wan%2C%20Hong%20Kong',
+  'published',
+  E'셩완 캣스트리트와 골동품 거리 인근에 자리한 로컬 카페입니다. 홍콩 특유의 빈티지 무드가 가득하며 도심 한가운데지만 한적한 골목 분위기를 즐길 수 있습니다.\n영업: 현장 확인 권장',
+  now()
+),
+(
+  'ffffffff-ffff-ffff-ffff-aabbcc000002',
+  '윈스턴스 커피 (Winstons Coffee)',
+  'Shop 4, 213 Queens Rd W, Sai Ying Pun, Hong Kong',
+  22.2863, 114.1415, 'Hongkong', 'cafe',
+  '사이잉푼 골목의 모던한 커피 한 잔',
+  'https://brunch.co.kr/@so-do/151',
+  array['https://brunch.co.kr/@so-do/151'],
+  'https://www.google.com/maps/search/?api=1&query=Shop%204%2C%20213%20Queens%20Rd%20W%2C%20Sai%20Ying%20Pun%2C%20Hong%20Kong',
+  'published',
+  E'사이잉푼의 작은 골목에 위치한 아담한 공간으로 동네 단골들의 사랑을 받는 곳입니다. 테이블 없이 바에 서서 커피를 마시며 지나가는 현지인들의 일상을 엿보기에 좋은 로컬 카페입니다.\n영업: 현장 확인 권장',
+  now()
+),
+(
+  'ffffffff-ffff-ffff-ffff-aabbcc000003',
+  '옥시 청차우 (Oxy Cheung Chau)',
+  'G/F, 2 Tung Wan Road, Cheung Chau, Hong Kong',
+  22.2078, 114.0305, 'Hongkong', 'cafe',
+  '청차우섬 골목의 한가로운 휴식',
+  'https://healthyhkg.com/the-best-cafes-in-cheung-chau-for-coffee-lovers/',
+  array['https://healthyhkg.com/the-best-cafes-in-cheung-chau-for-coffee-lovers/'],
+  'https://www.google.com/maps/search/?api=1&query=G%2FF%2C%202%20Tung%20Wan%20Road%2C%20Cheung%20Chau%2C%20Hong%20Kong',
+  'published',
+  E'청차우섬 부두 근처의 작고 아기자기한 카페입니다. 번잡한 도심에서 벗어나 바다 내음 섞인 섬마을의 나른함을 즐기기 좋은 조용한 은신처 같은 공간입니다.\n영업: 매일 11:00-18:00',
+  now()
+),
+(
+  'ffffffff-ffff-ffff-ffff-aabbcc000004',
+  '선 항 옌 (Sun Hang Yuen)',
+  '38 Kweilin St, Sham Shui Po, Hong Kong',
+  22.3308, 114.1610, 'Hongkong', 'restaurant',
+  '삼수이포 옛 차찬텡의 열기',
+  'https://www.theyayproject.com/post/sun-hang-yuen',
+  array['https://www.theyayproject.com/post/sun-hang-yuen'],
+  'https://www.google.com/maps/search/?api=1&query=38%20Kweilin%20St%2C%20Sham%20Shui%20Po%2C%20Hong%20Kong',
+  'published',
+  E'가장 홍콩다운 서민 거리인 삼수이포에 위치한 24시간 로컬 차찬텡입니다. 소박한 낡은 건물 안에서 갓 구워낸 시그니처 샌드위치와 함께 옛 홍콩의 진한 풍미를 맛볼 수 있습니다.\n영업: 24시간',
+  now()
+),
+(
+  'ffffffff-ffff-ffff-ffff-aabbcc000005',
+  '원 써티 원 (One-Thirtyone)',
+  '131 Tseng Tau Village, Shap Sze Heung, Sai Kung, Hong Kong',
+  22.4225, 114.2705, 'Hongkong', 'restaurant',
+  '사이쿵 잔디밭 앞의 프렌치 다이닝',
+  'https://www.discoverhongkong.com/kr/explore/neighbourhoods/sai-kung/insiders-favourites.html',
+  array['https://www.discoverhongkong.com/kr/explore/neighbourhoods/sai-kung/insiders-favourites.html'],
+  'https://www.google.com/maps/search/?api=1&query=131%20Tseng%20Tau%20Village%2C%20Shap%20Sze%20Heung%2C%20Sai%20Kung%2C%20Hong%20Kong',
+  'published',
+  E'신계 사이쿵 지역의 조용한 해변 마을에 숨어있는 3층짜리 붉은 벽돌집 레스토랑입니다. 바다를 마주한 잔디밭에서 한적한 시골 풍경을 보며 식사할 수 있는 숨겨진 보석입니다.\n영업: 현장 확인 권장',
+  now()
+),
+(
+  'ffffffff-ffff-ffff-ffff-aabbcc000006',
+  '핑 샨 트레디셔널 푼 초이 (Ping Shan Traditional Poon Choi)',
+  'G/F, 36 Tong Fong Chuen, Yuen Long, Hong Kong',
+  22.4435, 114.0110, 'Hongkong', 'restaurant',
+  '위엔롱 농촌 마을의 전통 식탁',
+  'https://bluelapisroad.wordpress.com/2014/06/04/poon-choi-a-brief-visit-of-ping-shan-in-yuen-long/',
+  array['https://bluelapisroad.wordpress.com/2014/06/04/poon-choi-a-brief-visit-of-ping-shan-in-yuen-long/'],
+  'https://www.google.com/maps/search/?api=1&query=G%2FF%2C%2036%20Tong%20Fong%20Chuen%2C%20Yuen%20Long%2C%20Hong%20Kong',
+  'published',
+  E'신계 위엔롱의 핑샨 헤리티지 트레일 인근에 위치한 오래된 전통 식당입니다. 관광객이 드문 홍콩 외곽의 향토 마을에서 거대한 그릇에 담겨 나오는 진짜 시골 음식을 경험할 수 있습니다.\n영업: 현장 확인 권장',
+  now()
+),
+(
+  'ffffffff-ffff-ffff-ffff-aabbcc000007',
+  '탕 컨템포러리 아트 (Tang Contemporary Art)',
+  'Unit 2003-08, 20/F, Landmark South, 39 Yip Kan Street, Wong Chuk Hang, Hong Kong',
+  22.2475, 114.1670, 'Hongkong', 'culture',
+  '산자락 공장 지대의 조용한 갤러리',
+  'https://artomity.art/tang-contemporary-art-wong-chuk-hang/',
+  array['https://artomity.art/tang-contemporary-art-wong-chuk-hang/'],
+  'https://www.google.com/maps/search/?api=1&query=39%20Yip%20Kan%20Street%2C%20Wong%20Chuk%20Hang%2C%20Hong%20Kong',
+  'published',
+  E'과거 공장 지대였던 웡축항 남부의 낡은 산업 건물 안에 둥지를 튼 현대 미술 갤러리입니다. 센트럴의 북적이는 럭셔리 공간을 피해 넓고 차분하게 예술을 관람할 수 있습니다.\n영업: 화-토 11:00-19:00',
+  now()
+),
+(
+  'ffffffff-ffff-ffff-ffff-aabbcc000008',
+  '핑 샨 탕 가문 갤러리 (Ping Shan Tang Clan Gallery)',
+  'Hang Tau Tsuen, Yuen Long, Hong Kong',
+  22.4454, 114.0101, 'Hongkong', 'culture',
+  '경찰서를 개조한 낡은 시골 박물관',
+  'https://aroundus.com/p/6505814-ping-shan-tang-clan-gallery',
+  array['https://aroundus.com/p/6505814-ping-shan-tang-clan-gallery'],
+  'https://www.google.com/maps/search/?api=1&query=Hang%20Tau%20Tsuen%2C%20Yuen%20Long%2C%20Hong%20Kong',
+  'published',
+  E'1900년에 지어진 영국식 경찰서 건물을 개조한 작은 역사 갤러리입니다. 홍콩의 화려한 이미지 뒤에 가려진 농촌 원주민의 삶과 고요한 마을 풍경이 아주 인상적입니다.\n영업: 화-일 10:00-17:00 (월요일 휴무)',
+  now()
+),
+(
+  'ffffffff-ffff-ffff-ffff-aabbcc000009',
+  '퀜치 (Quench)',
+  '1H, Sands Street, Kennedy Town, Hong Kong',
+  22.2825, 114.1270, 'Hongkong', 'bar',
+  '케네디 타운 골목 안쪽의 로컬 바',
+  'https://www.hkclubbing.com/directory/bars/quench-kennedy-town.html',
+  array['https://www.hkclubbing.com/directory/bars/quench-kennedy-town.html'],
+  'https://www.google.com/maps/search/?api=1&query=1H%2C%20Sands%20Street%2C%20Kennedy%20Town%2C%20Hong%20Kong',
+  'published',
+  E'홍콩섬 서쪽 끝, 케네디 타운의 한적한 주택가 골목에 위치한 아늑한 바입니다. 란콰이퐁의 소음 없이 현지 주민들과 섞여 늦은 밤 가볍게 한잔 기울이기 좋습니다.\n영업: 현장 확인 권장',
+  now()
+),
+(
+  'ffffffff-ffff-ffff-ffff-aabbcc00000a',
+  '영 마스터 브루어리 (Young Master Brewery)',
+  'G/F, Sungib Industrial Centre, 53 Wong Chuk Hang Rd, Wong Chuk Hang, Hong Kong',
+  22.2470, 114.1685, 'Hongkong', 'bar',
+  '웡축항 공장 지대의 날것 같은 맥주',
+  'https://brunch.co.kr/@travie/1915',
+  array['https://brunch.co.kr/@travie/1915'],
+  'https://www.google.com/maps/search/?api=1&query=53%20Wong%20Chuk%20Hang%20Rd%2C%20Wong%20Chuk%20Hang%2C%20Hong%20Kong',
+  'published',
+  E'화려한 호텔 바와는 거리가 먼, 웡축항 공장 지대의 투박한 로컬 크래프트 브루어리입니다. 투박한 외관 속에서 홍콩에서 직접 양조한 신선한 맥주를 맛보는 독특한 재미가 있습니다.\n영업: 현장 확인 권장',
+  now()
+),
+(
+  'ffffffff-ffff-ffff-ffff-aabbcc00000b',
+  '홀리데이 렛 무이워 (Holiday Let - Mui Wo)',
+  'No. 94 Pak Ngan Heung, Mui Wo, Lantau Island, Hong Kong',
+  22.2680, 113.9960, 'Hongkong', 'stay',
+  '란타우 섬 무이워 해변 마을의 정적',
+  'https://holidayletisland.hotelsofhongkong.com/en/',
+  array['https://holidayletisland.hotelsofhongkong.com/en/'],
+  'https://www.google.com/maps/search/?api=1&query=No.%2094%20Pak%20Ngan%20Heung%2C%20Mui%20Wo%2C%20Lantau%20Island%2C%20Hong%20Kong',
+  'published',
+  E'디즈니랜드와 공항이 있는 란타우 섬의 반대편, 아주 조용하고 한적한 무이워 어촌에 있는 숙소입니다. 바다와 산 트레일이 가까워 도심을 떠나 완전한 휴식을 취하려는 여행자에게 어울립니다.\n체크인 15:00 / 체크아웃 11:00',
+  now()
+),
+(
+  'ffffffff-ffff-ffff-ffff-aabbcc00000c',
+  '탑문 어촌 게스트하우스 (Tap Mun Fishing Village Guesthouse)',
+  'Tap Mun (Grass Island), Sai Kung, Hong Kong',
+  22.4720, 114.3610, 'Hongkong', 'stay',
+  '소들이 노니는 외딴섬의 캠핑과 쉼',
+  'https://www.discoverhongkong.com/in/explore/great-outdoor/tap-mun.html',
+  array['https://www.discoverhongkong.com/in/explore/great-outdoor/tap-mun.html'],
+  'https://www.google.com/maps/search/?api=1&query=Tap%20Mun%2C%20Sai%20Kung%2C%20Hong%20Kong',
+  'published',
+  E'신계 북동쪽, 배를 타야만 갈 수 있는 아주 작은 섬 탑문의 거친 숙박 형태입니다. 풀밭을 걷고 야생 소들과 조우하며 바닷바람 소리 외에는 아무것도 들리지 않는 자연 그대로의 밤을 선사합니다.\n사전 예약 필수',
+  now()
+)
+on conflict (id) do update set
+  name           = excluded.name,
+  address        = excluded.address,
+  lat            = excluded.lat,
+  lng            = excluded.lng,
+  city           = excluded.city,
+  category       = excluded.category,
+  vibe           = excluded.vibe,
+  image_url      = excluded.image_url,
+  gallery_urls   = excluded.gallery_urls,
+  source_post_url= excluded.source_post_url,
+  status         = excluded.status,
+  curator_notes  = excluded.curator_notes,
+  published_at   = excluded.published_at;

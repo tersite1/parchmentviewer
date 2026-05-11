@@ -20,6 +20,8 @@ export function MapMarker({ place, onPress, showName = false }: MapMarkerProps) 
       coordinate={{ latitude: place.lat, longitude: place.lng }}
       onPress={() => onPress(place)}
       anchor={{ x: 0.5, y: showName ? 0.8 : 0.5 }}
+      markerColor={categoryColor}
+      label={showName ? place.name : undefined}
     >
       <View style={styles.markerContainer}>
         {/* Place Name Label - only shown when zoomed in */}
