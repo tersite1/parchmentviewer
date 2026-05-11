@@ -28,7 +28,10 @@ export type IconName =
   | 'collapse'
   | 'settings'
   | 'camera'
-  | 'image';
+  | 'image'
+  | 'chat'
+  | 'send'
+  | 'sparkle';
 
 interface IconProps {
   name: IconName;
@@ -331,6 +334,34 @@ export function Icon({ name, size = 20, color = COLORS.bone, strokeWidth = 1.5 }
           />
           <Path d="M5 11V7a2 2 0 012-2h3a2 2 0 012 2v4" stroke={color} strokeWidth={strokeWidth} strokeLinecap="round" />
           <Circle cx="7.5" cy="7" r="1.5" stroke={color} strokeWidth={strokeWidth} />
+        </Svg>
+      );
+
+    case 'chat':
+      return (
+        <Svg {...props}>
+          <Path
+            d="M21 11.5a8.38 8.38 0 01-.9 3.8 8.5 8.5 0 01-7.6 4.7 8.38 8.38 0 01-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 01-.9-3.8 8.5 8.5 0 014.7-7.6 8.38 8.38 0 013.8-.9h.5a8.48 8.48 0 018 8v.5z"
+            stroke={color}
+            strokeWidth={strokeWidth}
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          />
+        </Svg>
+      );
+
+    case 'send':
+      return (
+        <Svg {...props}>
+          <Path d="M22 2L11 13M22 2l-7 20-4-9-9-4 20-7z" stroke={color} strokeWidth={strokeWidth} strokeLinecap="round" strokeLinejoin="round" />
+        </Svg>
+      );
+
+    case 'sparkle':
+      return (
+        <Svg {...props}>
+          <Path d="M12 3l1.5 4.5L18 9l-4.5 1.5L12 15l-1.5-4.5L6 9l4.5-1.5L12 3z" stroke={color} strokeWidth={strokeWidth} strokeLinejoin="round" />
+          <Path d="M19 14l.7 2.1L22 17l-2.3.9L19 20l-.7-2.1L16 17l2.3-.9L19 14z" stroke={color} strokeWidth={strokeWidth} strokeLinejoin="round" />
         </Svg>
       );
 

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { StatusBar, View, StyleSheet, TouchableOpacity } from 'react-native';
-import { NavigationContainer, DefaultTheme } from '@react-navigation/native';
+import { NavigationContainer, DefaultTheme, useNavigation } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
@@ -15,10 +15,16 @@ import { AddReviewScreen } from './src/screens/AddReviewScreen';
 import { SearchScreen } from './src/screens/SearchScreen';
 import { ProfileScreen } from './src/screens/ProfileScreen';
 import { OnboardingScreen } from './src/screens/OnboardingScreen';
+import { ChatScreen } from './src/screens/ChatScreen';
 import { Icon } from './src/components/Icon';
+import { CenterActionSheet } from './src/components/CenterActionSheet';
 import { COLORS, SPACING, TYPOGRAPHY } from './src/config/constants';
 import { useAuthStore } from './src/stores/authStore';
 import { useLanguageStore } from './src/stores/languageStore';
+
+function CenterTabPlaceholder() {
+  return <View style={{ flex: 1, backgroundColor: COLORS.coal }} />;
+}
 
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -36,91 +42,105 @@ const theme = {
 };
 
 function TabNavigator() {
+  const navigation = useNavigation<any>();
+  const [sheetOpen, setSheetOpen] = useState(false);
+
   return (
-    <Tab.Navigator
-      screenOptions={{
-        headerShown: false,
-        tabBarStyle: {
-          backgroundColor: COLORS.surface,
-          borderTopColor: COLORS.border,
-          borderTopWidth: 1,
-          height: 80,
-          paddingBottom: SPACING.lg,
-          paddingTop: SPACING.sm,
-        },
-        tabBarActiveTintColor: COLORS.coal,
-        tabBarInactiveTintColor: COLORS.tabInactive,
-        tabBarLabelStyle: {
-          fontSize: TYPOGRAPHY.sizes.xs,
-          fontWeight: TYPOGRAPHY.weights.medium,
-          marginTop: 4,
-        },
-      }}
-    >
-      <Tab.Screen
-        name="홈"
-        component={HomeScreen}
-        options={{
-          tabBarIcon: ({ color, size }) => (
-            <Icon name="home" size={22} color={color} />
-          ),
+    <>
+      <Tab.Navigator
+        screenOptions={{
+          headerShown: false,
+          tabBarStyle: {
+            backgroundColor: COLORS.surface,
+            borderTopColor: COLORS.border,
+            borderTopWidth: 1,
+            height: 80,
+            paddingBottom: SPACING.lg,
+            paddingTop: SPACING.sm,
+          },
+          tabBarActiveTintColor: COLORS.coal,
+          tabBarInactiveTintColor: COLORS.tabInactive,
+          tabBarLabelStyle: {
+            fontSize: TYPOGRAPHY.sizes.xs,
+            fontWeight: TYPOGRAPHY.weights.medium,
+            marginTop: 4,
+          },
         }}
-        listeners={{
-          tabPress: () => Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light),
+      >
+        <Tab.Screen
+          name="홈"
+          component={HomeScreen}
+          options={{
+            tabBarIcon: ({ color }) => <Icon name="home" size={22} color={color} />,
+          }}
+          listeners={{
+            tabPress: () => Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light),
+          }}
+        />
+        <Tab.Screen
+          name="북마크"
+          component={BookmarksScreen}
+          options={{
+            tabBarIcon: ({ color }) => <Icon name="bookmark" size={22} color={color} />,
+          }}
+          listeners={{
+            tabPress: () => Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light),
+          }}
+        />
+        <Tab.Screen
+          name="추가"
+          component={CenterTabPlaceholder}
+          options={{
+            tabBarIcon: ({ focused }) => (
+              <View style={[styles.addButton, focused && styles.addButtonActive]}>
+                <Icon name="plus" size={24} color={focused ? COLORS.coal : COLORS.bone} />
+              </View>
+            ),
+            tabBarLabel: () => null,
+          }}
+          listeners={{
+            tabPress: (e) => {
+              e.preventDefault();
+              Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium);
+              setSheetOpen(true);
+            },
+          }}
+        />
+        <Tab.Screen
+          name="검색"
+          component={SearchScreen}
+          options={{
+            tabBarIcon: ({ color }) => <Icon name="search" size={22} color={color} />,
+          }}
+          listeners={{
+            tabPress: () => Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light),
+          }}
+        />
+        <Tab.Screen
+          name="프로필"
+          component={ProfileScreen}
+          options={{
+            tabBarIcon: ({ color }) => <Icon name="user" size={22} color={color} />,
+          }}
+          listeners={{
+            tabPress: () => Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light),
+          }}
+        />
+      </Tab.Navigator>
+
+      <CenterActionSheet
+        visible={sheetOpen}
+        onClose={() => setSheetOpen(false)}
+        onChat={() => {
+          setSheetOpen(false);
+          navigation.navigate('Chat');
+        }}
+        onAddPlace={() => {
+          setSheetOpen(false);
+          navigation.navigate('AddReview');
         }}
       />
-      <Tab.Screen
-        name="북마크"
-        component={BookmarksScreen}
-        options={{
-          tabBarIcon: ({ color, size }) => (
-            <Icon name="bookmark" size={22} color={color} />
-          ),
-        }}
-        listeners={{
-          tabPress: () => Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light),
-        }}
-      />
-      <Tab.Screen
-        name="추가"
-        component={AddReviewScreen}
-        options={{
-          tabBarIcon: ({ color, focused }) => (
-            <View style={[styles.addButton, focused && styles.addButtonActive]}>
-              <Icon name="plus" size={24} color={focused ? COLORS.coal : COLORS.bone} />
-            </View>
-          ),
-          tabBarLabel: () => null,
-        }}
-        listeners={{
-          tabPress: () => Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium),
-        }}
-      />
-      <Tab.Screen
-        name="검색"
-        component={SearchScreen}
-        options={{
-          tabBarIcon: ({ color, size }) => (
-            <Icon name="search" size={22} color={color} />
-          ),
-        }}
-        listeners={{
-          tabPress: () => Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light),
-        }}
-      />
-      <Tab.Screen
-        name="프로필"
-        component={ProfileScreen}
-        options={{
-          tabBarIcon: ({ color, size }) => (
-            <Icon name="user" size={22} color={color} />
-          ),
-        }}
-        listeners={{
-          tabPress: () => Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light),
-        }}
-      />
-    </Tab.Navigator>
+    </>
   );
 }
 
@@ -196,6 +216,22 @@ export default function App() {
             component={AboutScreen}
             options={{
               title: 'ABOUT',
+            }}
+          />
+          <Stack.Screen
+            name="Chat"
+            component={ChatScreen}
+            options={{
+              headerShown: false,
+              presentation: 'modal',
+            }}
+          />
+          <Stack.Screen
+            name="AddReview"
+            component={AddReviewScreen}
+            options={{
+              title: '장소·리뷰 추가',
+              presentation: 'modal',
             }}
           />
         </Stack.Navigator>
