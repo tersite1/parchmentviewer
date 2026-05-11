@@ -1,0 +1,178 @@
+-- Seed: Bali curated places (12) — Perplexity 큐레이션 결과
+-- 멱등 (id 고정 + ON CONFLICT DO UPDATE).
+-- curator_notes에는 영업시간을 함께 첨부.
+
+insert into public.places (
+  id, name, address, lat, lng, city, category, vibe,
+  image_url, gallery_urls, source_post_url, status, curator_notes, published_at
+) values
+(
+  '22222222-2222-2222-2222-bba110000001',
+  '림바 카페 (Rimba Cafe)',
+  'Bunutan, Amed',
+  -8.3421, 115.6721, 'Bali', 'cafe',
+  '녹음이 우거진 아메드의 쉼터',
+  'https://images.unsplash.com/photo-1554118811-1e0d58224f24?auto=format&fit=crop&q=80&w=800',
+  array['https://images.unsplash.com/photo-1554118811-1e0d58224f24?auto=format&fit=crop&q=80&w=800'],
+  'https://www.google.com/maps/place/?q=place_id:ChIJy-w7x5I80i0RH6N8j2e4x0Y',
+  'published',
+  E'재활용 목재로 지어진 친환경적인 공간으로, 동부 발리에 머무는 장기 거주자들의 조용한 아지트입니다. 해변에서 벗어나 정글 한가운데 들어온 듯한 고요함을 선사합니다.\n영업: 화-일 08:00-16:00 (월요일 휴무)',
+  now()
+),
+(
+  '22222222-2222-2222-2222-bba110000002',
+  '프란지파니 바 앤 카페 (Frangipani Bar & Restaurant)',
+  'Pemuteran, Gerokgak',
+  -8.1415, 114.6545, 'Bali', 'cafe',
+  '해변의 바람과 로컬 바이브',
+  'https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?auto=format&fit=crop&q=80&w=800',
+  array['https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?auto=format&fit=crop&q=80&w=800'],
+  'https://www.google.com/maps/place/?q=place_id:ChIJ_0l56aMz0i0RsC7aO4Bf_7g',
+  'published',
+  E'북서부 페무테란 해변 근처의 작은 로컬 공간으로, 대규모 단체 관광객의 발길이 닿지 않아 한적합니다. 웅장한 프란지파니 나무 아래서 진정한 현지의 여유를 취할 수 있습니다.\n영업: 매일 09:00-21:00',
+  now()
+),
+(
+  '22222222-2222-2222-2222-bba110000003',
+  '아카샤 주스 바 (Akasha Restaurant & Juice Bar)',
+  'Tegallalang, Gianyar',
+  -8.4411, 115.2795, 'Bali', 'cafe',
+  '우붓 외곽의 보헤미안 둥지',
+  'https://images.unsplash.com/photo-1596394516093-501ba68a0ba6?auto=format&fit=crop&q=80&w=800',
+  array['https://images.unsplash.com/photo-1596394516093-501ba68a0ba6?auto=format&fit=crop&q=80&w=800'],
+  'https://www.google.com/maps/place/?q=place_id:ChIJX1d8p7800i0RlX3fX_nO2Xg',
+  'published',
+  E'뜨갈랄랑 중심부를 한참 벗어난 북쪽 외곽에 자리 잡아 메인 도로의 소음이 닿지 않는 평화로운 공간입니다. 끝없이 펼쳐진 논뷰와 대나무 건축물이 신비로운 분위기를 자아냅니다.\n영업: 매일 10:00-22:00',
+  now()
+),
+(
+  '22222222-2222-2222-2222-bba110000004',
+  '와룽 우메 아냐르 (Warung Ume Anyar)',
+  'Sidemen, Karangasem',
+  -8.4855, 115.4452, 'Bali', 'restaurant',
+  '계단식 논 앞의 소박한 만찬',
+  'https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?auto=format&fit=crop&q=80&w=800',
+  array['https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?auto=format&fit=crop&q=80&w=800'],
+  'https://www.google.com/maps/place/?q=place_id:ChIJW8Z1y5A80i0RMm8X-T9e2Xg',
+  'published',
+  E'신데멘 계곡의 탁 트인 뷰를 자랑하면서도 외지인에게 거의 알려지지 않은 숨은 식당입니다. 로컬 식재료로 만든 건강한 가정식 요리를 현지 주민들과 함께 즐길 수 있습니다.\n영업: 매일 11:00-20:00',
+  now()
+),
+(
+  '22222222-2222-2222-2222-bba110000005',
+  '블루 어스 빌리지 (Blue Earth Village)',
+  'Amed, Karangasem',
+  -8.3371, 115.6601, 'Bali', 'restaurant',
+  '아궁산과 바다가 만나는 식탁',
+  'https://images.unsplash.com/photo-1504674900247-0877df9cc836?auto=format&fit=crop&q=80&w=800',
+  array['https://images.unsplash.com/photo-1504674900247-0877df9cc836?auto=format&fit=crop&q=80&w=800'],
+  'https://www.google.com/maps/place/?q=place_id:ChIJQ6XzY7c90i0Rx8T6q7c4d2Q',
+  'published',
+  E'아메드 언덕배기에 위치해 아궁산 너머로 지는 환상적인 일몰을 감상할 수 있는 레스토랑 겸 요가 샬라입니다. 프리다이버와 장기 여행자들이 모여 교류하는 따뜻한 커뮤니티 공간이기도 합니다.\n영업: 매일 07:00-22:00',
+  now()
+),
+(
+  '22222222-2222-2222-2222-bba110000006',
+  '와룽 빈탕 (Warung Bintang)',
+  'Munduk, Buleleng',
+  -8.2605, 115.0612, 'Bali', 'restaurant',
+  '구름 낀 북부 산간의 정취',
+  'https://images.unsplash.com/photo-1544148103-0773bf10d330?auto=format&fit=crop&q=80&w=800',
+  array['https://images.unsplash.com/photo-1544148103-0773bf10d330?auto=format&fit=crop&q=80&w=800'],
+  'https://www.google.com/maps/place/?q=place_id:ChIJ9YtF3a4z0i0RaQ3b8k4rE1A',
+  'published',
+  E'문둑의 서늘한 기후 속에서 자란 신선한 채소와 정향(clove)으로 요리하는 산속의 로컬 와룽입니다. 남부 해변의 번잡함과 완전히 단절된 채 안개 낀 산등성이를 보며 식사할 수 있습니다.\n영업: 매일 08:00-21:00',
+  now()
+),
+(
+  '22222222-2222-2222-2222-bba110000007',
+  '푸라 케헨 (Pura Kehen)',
+  'Cempaga, Bangli',
+  -8.4394, 115.3585, 'Bali', 'culture',
+  '수백 년 된 반얀트리의 웅장함',
+  'https://images.unsplash.com/photo-1537996194471-e657df975ab4?auto=format&fit=crop&q=80&w=800',
+  array['https://images.unsplash.com/photo-1537996194471-e657df975ab4?auto=format&fit=crop&q=80&w=800'],
+  'https://www.google.com/maps/place/?q=place_id:ChIJs6dG-0c10i0R7B4QW3x9P2M',
+  'published',
+  E'발리에서 가장 오래되고 아름다운 사원 중 하나지만, 동선 상 대형 버스가 들어오기 힘들어 단체 관광객이 적습니다. 거대한 반얀트리와 고풍스러운 석조 조각들이 압도적인 신성함을 뿜어냅니다.\n영업: 매일 08:00-17:00',
+  now()
+),
+(
+  '22222222-2222-2222-2222-bba110000008',
+  '푸라 베지 상싯 (Pura Beji Sangsit)',
+  'Sangsit, Buleleng',
+  -8.0827, 115.1278, 'Bali', 'culture',
+  '정교한 조각이 남은 북부 사원',
+  'https://images.unsplash.com/photo-1518548419970-58e3b4079ab2?auto=format&fit=crop&q=80&w=800',
+  array['https://images.unsplash.com/photo-1518548419970-58e3b4079ab2?auto=format&fit=crop&q=80&w=800'],
+  'https://www.google.com/maps/place/?q=place_id:ChIJy9XzQ-4z0i0Rc1q8R_b5Y6M',
+  'published',
+  E'핑크빛 샌드스톤과 북발리 특유의 화려하고 비대칭적인 조각 양식이 돋보이는 농경의 여신을 모시는 사원입니다. 관광 명소에서 멀리 떨어져 있어 마을 사람들의 일상적인 기도 모습만 조용히 엿볼 수 있습니다.\n영업: 매일 08:00-18:00',
+  now()
+),
+(
+  '22222222-2222-2222-2222-bba110000009',
+  '몽키 바 앳 벨라 비스타 (Monkey Bar at Bella Vista)',
+  'Besan, Klungkung',
+  -8.4842, 115.4191, 'Bali', 'bar',
+  '정글 절벽 끝의 히든 풀 바',
+  'https://images.unsplash.com/photo-1572196284554-4e321b0e7e0b?auto=format&fit=crop&q=80&w=800',
+  array['https://images.unsplash.com/photo-1572196284554-4e321b0e7e0b?auto=format&fit=crop&q=80&w=800'],
+  'https://www.google.com/maps/place/?q=place_id:ChIJZ8c9X5M80i0RwZ4aU9sY5R0',
+  'published',
+  E'거대한 돌부처 조각이 인피니티 풀을 감싸고 있는 독특한 분위기의 산속 바입니다. 서부 해안의 상업적인 비치클럽들을 피해 자연 속 은밀한 은신처 같은 바이브를 찾는 이들에게 완벽합니다.\n영업: 매일 10:00-20:00',
+  now()
+),
+(
+  '22222222-2222-2222-2222-bba11000000a',
+  '아목 선셋 (Amok Sunset)',
+  'Sakti, Nusa Penida',
+  -8.7301, 115.4851, 'Bali', 'bar',
+  '대나무 트리하우스에서의 일몰',
+  'https://images.unsplash.com/photo-1514933651103-005eec06c04b?auto=format&fit=crop&q=80&w=800',
+  array['https://images.unsplash.com/photo-1514933651103-005eec06c04b?auto=format&fit=crop&q=80&w=800'],
+  'https://www.google.com/maps/place/?q=place_id:ChIJF3rT94o90i0RlX5Z_g8K1X0',
+  'published',
+  E'누사페니다 서부 숲길 안쪽에 숨겨져 있어 접근이 까다로운 만큼 완벽한 고즈넉함을 보장하는 바입니다. 대나무로 엮은 프라이빗한 둥지에 앉아 관광 인파의 방해 없이 일몰과 칵테일을 즐길 수 있습니다.\n영업: 매일 11:00-22:00',
+  now()
+),
+(
+  '22222222-2222-2222-2222-bba11000000b',
+  '사만바야 리조트 (Samanvaya Resort)',
+  'Sidemen, Karangasem',
+  -8.4812, 115.4411, 'Bali', 'stay',
+  '성인 전용 에코 뱀부 리조트',
+  'https://images.unsplash.com/photo-1582719478250-c894e4dc240e?auto=format&fit=crop&q=80&w=800',
+  array['https://images.unsplash.com/photo-1582719478250-c894e4dc240e?auto=format&fit=crop&q=80&w=800'],
+  'https://www.google.com/maps/place/?q=place_id:ChIJX7b1aZA80i0RxP8z3r3b9b4',
+  'published',
+  E'전통 대나무 건축 방식을 활용해 신데멘의 열대 풍경과 완전히 동화된 부티크 스테이입니다. 18세 이상만 묵을 수 있는 환경이라 아침 안개가 피어오르는 라이스 테라스를 온전히 감상하며 깊은 사색에 잠길 수 있습니다.\n체크인 14:00, 체크아웃 11:00',
+  now()
+),
+(
+  '22222222-2222-2222-2222-bba11000000c',
+  '문둑 캐빈스 (Munduk Cabins)',
+  'Munduk, Buleleng',
+  -8.2571, 115.0621, 'Bali', 'stay',
+  '발리 북부 산속의 모던 캐빈',
+  'https://images.unsplash.com/photo-1510798831971-661eb04b3739?auto=format&fit=crop&q=80&w=800',
+  array['https://images.unsplash.com/photo-1510798831971-661eb04b3739?auto=format&fit=crop&q=80&w=800'],
+  'https://www.google.com/maps/place/?q=place_id:ChIJQ6XzY7c90i0Rx8T6q7c4d2Q',
+  'published',
+  E'열대 바다가 아닌 짙은 숲과 구름이 눈앞에 펼쳐지는 발리 북부 고산지대의 이색적인 자연을 품은 스테이입니다. 서늘한 산악 기후 속에서 밤하늘의 별을 보며 불멍을 즐길 수 있도록 세심하게 설계되었습니다.\n체크인 14:00, 체크아웃 12:00',
+  now()
+)
+on conflict (id) do update set
+  name           = excluded.name,
+  address        = excluded.address,
+  lat            = excluded.lat,
+  lng            = excluded.lng,
+  city           = excluded.city,
+  category       = excluded.category,
+  vibe           = excluded.vibe,
+  image_url      = excluded.image_url,
+  gallery_urls   = excluded.gallery_urls,
+  source_post_url= excluded.source_post_url,
+  status         = excluded.status,
+  curator_notes  = excluded.curator_notes,
+  published_at   = excluded.published_at;

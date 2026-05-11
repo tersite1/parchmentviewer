@@ -1,0 +1,178 @@
+-- Seed: Jeju curated places (12) — Perplexity 큐레이션 결과
+-- city = 'Jeju'
+-- 멱등 (id 고정 + ON CONFLICT DO UPDATE).
+
+insert into public.places (
+  id, name, address, lat, lng, city, category, vibe,
+  image_url, gallery_urls, source_post_url, status, curator_notes, published_at
+) values
+(
+  '44444444-4444-4444-4444-cccccc000001',
+  '하소로커피 (Hasoro Coffee)',
+  '한경면 불그못로 72',
+  33.3058, 126.2346, 'Jeju', 'cafe',
+  '돌담 너머 고요한 로스터리',
+  'http://www.instagram.com/hasoro_coffee',
+  array['http://www.instagram.com/hasoro_coffee'],
+  'https://map.naver.com/p/search/%ED%95%98%EC%86%8C%EB%A1%9C%EC%BB%A4%ED%94%BC',
+  'published',
+  E'저지리·조수리 사이 밭담 풍경 안쪽에 숨어 있는 카페라 관광 동선이 빠르게 흘러가지 않습니다. 조용한 좌석감과 커피 중심의 밀도가 좋아, 제주 서쪽의 바람과 돌담 공기를 천천히 느끼기 좋은 후보입니다.\n영업: 매일 10:00-18:00',
+  now()
+),
+(
+  '44444444-4444-4444-4444-cccccc000002',
+  '유람위드북스 (Youram with Books)',
+  '한경면 조수동2길 54-36',
+  33.3089, 126.2460, 'Jeju', 'cafe',
+  '책 냄새가 머무는 한경의 방',
+  'https://www.instagram.com/youram_with_books',
+  array['https://www.instagram.com/youram_with_books'],
+  'https://map.naver.com/p/search/%EC%9C%A0%EB%9E%8C%EC%9C%84%EB%93%9C%EB%B6%81%EC%8A%A4',
+  'published',
+  E'한경면 조수리 안쪽 길로 들어가야 닿는 북카페라, 카페 거리의 소음과 확실히 결이 다릅니다. 차와 책, 낮은 대화 볼륨이 중심이 되는 공간이라 Parchment 톤에 잘 맞습니다.\n영업: 월 11:00-19:00 / 금-토 11:00-22:00 / 일 11:00-19:00',
+  now()
+),
+(
+  '44444444-4444-4444-4444-cccccc000003',
+  '카페리 (Cafe Ri)',
+  '구좌읍 평대2길 39',
+  33.5336, 126.8421, 'Jeju', 'cafe',
+  '평대 골목의 소품 같은 쉼',
+  'https://www.instagram.com/cafe_ri_jeju/',
+  array['https://www.instagram.com/cafe_ri_jeju/'],
+  'https://map.naver.com/p/search/%EC%B9%B4%ED%8E%98%EB%A6%AC%20%EA%B5%AC%EC%A2%8C%EC%9D%8D%20%ED%8F%89%EB%8C%80%EB%A6%AC',
+  'published',
+  E'평대리 안쪽 골목에 붙은 작은 카페 겸 소품샵이라 월정리식 해안 메인 라인과는 분위기가 다릅니다. 해녀 마을권의 느린 생활 리듬과 어울려 산책 동선 중 들르기 좋습니다.\n영업: 매일 10:00-18:00',
+  now()
+),
+(
+  '44444444-4444-4444-4444-cccccc000004',
+  '선흘곶 (Seonheulgot)',
+  '조천읍 선흘서2길 22',
+  33.5210, 126.7035, 'Jeju', 'restaurant',
+  '숲마을 옆 담백한 한 끼',
+  'https://blog.naver.com/woosso82/224252424329',
+  array['https://blog.naver.com/woosso82/224252424329'],
+  'https://map.naver.com/p/search/%EC%84%A0%ED%9D%98%EA%B3%B6',
+  'published',
+  E'선흘리 마을 결 안에 있는 식당이라 동백동산이나 북촌 해안 쪽보다 훨씬 차분합니다. 현지 식재료를 바탕으로 한 식사가 중심이고, 숲 가까운 마을 공기가 그대로 이어집니다.\n영업: 수-월 10:00-18:00 / 화 휴무',
+  now()
+),
+(
+  '44444444-4444-4444-4444-cccccc000005',
+  '방주할머니식당 (Bangju Halmeoni Sikdang)',
+  '조천읍 선교로 212',
+  33.4892, 126.7048, 'Jeju', 'restaurant',
+  '오래된 집밥 리듬의 동네 식당',
+  'https://triple.guide/restaurants/775fa78a-feee-4f89-8209-45cb1e70ec01',
+  array['https://triple.guide/restaurants/775fa78a-feee-4f89-8209-45cb1e70ec01'],
+  'https://map.naver.com/p/search/%EB%B0%A9%EC%A3%BC%20%ED%95%A0%EB%A8%B8%EB%8B%88%20%EC%8B%9D%EB%8B%B9',
+  'published',
+  E'산굼부리 쪽 대형 관광 식당과 다르게, 조천 안쪽 생활권의 속도로 운영되는 곳입니다. 검정콩국수와 고사리 비빔밥처럼 제주 밭과 들의 결이 느껴지는 메뉴가 있어 지역성이 분명합니다.\n영업: 매일 10:00-19:00',
+  now()
+),
+(
+  '44444444-4444-4444-4444-cccccc000006',
+  '우녁집 (Woonyuk)',
+  '서귀포시 명동로 13-5',
+  33.2495, 126.5656, 'Jeju', 'restaurant',
+  '정방동 생활권의 차분한 고깃집',
+  'https://www.instagram.com/youram_with_books',
+  array['https://www.instagram.com/youram_with_books'],
+  'https://booking.naver.com/booking/6/bizes/1043279/items/5531079?area=pll&lang=ko&startDate=2025-10-10&theme=place',
+  'published',
+  E'정방동과 서귀동 생활권이 겹치는 골목 안쪽이라 관광 대로변보다 훨씬 밀도가 낮습니다. 흑돼지를 전면에 내세우지만 과장된 관광형보다는 골목 식당의 온도로 접근하기 좋습니다.\n영업: 매일 11:00-23:00',
+  now()
+),
+(
+  '44444444-4444-4444-4444-cccccc000007',
+  '예술공간 이아 (Art Space IAA)',
+  '제주시 중앙로14길 21',
+  33.5127, 126.5268, 'Jeju', 'culture',
+  '구도심 안쪽의 조용한 전시 호흡',
+  'http://artspaceiaa.kr',
+  array['http://artspaceiaa.kr'],
+  'https://map.naver.com/p/search/%EC%98%88%EC%88%A0%EA%B3%B5%EA%B0%84%20%EC%9D%B4%EC%95%84',
+  'published',
+  E'대형 입장권형 관광지와 달리 전시와 지역 예술의 흐름을 낮은 톤으로 접할 수 있는 공간입니다. 제주시 중심 상업지보다는 구도심 골목의 느린 결을 따라 움직일 때 더 잘 맞습니다.\n영업: 화-일 10:00-18:00 / 월 휴무',
+  now()
+),
+(
+  '44444444-4444-4444-4444-cccccc000008',
+  '문화공간 양 (Culture Space Yang)',
+  '제주시 거로남6길 13',
+  33.5158, 126.5651, 'Jeju', 'culture',
+  '작은 전시가 숨 쉬는 동네 공간',
+  'https://blog.naver.com/daybydayyang',
+  array['https://blog.naver.com/daybydayyang'],
+  'https://map.naver.com/p/search/%EB%AC%B8%ED%99%94%EA%B3%B5%EA%B0%84%20%EC%96%91',
+  'published',
+  E'크지 않은 규모 덕분에 오히려 사적인 감상과 대화가 가능한 로컬 문화 공간입니다. 제주 특유의 생활 골목 안쪽에서 예술을 만나는 느낌이 살아 있어 숨은 문화 카테고리로 적합합니다.\n영업: 목-일 12:00-18:00',
+  now()
+),
+(
+  '44444444-4444-4444-4444-cccccc000009',
+  '바 머스크 (Bar Musk)',
+  '서귀포시 서귀동 511-1 라산빌딩 1층',
+  33.2491, 126.5637, 'Jeju', 'bar',
+  '서귀 골목의 어두운 위스키 바',
+  'https://www.instagram.com/barmuskjeju',
+  array['https://www.instagram.com/barmuskjeju'],
+  'https://map.naver.com/p/search/Bar%20Musk%20%EB%B0%94%20%EB%A8%B8%EC%8A%A4%ED%81%AC',
+  'published',
+  E'정방폭포 대로변이 아니라 서귀포 생활 골목 쪽에 붙어 있어, 시끄러운 관광 바보다 한결 차분합니다. 조용한 좌석과 칵테일 중심 운영이 분명해 밤 카테고리용으로 결이 좋습니다.\n영업: 매일 20:00-02:00',
+  now()
+),
+(
+  '44444444-4444-4444-4444-cccccc00000a',
+  '뽀요요 펜션 (Ppoyoyo Pension)',
+  '우도면 우도해안길 128',
+  33.5015, 126.9498, 'Jeju', 'stay',
+  '우도 바다 앞 잔디 마당 숙소',
+  'https://blog.naver.com/hjseo1987/223764771030',
+  array['https://blog.naver.com/hjseo1987/223764771030'],
+  'https://map.naver.com/p/search/%EB%BD%80%EC%9A%94%EC%9A%94%20%ED%8E%9C%EC%85%98',
+  'published',
+  E'대형 리조트보다 훨씬 작은 규모로, 우도의 생활 해안선과 바로 붙어 있는 숙소입니다. 카페와 펜션이 함께 있어 하루를 길게 머무는 체류감이 좋고, 비메인 골목권 우도 무드와 잘 맞습니다.\n입실 15:00 / 퇴실 11:00',
+  now()
+),
+(
+  '44444444-4444-4444-4444-cccccc00000b',
+  '송우네펜션 (Songune Pension)',
+  '우도면 우도로 8-22',
+  33.5078, 126.9510, 'Jeju', 'stay',
+  '항구에서 걸어 닿는 조용한 민박',
+  'https://blog.naver.com/skyclad29/223476001884',
+  array['https://blog.naver.com/skyclad29/223476001884'],
+  'https://map.naver.com/p/search/%EC%86%A1%EC%9A%B0%EB%84%A4%ED%8E%9C%EC%85%98',
+  'published',
+  E'천진항에서 도보 접근이 가능하지만, 숙소 분위기는 상업적인 해변 라인보다 훨씬 차분한 편입니다. 우도 골목 안에서 천천히 밤을 보내기 좋은 소형 펜션 계열 후보입니다.\n예약 문의',
+  now()
+),
+(
+  '44444444-4444-4444-4444-cccccc00000c',
+  '용궁민박 (Yonggung Minbak)',
+  '대정읍 가파리 가파도길 31',
+  33.1718, 126.2707, 'Jeju', 'stay',
+  '가파도 밤공기가 남는 섬 민박',
+  'https://blog.naver.com/qkrgkdms1993/222329558148',
+  array['https://blog.naver.com/qkrgkdms1993/222329558148'],
+  'https://map.naver.com/p/search/%EC%9A%A9%EA%B6%81%EB%AF%BC%EB%B0%95%20%EA%B0%80%ED%8C%8C%EB%8F%84',
+  'published',
+  E'가파도는 숙소 정보가 많이 열려 있지 않아 오히려 조용한 체류가 가능합니다. 용궁민박 계열의 섬 민박은 자전거와 도보 동선, 낮은 조도, 바람 소리가 남는 가파도 분위기를 가장 잘 살릴 수 있는 타입입니다.\n예약 문의',
+  now()
+)
+on conflict (id) do update set
+  name           = excluded.name,
+  address        = excluded.address,
+  lat            = excluded.lat,
+  lng            = excluded.lng,
+  city           = excluded.city,
+  category       = excluded.category,
+  vibe           = excluded.vibe,
+  image_url      = excluded.image_url,
+  gallery_urls   = excluded.gallery_urls,
+  source_post_url= excluded.source_post_url,
+  status         = excluded.status,
+  curator_notes  = excluded.curator_notes,
+  published_at   = excluded.published_at;
