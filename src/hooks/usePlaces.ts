@@ -1,6 +1,7 @@
 import { useEffect } from 'react';
 import { supabase } from '../config/supabase';
 import { usePlacesStore } from '../stores/placesStore';
+import { FIXTURE_PLACES } from '../data/fixtures';
 
 export function usePlaces() {
   const { places, isLoading, error, setPlaces, setLoading, setError } = usePlacesStore();
@@ -20,10 +21,9 @@ export function usePlaces() {
           throw supabaseError;
         }
 
-        setPlaces(data || []);
-      } catch (err) {
-        const message = err instanceof Error ? err.message : 'Failed to fetch places';
-        setError(message);
+        setPlaces(data && data.length > 0 ? data : FIXTURE_PLACES);
+      } catch {
+        setPlaces(FIXTURE_PLACES);
       } finally {
         setLoading(false);
       }
