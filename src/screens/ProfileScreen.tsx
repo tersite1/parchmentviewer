@@ -272,7 +272,7 @@ export function ProfileScreen({ navigation }: ProfileScreenProps) {
           >
             <Icon name="heart" size={20} color={CATEGORIES.bar.color} />
             <Text style={styles.menuText}>내 북마크</Text>
-            <Icon name="chevronRight" size={20} color={COLORS.textLight} />
+            <Icon name="chevronRight" size={20} color={COLORS.tabInactive} />
           </TouchableOpacity>
 
           <TouchableOpacity
@@ -284,7 +284,7 @@ export function ProfileScreen({ navigation }: ProfileScreenProps) {
           >
             <Icon name="plus" size={20} color={CATEGORIES.cafe.color} />
             <Text style={styles.menuText}>공간 추가하기</Text>
-            <Icon name="chevronRight" size={20} color={COLORS.textLight} />
+            <Icon name="chevronRight" size={20} color={COLORS.tabInactive} />
           </TouchableOpacity>
 
           <TouchableOpacity
@@ -294,9 +294,9 @@ export function ProfileScreen({ navigation }: ProfileScreenProps) {
               setShowSettings(true);
             }}
           >
-            <Icon name="settings" size={20} color={COLORS.textLight} />
+            <Icon name="settings" size={20} color={COLORS.tabInactive} />
             <Text style={styles.menuText}>설정</Text>
-            <Icon name="chevronRight" size={20} color={COLORS.textLight} />
+            <Icon name="chevronRight" size={20} color={COLORS.tabInactive} />
           </TouchableOpacity>
         </Animated.View>
 
@@ -336,7 +336,7 @@ export function ProfileScreen({ navigation }: ProfileScreenProps) {
                 value={name}
                 onChangeText={setName}
                 placeholder="홍길동"
-                placeholderTextColor={COLORS.textLight}
+                placeholderTextColor={COLORS.tabInactive}
                 autoCapitalize="words"
               />
             </View>
@@ -349,7 +349,7 @@ export function ProfileScreen({ navigation }: ProfileScreenProps) {
               value={email}
               onChangeText={setEmail}
               placeholder="hello@example.com"
-              placeholderTextColor={COLORS.textLight}
+              placeholderTextColor={COLORS.tabInactive}
               keyboardType="email-address"
               autoCapitalize="none"
             />
@@ -362,7 +362,7 @@ export function ProfileScreen({ navigation }: ProfileScreenProps) {
               value={password}
               onChangeText={setPassword}
               placeholder="••••••••"
-              placeholderTextColor={COLORS.textLight}
+              placeholderTextColor={COLORS.tabInactive}
               secureTextEntry
             />
           </View>
@@ -374,8 +374,8 @@ export function ProfileScreen({ navigation }: ProfileScreenProps) {
               <Switch
                 value={rememberPassword}
                 onValueChange={setRememberPassword}
-                trackColor={{ false: COLORS.border, true: COLORS.coal }}
-                thumbColor={rememberPassword ? COLORS.bone : COLORS.surfaceElevated}
+                trackColor={{ false: COLORS.glassHint, true: COLORS.coal }}
+                thumbColor={rememberPassword ? COLORS.bone : COLORS.graphite}
               />
             </View>
           )}
@@ -472,30 +472,30 @@ const styles = StyleSheet.create({
   profileName: {
     fontSize: TYPOGRAPHY.sizes.xl,
     fontWeight: TYPOGRAPHY.weights.semiBold,
-    color: COLORS.text,
+    color: COLORS.bone,
   },
   profileEmail: {
     fontSize: TYPOGRAPHY.sizes.body,
-    color: COLORS.textLight,
+    color: COLORS.tabInactive,
     marginTop: SPACING.xs,
   },
   menuSection: {
     borderTopWidth: 1,
-    borderTopColor: COLORS.border,
+    borderTopColor: COLORS.glassHint,
   },
   menuItem: {
     flexDirection: 'row',
     alignItems: 'center',
     padding: SPACING.lg,
     borderBottomWidth: 1,
-    borderBottomColor: COLORS.border,
+    borderBottomColor: COLORS.glassHint,
     gap: SPACING.md,
-    backgroundColor: COLORS.surface,
+    backgroundColor: COLORS.obsidian,
   },
   menuText: {
     flex: 1,
     fontSize: TYPOGRAPHY.sizes.lg,
-    color: COLORS.text,
+    color: COLORS.bone,
   },
   logoutButton: {
     margin: SPACING.lg,
@@ -503,12 +503,12 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     borderRadius: 8,
     borderWidth: 1,
-    borderColor: COLORS.border,
-    backgroundColor: COLORS.surface,
+    borderColor: COLORS.glassHint,
+    backgroundColor: COLORS.obsidian,
   },
   logoutText: {
     fontSize: TYPOGRAPHY.sizes.body,
-    color: COLORS.textLight,
+    color: COLORS.tabInactive,
   },
   authContainer: {
     flex: 1,
@@ -521,12 +521,12 @@ const styles = StyleSheet.create({
   authTitle: {
     fontSize: TYPOGRAPHY.sizes.display,
     fontWeight: TYPOGRAPHY.weights.semiBold,
-    color: COLORS.text,
+    color: COLORS.bone,
     textAlign: 'center',
   },
   authSubtitle: {
     fontSize: TYPOGRAPHY.sizes.body,
-    color: COLORS.textLight,
+    color: COLORS.tabInactive,
     textAlign: 'center',
     marginTop: SPACING.sm,
   },
@@ -539,17 +539,17 @@ const styles = StyleSheet.create({
   inputLabel: {
     fontSize: TYPOGRAPHY.sizes.body,
     fontWeight: TYPOGRAPHY.weights.medium,
-    color: COLORS.text,
+    color: COLORS.bone,
   },
   input: {
-    backgroundColor: COLORS.surface,
+    backgroundColor: COLORS.obsidian,
     borderRadius: 8,
     paddingHorizontal: SPACING.md,
     paddingVertical: SPACING.sm + 4,
     fontSize: TYPOGRAPHY.sizes.lg,
-    color: COLORS.text,
+    color: COLORS.bone,
     borderWidth: 1,
-    borderColor: COLORS.border,
+    borderColor: COLORS.glassHint,
   },
   authButton: {
     backgroundColor: COLORS.coal,
@@ -569,10 +569,10 @@ const styles = StyleSheet.create({
   },
   switchText: {
     fontSize: TYPOGRAPHY.sizes.body,
-    color: COLORS.textLight,
+    color: COLORS.tabInactive,
   },
   switchTextHighlight: {
-    color: COLORS.text,
+    color: COLORS.bone,
     fontWeight: TYPOGRAPHY.weights.medium,
   },
   rememberRow: {
@@ -583,7 +583,7 @@ const styles = StyleSheet.create({
   },
   rememberText: {
     fontSize: TYPOGRAPHY.sizes.body,
-    color: COLORS.text,
+    color: COLORS.bone,
   },
   divider: {
     flexDirection: 'row',
@@ -593,11 +593,11 @@ const styles = StyleSheet.create({
   dividerLine: {
     flex: 1,
     height: 1,
-    backgroundColor: COLORS.border,
+    backgroundColor: COLORS.glassHint,
   },
   dividerText: {
     fontSize: TYPOGRAPHY.sizes.caption,
-    color: COLORS.textLight,
+    color: COLORS.tabInactive,
     marginHorizontal: SPACING.md,
   },
   kakaoButton: {
@@ -622,12 +622,12 @@ const styles = StyleSheet.create({
   settingsSectionTitle: {
     fontSize: TYPOGRAPHY.sizes.title,
     fontWeight: TYPOGRAPHY.weights.semiBold,
-    color: COLORS.text,
+    color: COLORS.bone,
     marginBottom: SPACING.xs,
   },
   settingsSectionDesc: {
     fontSize: TYPOGRAPHY.sizes.body,
-    color: COLORS.textLight,
+    color: COLORS.tabInactive,
     marginBottom: SPACING.md,
   },
   languageOptions: {
@@ -637,11 +637,11 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
-    backgroundColor: COLORS.surface,
+    backgroundColor: COLORS.obsidian,
     padding: SPACING.md,
     borderRadius: 8,
     borderWidth: 1,
-    borderColor: COLORS.border,
+    borderColor: COLORS.glassHint,
   },
   languageOptionActive: {
     backgroundColor: COLORS.bone,
@@ -650,7 +650,7 @@ const styles = StyleSheet.create({
   },
   languageOptionText: {
     fontSize: TYPOGRAPHY.sizes.lg,
-    color: COLORS.text,
+    color: COLORS.bone,
   },
   languageOptionTextActive: {
     fontWeight: TYPOGRAPHY.weights.semiBold,
@@ -674,14 +674,14 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     paddingVertical: SPACING.sm,
     borderBottomWidth: 1,
-    borderBottomColor: COLORS.border,
+    borderBottomColor: COLORS.glassHint,
   },
   infoLabel: {
     fontSize: TYPOGRAPHY.sizes.body,
-    color: COLORS.textLight,
+    color: COLORS.tabInactive,
   },
   infoValue: {
     fontSize: TYPOGRAPHY.sizes.body,
-    color: COLORS.text,
+    color: COLORS.bone,
   },
 });

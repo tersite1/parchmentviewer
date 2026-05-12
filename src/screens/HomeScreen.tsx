@@ -21,15 +21,17 @@ import Animated, {
   SlideInRight,
 } from 'react-native-reanimated';
 import * as Haptics from '../utils/haptics';
-import { COLORS, SPACING, CITIES, CATEGORIES, TYPOGRAPHY } from '../config/constants';
+import { COLORS, SPACING, CITIES, CATEGORIES, TYPOGRAPHY, type CityName } from '../config/constants';
 import { getCategoryColor, getCategoryLabel } from '../utils/category';
 import { usePlacesStore } from '../stores/placesStore';
 import { useLanguageStore, getMapLanguage } from '../stores/languageStore';
 import { useBookmarksStore } from '../stores/bookmarksStore';
 import { useAuthStore } from '../stores/authStore';
+import { useMapStore } from '../stores/mapStore';
 import { usePlaces } from '../hooks/usePlaces';
 import { MapMarker } from '../components/MapMarker';
 import { SpaceCard } from '../components/SpaceCard';
+import { CityModal } from '../components/CityModal';
 import { Icon } from '../components/Icon';
 import { HomeScreenSkeleton } from '../components/SkeletonLoader';
 import { SearchEmptyState } from '../components/EmptyState';
@@ -90,6 +92,20 @@ export function HomeScreen({ navigation }: HomeScreenProps) {
 
   // Bookmarks store
   const { toggleBookmark: storeToggleBookmark, loadBookmarks, isBookmarked } = useBookmarksStore();
+
+  // Map store — 도시 컨텍스트
+  const currentCity = useMapStore((s) => s.currentCity);
+  const toggleCityModal = useMapStore((s) => s.toggleCityModal);
+  const setCurrentCity = useMapStore((s) => s.setCurrentCity);
+  const handleCitySelect = (city: CityName) => {
+    setCurrentCity(city);
+    mapRef.current?.animateToRegion(CITIES[city], 300);
+    fullscreenMapRef.current?.animateToRegion(CITIES[city], 300);
+  };
+  const handleCityHeaderPress = () => {
+    Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
+    toggleCityModal();
+  };
 
   // Load bookmarks on mount and when user changes
   useEffect(() => {
@@ -324,6 +340,19 @@ export function HomeScreen({ navigation }: HomeScreenProps) {
 
   return (
     <View style={styles.container}>
+      {/* City Header */}
+      <TouchableOpacity
+        style={styles.cityHeader}
+        onPress={handleCityHeaderPress}
+        activeOpacity={0.7}
+        accessibilityLabel={`현재 도시 ${currentCity}, 변경하려면 탭`}
+        accessibilityRole="button"
+      >
+        <Icon name="pin" size={14} color={COLORS.coal} />
+        <Text style={styles.cityHeaderText}>{currentCity}</Text>
+        <Icon name="chevronRight" size={14} color={COLORS.graphite} />
+      </TouchableOpacity>
+
       {/* Filter Chips */}
       <View style={styles.filterContainer}>
         <ScrollView
@@ -479,6 +508,9 @@ export function HomeScreen({ navigation }: HomeScreenProps) {
       {selectedPlace && (
         <SpaceCard place={selectedPlace} onClose={() => selectPlace(null)} />
       )}
+
+      {/* City Selector Modal */}
+      <CityModal onCitySelect={handleCitySelect} />
 
       {/* Fullscreen Map Modal */}
       <Modal
@@ -770,10 +802,32 @@ const styles = StyleSheet.create({
     marginBottom: SPACING.sm,
   },
   heroBadgeText: {
-    fontSize: TYPOGRAPHY.sizes.sm,
+    fontSize: TYPOGRAPHY.sizes.caption,
     fontWeight: TYPOGRAPHY.weights.semiBold,
     color: COLORS.coal,
     letterSpacing: -0.2,
+  },
+  cityHeader: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    alignSelf: 'flex-start',
+    gap: 6,
+    paddingHorizontal: SPACING.md,
+    paddingVertical: SPACING.sm,
+    marginHorizontal: SPACING.lg,
+    marginTop: SPACING.md,
+    marginBottom: -SPACING.xs,
+    borderRadius: 999,
+    backgroundColor: COLORS.bone,
+    borderWidth: 1,
+    borderColor: COLORS.border,
+  },
+  cityHeaderText: {
+    fontSize: TYPOGRAPHY.sizes.caption,
+    color: COLORS.coal,
+    fontWeight: TYPOGRAPHY.weights.semiBold,
+    letterSpacing: 1.5,
+    textTransform: 'uppercase',
   },
   heroTitle: {
     fontSize: TYPOGRAPHY.sizes.xxl,

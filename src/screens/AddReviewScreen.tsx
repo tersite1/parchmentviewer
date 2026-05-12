@@ -505,7 +505,7 @@ const styles = StyleSheet.create({
     color: COLORS.disabledText,
   },
   comingSoonBadge: {
-    fontSize: TYPOGRAPHY.sizes.xxs,
+    fontSize: TYPOGRAPHY.sizes.caption,
     fontWeight: TYPOGRAPHY.weights.semiBold,
     color: COLORS.textInverse,
     backgroundColor: COLORS.disabledText,

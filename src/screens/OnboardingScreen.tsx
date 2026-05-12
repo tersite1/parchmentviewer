@@ -258,7 +258,7 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
   },
   brandText: {
-    fontSize: TYPOGRAPHY.sizes.xs,
+    fontSize: TYPOGRAPHY.sizes.caption,
     fontWeight: TYPOGRAPHY.weights.light,
     color: COLORS.graphite,
     letterSpacing: 4,

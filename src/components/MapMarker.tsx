@@ -2,7 +2,7 @@ import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 import { MarkerWrapper as Marker } from './MapViewWrapper';
 import { COLORS, SPACING, TYPOGRAPHY } from '../config/constants';
-import { getCategoryColor } from '../utils/category';
+import { getCategoryMarkerColor } from '../utils/category';
 import { Icon } from './Icon';
 import type { Place } from '../types/database';
 
@@ -13,7 +13,7 @@ interface MapMarkerProps {
 }
 
 export function MapMarker({ place, onPress, showName = false }: MapMarkerProps) {
-  const categoryColor = getCategoryColor(place.category || '');
+  const categoryColor = getCategoryMarkerColor(place.category || '');
 
   return (
     <Marker
@@ -68,7 +68,7 @@ const styles = StyleSheet.create({
   },
   nameLabelText: {
     color: COLORS.bone,
-    fontSize: TYPOGRAPHY.sizes.sm,
+    fontSize: TYPOGRAPHY.sizes.caption,
     fontWeight: TYPOGRAPHY.weights.semiBold,
     textAlign: 'center',
   },

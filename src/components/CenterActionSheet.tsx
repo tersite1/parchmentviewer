@@ -74,7 +74,7 @@ const s = StyleSheet.create({
   },
   title: {
     color: COLORS.bone,
-    fontSize: TYPOGRAPHY.sizes.xs,
+    fontSize: TYPOGRAPHY.sizes.caption,
     fontWeight: TYPOGRAPHY.weights.medium,
     letterSpacing: 2.4,
     textTransform: 'uppercase',

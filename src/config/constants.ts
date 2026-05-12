@@ -167,6 +167,16 @@ export const CATEGORIES = {
   stay: { label: '숙박', color: '#FDFD96' },       // 노랑
 } as const;
 
+// 다크 지도 위 마커 전용 컬러 — 채도/명도 조정해 배경 #1a1a1a에서도 읽힘.
+// 노랑(#FDFD96)은 bone(#F5F5F0)과 거의 같은 명도라 amber로 교체.
+export const CATEGORY_MARKER_COLORS: Record<keyof typeof CATEGORIES, string> = {
+  cafe: '#5BC9A4',       // 짙은 민트
+  restaurant: '#E8853A', // 짙은 오렌지
+  culture: '#A36CD9',    // 짙은 라벤더
+  bar: '#E8758F',        // 짙은 핑크
+  stay: '#E0A93C',       // 앰버 (노랑 대체)
+};
+
 export type CategoryType = keyof typeof CATEGORIES;
 
 export const MARKER = {
