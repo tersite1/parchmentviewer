@@ -88,9 +88,9 @@ export function MapSkeleton() {
 export function HomeScreenSkeleton() {
   return (
     <View style={styles.container}>
-      {/* Search bar skeleton */}
-      <View style={styles.searchSkeleton}>
-        <Skeleton width="100%" height={48} borderRadius={12} />
+      {/* City header pill skeleton — 실제 화면의 city pill과 매칭 */}
+      <View style={styles.cityHeaderSkeleton}>
+        <Skeleton width={96} height={32} borderRadius={999} />
       </View>
 
       {/* Filter chips skeleton */}
@@ -128,10 +128,11 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: COLORS.bone,
   },
-  searchSkeleton: {
+  cityHeaderSkeleton: {
     paddingTop: SPACING.xl + SPACING.xl,
     paddingHorizontal: SPACING.lg,
     paddingBottom: SPACING.sm,
+    alignItems: 'flex-start',
   },
   filterSkeleton: {
     flexDirection: 'row',

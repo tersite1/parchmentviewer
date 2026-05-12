@@ -156,7 +156,7 @@ export function HomeScreen({ navigation }: HomeScreenProps) {
   };
 
   const handleMarkerPress = async (place: Place) => {
-    await Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium);
+    await Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
     selectPlace(place);
     // Animate both maps (whichever is active)
     mapRef.current?.animateToRegion(
@@ -170,7 +170,7 @@ export function HomeScreen({ navigation }: HomeScreenProps) {
   };
 
   const handlePlacePress = async (place: Place) => {
-    await Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium);
+    await Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
     selectPlace(place);
     mapRef.current?.animateToRegion(
       { latitude: place.lat, longitude: place.lng, latitudeDelta: 0.01, longitudeDelta: 0.01 },
@@ -1028,19 +1028,21 @@ const styles = StyleSheet.create({
   },
   fullscreenPlaceCard: {
     position: 'absolute',
-    bottom: SPACING.xl * 4 + 20,
+    bottom: SPACING.xl * 4 + 60, // 필터칩과 충분히 분리
     left: SPACING.md,
     right: SPACING.md,
     flexDirection: 'row',
     alignItems: 'center',
-    backgroundColor: COLORS.surface,
+    backgroundColor: COLORS.coal,
     borderRadius: 16,
     padding: SPACING.sm,
+    borderWidth: 1,
+    borderColor: COLORS.glassHint,
     shadowColor: COLORS.shadow,
-    shadowOffset: { width: 0, height: 4 },
-    shadowOpacity: 0.15,
-    shadowRadius: 12,
-    elevation: 8,
+    shadowOffset: { width: 0, height: 12 },
+    shadowOpacity: 0.4,
+    shadowRadius: 20,
+    elevation: 12,
   },
   fullscreenPlaceImage: {
     width: 56,
@@ -1048,7 +1050,7 @@ const styles = StyleSheet.create({
     borderRadius: 12,
   },
   fullscreenPlacePlaceholder: {
-    backgroundColor: COLORS.surfaceDim,
+    backgroundColor: COLORS.obsidian,
     alignItems: 'center',
     justifyContent: 'center',
   },
@@ -1059,12 +1061,12 @@ const styles = StyleSheet.create({
   fullscreenPlaceName: {
     fontSize: TYPOGRAPHY.sizes.lg,
     fontWeight: TYPOGRAPHY.weights.semiBold,
-    color: COLORS.text,
+    color: COLORS.bone,
     letterSpacing: -0.3,
   },
   fullscreenPlaceMeta: {
     fontSize: TYPOGRAPHY.sizes.meta,
-    color: COLORS.textLight,
+    color: COLORS.tabInactive,
     marginTop: 2,
   },
   fullscreenPlaceBookmark: {
