@@ -16,6 +16,7 @@ import * as Location from 'expo-location';
 import { COLORS, SPACING, TYPOGRAPHY, CATEGORIES } from '../config/constants';
 import { Icon } from '../components/Icon';
 import type { Place, PlaceCategory } from '../types/database';
+import { isSafeImageUrl } from '../utils/sanitizeUrl';
 
 const SUPABASE_URL =
   process.env.EXPO_PUBLIC_SUPABASE_URL ?? 'https://qkvvwkimzdztalstfgol.supabase.co';
@@ -171,7 +172,9 @@ export function ChatScreen({ navigation }: any) {
         <TouchableOpacity
           onPress={toggleLocation}
           style={[s.headerBtn, useLocation && s.headerBtnActive]}
-          accessibilityLabel="위치 활용 토글"
+          accessibilityLabel={useLocation ? '위치 사용 중 — 끄기' : '위치 사용 안 함 — 켜기'}
+          accessibilityRole="button"
+          accessibilityState={{ selected: useLocation }}
         >
           <Icon name="location" size={20} color={useLocation ? COLORS.coal : COLORS.bone} />
         </TouchableOpacity>
@@ -262,10 +265,11 @@ export function ChatScreen({ navigation }: any) {
 
 function PlaceMiniCard({ place }: { place: Place }) {
   const cat = CATEGORIES[place.category as PlaceCategory];
+  const safeImg = isSafeImageUrl(place.image_url) ? place.image_url : null;
   return (
-    <View style={s.miniCard}>
-      {place.image_url ? (
-        <Image source={{ uri: place.image_url }} style={s.miniImage} />
+    <View style={s.miniCard} accessibilityLabel={`${place.name}, ${place.city}`}>
+      {safeImg ? (
+        <Image source={{ uri: safeImg }} style={s.miniImage} />
       ) : (
         <View style={[s.miniImage, { backgroundColor: COLORS.graphite }]} />
       )}

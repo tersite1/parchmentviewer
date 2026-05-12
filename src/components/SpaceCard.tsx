@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import {
   View,
   Text,
@@ -11,7 +11,6 @@ import {
   Pressable,
   ScrollView,
   Animated,
-  PanResponder,
   Share,
 } from 'react-native';
 import * as Haptics from '../utils/haptics';
@@ -24,8 +23,10 @@ import { useAuthStore } from '../stores/authStore';
 import type { Place } from '../types/database';
 import { isSafeImageUrl, filterSafeImageUrls } from '../utils/sanitizeUrl';
 
-const { width, height } = Dimensions.get('window');
-const SHEET_HEIGHT = height * 0.65;
+const { width: SCREEN_W, height: SCREEN_H } = Dimensions.get('window');
+const CARD_WIDTH = Math.min(420, SCREEN_W - SPACING.lg * 2);
+const CARD_MAX_HEIGHT = Math.min(720, SCREEN_H * 0.86);
+const HERO_HEIGHT = 220;
 
 interface SpaceCardProps {
   place: Place;
@@ -41,19 +42,21 @@ export function SpaceCard({ place, onClose }: SpaceCardProps) {
   const catColor = getCategoryColor(place.category || '');
   const catLabel = getCategoryLabel(place.category || '');
 
-  const slideAnim = useRef(new Animated.Value(SHEET_HEIGHT)).current;
   const fadeAnim = useRef(new Animated.Value(0)).current;
+  const scaleAnim = useRef(new Animated.Value(0.92)).current;
 
   useEffect(() => {
     Animated.parallel([
-      Animated.timing(slideAnim, {
-        toValue: 0,
-        duration: 300,
-        useNativeDriver: true,
-      }),
       Animated.timing(fadeAnim, {
         toValue: 1,
-        duration: 200,
+        duration: 180,
+        useNativeDriver: true,
+      }),
+      Animated.spring(scaleAnim, {
+        toValue: 1,
+        damping: 18,
+        stiffness: 220,
+        mass: 0.6,
         useNativeDriver: true,
       }),
     ]).start();
@@ -61,48 +64,18 @@ export function SpaceCard({ place, onClose }: SpaceCardProps) {
 
   const handleClose = () => {
     Animated.parallel([
-      Animated.timing(slideAnim, {
-        toValue: SHEET_HEIGHT,
-        duration: 250,
-        useNativeDriver: true,
-      }),
       Animated.timing(fadeAnim, {
         toValue: 0,
-        duration: 200,
+        duration: 160,
+        useNativeDriver: true,
+      }),
+      Animated.timing(scaleAnim, {
+        toValue: 0.94,
+        duration: 160,
         useNativeDriver: true,
       }),
     ]).start(() => onClose());
   };
-
-  const panResponder = useRef(
-    PanResponder.create({
-      onStartShouldSetPanResponder: () => true,
-      onMoveShouldSetPanResponder: () => true,
-      onPanResponderMove: (_, gs) => {
-        if (gs.dy > 0) {
-          slideAnim.setValue(gs.dy);
-          fadeAnim.setValue(Math.max(0, 1 - gs.dy / SHEET_HEIGHT));
-        }
-      },
-      onPanResponderRelease: (_, gs) => {
-        if (gs.dy > 80 || gs.vy > 0.5) {
-          handleClose();
-        } else {
-          Animated.parallel([
-            Animated.spring(slideAnim, {
-              toValue: 0,
-              useNativeDriver: true,
-            }),
-            Animated.timing(fadeAnim, {
-              toValue: 1,
-              duration: 150,
-              useNativeDriver: true,
-            }),
-          ]).start();
-        }
-      },
-    })
-  ).current;
 
   const handleShare = async () => {
     await Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
@@ -112,15 +85,6 @@ export function SpaceCard({ place, onClose }: SpaceCardProps) {
       });
     } catch {}
   };
-
-  const images = place.gallery_urls?.length
-    ? filterSafeImageUrls(place.gallery_urls)
-    : isSafeImageUrl(place.image_url)
-      ? [place.image_url]
-      : [];
-
-  const menuItems = place.menu_items || [];
-  const showMenu = (place.category === 'cafe' || place.category === 'restaurant') && menuItems.length > 0;
 
   const handleToggleBookmark = async () => {
     await Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium);
@@ -137,113 +101,143 @@ export function SpaceCard({ place, onClose }: SpaceCardProps) {
     if (url) Linking.openURL(url);
   };
 
+  const images = place.gallery_urls?.length
+    ? filterSafeImageUrls(place.gallery_urls)
+    : isSafeImageUrl(place.image_url)
+      ? [place.image_url]
+      : [];
+
+  const menuItems = place.menu_items || [];
+  const showMenu =
+    (place.category === 'cafe' || place.category === 'restaurant') && menuItems.length > 0;
+
   return (
-    <View style={styles.container}>
+    <View style={styles.container} pointerEvents="box-none">
       <Animated.View style={[styles.overlay, { opacity: fadeAnim }]}>
-        <Pressable style={StyleSheet.absoluteFill} onPress={handleClose} />
+        <Pressable style={StyleSheet.absoluteFill} onPress={handleClose} accessibilityLabel="닫기" />
       </Animated.View>
 
       <Animated.View
         style={[
-          styles.sheet,
-          { transform: [{ translateY: slideAnim }] }
+          styles.card,
+          { opacity: fadeAnim, transform: [{ scale: scaleAnim }] },
         ]}
       >
-        {/* Handle bar — drag to dismiss */}
-        <View style={styles.handleBar} {...panResponder.panHandlers}>
-          <View style={styles.handle} />
-        </View>
+        <ScrollView
+          style={{ flex: 1 }}
+          contentContainerStyle={{ paddingBottom: SPACING.lg }}
+          showsVerticalScrollIndicator={false}
+        >
+          {/* Hero image */}
+          <View style={styles.imageWrap}>
+            {images.length > 0 ? (
+              <ScrollView
+                horizontal
+                pagingEnabled
+                showsHorizontalScrollIndicator={false}
+                onMomentumScrollEnd={(e) => {
+                  setImgIndex(Math.round(e.nativeEvent.contentOffset.x / CARD_WIDTH));
+                }}
+              >
+                {images.map((uri, i) => (
+                  <Image key={i} source={{ uri }} style={styles.image} />
+                ))}
+              </ScrollView>
+            ) : (
+              <View style={styles.noImage}>
+                <Icon name={(place.category as any) || 'cafe'} size={48} color={catColor} />
+              </View>
+            )}
 
-        {/* Image - full bleed */}
-        <View style={styles.imageWrap}>
-          {images.length > 0 ? (
-            <ScrollView
-              horizontal
-              pagingEnabled
-              showsHorizontalScrollIndicator={false}
-              onMomentumScrollEnd={(e) => {
-                setImgIndex(Math.round(e.nativeEvent.contentOffset.x / width));
-              }}
+            <LinearGradient
+              colors={['transparent', 'rgba(10,10,10,0.65)']}
+              style={styles.gradient}
+            />
+
+            {/* Close X — top right */}
+            <TouchableOpacity
+              style={styles.closeBtn}
+              onPress={handleClose}
+              hitSlop={{ top: 8, right: 8, bottom: 8, left: 8 }}
+              accessibilityLabel="닫기"
             >
-              {images.map((uri, i) => (
-                <Image key={i} source={{ uri }} style={styles.image} />
-              ))}
-            </ScrollView>
-          ) : (
-            <View style={styles.noImage}>
-              <Icon name={place.category as any} size={48} color={catColor} />
-            </View>
-          )}
+              <Icon name="close" size={18} color={COLORS.bone} />
+            </TouchableOpacity>
 
-          <LinearGradient
-            colors={['transparent', COLORS.coal]}
-            style={styles.gradient}
-          />
-
-          {/* Dots */}
-          {images.length > 1 && (
-            <View style={styles.dots}>
-              {images.map((_, i) => (
-                <View key={i} style={[styles.dot, imgIndex === i && styles.dotActive]} />
-              ))}
-            </View>
-          )}
-        </View>
-
-        {/* Content */}
-        <View style={styles.content}>
-          {/* Header */}
-          <View style={styles.header}>
-            <View style={styles.catRow}>
-              <View style={[styles.catDot, { backgroundColor: catColor }]} />
-              <Text style={styles.catText}>{catLabel}</Text>
-              <Text style={styles.divider}>·</Text>
-              <Text style={styles.cityText}>{place.city}</Text>
-            </View>
-            <Text style={styles.name}>{place.name}</Text>
-            {place.address && (
-              <Text style={styles.address}>{place.address}</Text>
+            {/* Dots */}
+            {images.length > 1 && (
+              <View style={styles.dots}>
+                {images.map((_, i) => (
+                  <View key={i} style={[styles.dot, imgIndex === i && styles.dotActive]} />
+                ))}
+              </View>
             )}
           </View>
 
-          {/* Vibe */}
-          {place.vibe && (
-            <View style={styles.vibeWrap}>
-              <Text style={styles.vibe}>{place.vibe}</Text>
-              {place.curated_by && (
-                <Text style={styles.curator}>— {place.curated_by}</Text>
-              )}
+          {/* Content */}
+          <View style={styles.content}>
+            {/* Header */}
+            <View style={styles.header}>
+              <View style={styles.catRow}>
+                <View style={[styles.catDot, { backgroundColor: catColor }]} />
+                <Text style={styles.catText}>{catLabel}</Text>
+                <Text style={styles.divider}>·</Text>
+                <Text style={styles.cityText}>{place.city}</Text>
+              </View>
+              <Text style={styles.name}>{place.name}</Text>
+              {place.address && <Text style={styles.address}>{place.address}</Text>}
             </View>
-          )}
 
-          {/* Menu */}
-          {showMenu && (
-            <View style={styles.menuWrap}>
-              {menuItems.slice(0, 3).map((item, i) => (
-                <View key={i} style={styles.menuRow}>
-                  <Text style={styles.menuName}>{item.name}</Text>
-                  <Text style={styles.menuPrice}>{item.price}</Text>
-                </View>
-              ))}
+            {/* Vibe */}
+            {place.vibe && (
+              <View style={styles.vibeWrap}>
+                <Text style={styles.vibe}>{place.vibe}</Text>
+                {place.curated_by && <Text style={styles.curator}>— {place.curated_by}</Text>}
+              </View>
+            )}
+
+            {/* Menu */}
+            {showMenu && (
+              <View style={styles.menuWrap}>
+                {menuItems.slice(0, 3).map((item, i) => (
+                  <View key={i} style={styles.menuRow}>
+                    <Text style={styles.menuName}>{item.name}</Text>
+                    <Text style={styles.menuPrice}>{item.price}</Text>
+                  </View>
+                ))}
+              </View>
+            )}
+
+            {/* Actions */}
+            <View style={styles.actions}>
+              <TouchableOpacity
+                style={styles.dirBtn}
+                onPress={handleDirections}
+                accessibilityLabel="길찾기"
+              >
+                <Text style={styles.dirText}>길찾기</Text>
+              </TouchableOpacity>
+              <TouchableOpacity
+                style={styles.iconBtn}
+                onPress={handleShare}
+                accessibilityLabel="공유"
+              >
+                <Icon name="share" size={20} color={COLORS.bone} />
+              </TouchableOpacity>
+              <TouchableOpacity
+                style={[styles.iconBtn, bookmarked && styles.iconBtnActive]}
+                onPress={handleToggleBookmark}
+                accessibilityLabel={bookmarked ? '북마크 해제' : '북마크'}
+              >
+                <Icon
+                  name="heart"
+                  size={20}
+                  color={bookmarked ? COLORS.heartActive : COLORS.bone}
+                />
+              </TouchableOpacity>
             </View>
-          )}
-
-          {/* Actions */}
-          <View style={styles.actions}>
-            <TouchableOpacity style={styles.dirBtn} onPress={handleDirections}>
-              <Text style={styles.dirText}>길찾기</Text>
-            </TouchableOpacity>
-            <TouchableOpacity style={styles.shareBtn} onPress={handleShare}>
-              <Icon name="share" size={20} color={COLORS.bone} />
-            </TouchableOpacity>
-            <TouchableOpacity
-              style={[styles.heartBtn, bookmarked && styles.heartBtnActive]}
-              onPress={handleToggleBookmark}
-            >
-              <Icon name="heart" size={20} color={bookmarked ? COLORS.heartActive : COLORS.bone} />
-            </TouchableOpacity>
           </View>
-        </View>
+        </ScrollView>
       </Animated.View>
     </View>
   );
@@ -252,40 +246,41 @@ export function SpaceCard({ place, onClose }: SpaceCardProps) {
 const styles = StyleSheet.create({
   container: {
     ...StyleSheet.absoluteFillObject,
-    justifyContent: 'flex-end',
+    alignItems: 'center',
+    justifyContent: 'center',
+    padding: SPACING.lg,
   },
   overlay: {
     ...StyleSheet.absoluteFillObject,
-    backgroundColor: COLORS.overlay,
+    backgroundColor: COLORS.overlayStrong,
   },
-  sheet: {
-    height: SHEET_HEIGHT,
+  card: {
+    width: CARD_WIDTH,
+    maxHeight: CARD_MAX_HEIGHT,
     backgroundColor: COLORS.coal,
-    borderTopLeftRadius: 16,
-    borderTopRightRadius: 16,
-  },
-  handleBar: {
-    alignItems: 'center',
-    paddingVertical: SPACING.md,
-  },
-  handle: {
-    width: 36,
-    height: 4,
-    backgroundColor: COLORS.glassMedium,
-    borderRadius: 2,
+    borderRadius: 20,
+    overflow: 'hidden',
+    borderWidth: 1,
+    borderColor: COLORS.glassHint,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 30 },
+    shadowOpacity: 0.55,
+    shadowRadius: 40,
+    elevation: 24,
   },
   imageWrap: {
-    width: width,
-    height: 200,
+    width: CARD_WIDTH,
+    height: HERO_HEIGHT,
     position: 'relative',
+    backgroundColor: COLORS.obsidian,
   },
   image: {
-    width: width,
-    height: 200,
+    width: CARD_WIDTH,
+    height: HERO_HEIGHT,
   },
   noImage: {
-    width: width,
-    height: 200,
+    width: CARD_WIDTH,
+    height: HERO_HEIGHT,
     backgroundColor: COLORS.obsidian,
     alignItems: 'center',
     justifyContent: 'center',
@@ -296,6 +291,19 @@ const styles = StyleSheet.create({
     left: 0,
     right: 0,
     height: 80,
+  },
+  closeBtn: {
+    position: 'absolute',
+    top: SPACING.sm + 4,
+    right: SPACING.sm + 4,
+    width: 32,
+    height: 32,
+    borderRadius: 16,
+    backgroundColor: 'rgba(10,10,10,0.6)',
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderWidth: 1,
+    borderColor: COLORS.glassHint,
   },
   dots: {
     position: 'absolute',
@@ -313,11 +321,11 @@ const styles = StyleSheet.create({
     backgroundColor: COLORS.glass,
   },
   dotActive: {
-    backgroundColor: COLORS.surface,
+    backgroundColor: COLORS.bone,
   },
   content: {
-    flex: 1,
     paddingHorizontal: SPACING.lg,
+    paddingTop: SPACING.md,
   },
   header: {
     marginBottom: SPACING.md,
@@ -334,18 +342,18 @@ const styles = StyleSheet.create({
     borderRadius: 3,
   },
   catText: {
-    fontSize: TYPOGRAPHY.sizes.sm,
+    fontSize: TYPOGRAPHY.sizes.caption,
     fontWeight: TYPOGRAPHY.weights.medium,
     color: COLORS.parchmentDefault,
     textTransform: 'uppercase',
     letterSpacing: 1,
   },
   divider: {
-    fontSize: TYPOGRAPHY.sizes.sm,
+    fontSize: TYPOGRAPHY.sizes.caption,
     color: COLORS.parchmentGhost,
   },
   cityText: {
-    fontSize: TYPOGRAPHY.sizes.sm,
+    fontSize: TYPOGRAPHY.sizes.caption,
     color: COLORS.parchmentMuted,
   },
   name: {
@@ -356,7 +364,7 @@ const styles = StyleSheet.create({
   },
   address: {
     fontSize: TYPOGRAPHY.sizes.meta,
-    color: COLORS.parchmentTertiary,
+    color: COLORS.parchmentSecondary,
     marginTop: 4,
   },
   vibeWrap: {
@@ -365,7 +373,7 @@ const styles = StyleSheet.create({
   vibe: {
     fontSize: TYPOGRAPHY.sizes.body,
     color: COLORS.parchmentStrong,
-    lineHeight: 20,
+    lineHeight: 22,
   },
   curator: {
     fontSize: TYPOGRAPHY.sizes.caption,
@@ -394,37 +402,33 @@ const styles = StyleSheet.create({
   actions: {
     flexDirection: 'row',
     gap: 12,
-    marginTop: 'auto',
-    paddingBottom: SPACING.lg,
+    paddingBottom: SPACING.sm,
   },
   dirBtn: {
     flex: 1,
+    height: 48,
     alignItems: 'center',
     justifyContent: 'center',
     backgroundColor: COLORS.bone,
-    paddingVertical: 14,
-    borderRadius: 10,
+    borderRadius: 12,
   },
   dirText: {
     fontSize: TYPOGRAPHY.sizes.md,
     fontWeight: TYPOGRAPHY.weights.semiBold,
     color: COLORS.coal,
   },
-  shareBtn: {
-    width: 52,
+  iconBtn: {
+    width: 48,
+    height: 48,
     alignItems: 'center',
     justifyContent: 'center',
     backgroundColor: COLORS.glassSubtle,
-    borderRadius: 10,
+    borderRadius: 12,
+    borderWidth: 1,
+    borderColor: COLORS.glassHint,
   },
-  heartBtn: {
-    width: 52,
-    alignItems: 'center',
-    justifyContent: 'center',
-    backgroundColor: COLORS.glassSubtle,
-    borderRadius: 10,
-  },
-  heartBtnActive: {
+  iconBtnActive: {
     backgroundColor: COLORS.heartActiveSubtle,
+    borderColor: COLORS.heartActive,
   },
 });

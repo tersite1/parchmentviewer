@@ -224,6 +224,8 @@ export function HomeScreen({ navigation }: HomeScreenProps) {
         style={styles.heroCard}
         onPress={() => handlePlacePress(item)}
         activeOpacity={0.95}
+        accessibilityLabel={`${item.name}, ${getCategoryLabel(item.category || '')}, ${item.city}`}
+        accessibilityRole="button"
       >
         {isSafeImageUrl(item.image_url) ? (
           <Image source={{ uri: item.image_url }} style={styles.heroImage} />
@@ -259,6 +261,8 @@ export function HomeScreen({ navigation }: HomeScreenProps) {
             toggleBookmark(item);
           }}
           hitSlop={{ top: 10, bottom: 10, left: 10, right: 10 }}
+          accessibilityLabel={isBookmarked(item.id) ? '북마크 해제' : '북마크에 추가'}
+          accessibilityRole="button"
         >
           <Icon
             name="heart"
@@ -272,12 +276,14 @@ export function HomeScreen({ navigation }: HomeScreenProps) {
 
   const renderPlaceCard = ({ item, index }: { item: Place; index: number }) => (
     <Animated.View
-      entering={SlideInRight.delay(index * 50).springify()}
+      entering={FadeInDown.delay(index * 50).springify()}
     >
       <TouchableOpacity
         style={styles.placeCard}
         onPress={() => handlePlacePress(item)}
         activeOpacity={0.9}
+        accessibilityLabel={`${item.name}, ${getCategoryLabel(item.category || '')}, ${item.city}`}
+        accessibilityRole="button"
       >
         <View style={styles.placeImageContainer}>
           {isSafeImageUrl(item.image_url) ? (
@@ -664,9 +670,9 @@ const styles = StyleSheet.create({
   },
   mapButton: {
     backgroundColor: COLORS.coal,
-    width: 36,
-    height: 36,
-    borderRadius: 8,
+    width: 44,
+    height: 44,
+    borderRadius: 10,
     alignItems: 'center',
     justifyContent: 'center',
     shadowColor: COLORS.shadow,
