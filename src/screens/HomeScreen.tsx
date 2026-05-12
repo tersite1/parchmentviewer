@@ -49,7 +49,7 @@ const PLACE_CARD_HEIGHT = 220;
 const FILTERS: { id: string; label: string }[] = [
   { id: 'all', label: '전체' },
   { id: 'cafe', label: '카페' },
-  { id: 'restaurant', label: '음식' },
+  { id: 'restaurant', label: '식당' },
   { id: 'culture', label: '문화' },
   { id: 'bar', label: '술집' },
   { id: 'stay', label: '숙박' },

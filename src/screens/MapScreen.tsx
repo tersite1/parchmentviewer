@@ -1,5 +1,5 @@
 import React, { useRef, useCallback } from 'react';
-import { View, StyleSheet, ActivityIndicator, Text } from 'react-native';
+import { View, StyleSheet, ActivityIndicator, Text, TouchableOpacity } from 'react-native';
 import { MapViewWrapper as MapView } from '../components/MapViewWrapper';
 import * as Haptics from '../utils/haptics';
 import { COLORS, TYPOGRAPHY, SPACING, ANIMATION, CITIES, type CityName } from '../config/constants';
@@ -15,7 +15,7 @@ import type { Place } from '../types/database';
 
 export function MapScreen() {
   const mapRef = useRef<any>(null);
-  const { isLoading, error } = usePlaces();
+  const { isLoading, error, refetch } = usePlaces();
   const { places, selectedPlace, selectPlace } = usePlacesStore();
   const { region, setCurrentCity } = useMapStore();
 
@@ -42,6 +42,14 @@ export function MapScreen() {
     return (
       <View style={styles.centered}>
         <Text style={styles.errorText}>{error}</Text>
+        <TouchableOpacity
+          style={styles.retryBtn}
+          onPress={refetch}
+          accessibilityLabel="다시 시도"
+          accessibilityRole="button"
+        >
+          <Text style={styles.retryText}>다시 시도</Text>
+        </TouchableOpacity>
       </View>
     );
   }
@@ -104,6 +112,20 @@ const styles = StyleSheet.create({
     fontSize: TYPOGRAPHY.sizes.body,
     color: COLORS.rust,
     textAlign: 'center',
+    marginBottom: SPACING.lg,
+  },
+  retryBtn: {
+    paddingVertical: SPACING.sm + 2,
+    paddingHorizontal: SPACING.lg,
+    backgroundColor: COLORS.bone,
+    borderRadius: 999,
+  },
+  retryText: {
+    fontFamily: TYPOGRAPHY.fontFamily,
+    fontSize: TYPOGRAPHY.sizes.body,
+    fontWeight: TYPOGRAPHY.weights.semiBold as any,
+    color: COLORS.coal,
+    letterSpacing: 1,
   },
   loadingOverlay: {
     position: 'absolute',

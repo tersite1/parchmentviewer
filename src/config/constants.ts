@@ -44,6 +44,9 @@ export const COLORS = {
   errorAction: '#FF6B6B',
   info: '#333333',
 
+  // Donate / warm CTA — errorAction과 시맨틱 분리
+  donateAccent: '#C76A4A',
+
   // Overlays
   overlay: 'rgba(0,0,0,0.5)',
   overlayStrong: 'rgba(0,0,0,0.85)',

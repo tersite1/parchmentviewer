@@ -659,7 +659,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: COLORS.errorAction,
+    backgroundColor: COLORS.donateAccent,
     padding: SPACING.md,
     borderRadius: 8,
     gap: SPACING.sm,
