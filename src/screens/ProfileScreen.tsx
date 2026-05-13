@@ -29,7 +29,7 @@ interface ProfileScreenProps {
 }
 
 export function ProfileScreen({ navigation }: ProfileScreenProps) {
-  const { user, loading, signIn, signUp, signOut, initialize, isAnonymous } = useAuthStore();
+  const { user, loading, signIn, signUp, signOut, initialize, isAnonymous, signInWithApple } = useAuthStore();
   const [isSignUp, setIsSignUp] = useState(false);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -38,6 +38,19 @@ export function ProfileScreen({ navigation }: ProfileScreenProps) {
   const [showSettings, setShowSettings] = useState(false);
   const [rememberPassword, setRememberPassword] = useState(false);
   const [kakaoLoading, setKakaoLoading] = useState(false);
+  const [appleLoading, setAppleLoading] = useState(false);
+
+  const handleAppleLogin = async () => {
+    if (Platform.OS !== 'ios') return;
+    await Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
+    setAppleLoading(true);
+    try {
+      const { error } = await signInWithApple();
+      if (error) showToast(error, 'error');
+    } finally {
+      setAppleLoading(false);
+    }
+  };
   const [toast, setToast] = useState({ visible: false, message: '', type: 'info' as 'success' | 'error' | 'info' });
   const showToast = (message: string, type: 'success' | 'error' | 'info' = 'info') => {
     setToast({ visible: true, message, type });
@@ -393,6 +406,23 @@ export function ProfileScreen({ navigation }: ProfileScreenProps) {
             <View style={styles.dividerLine} />
           </View>
 
+          {/* Apple Sign-In — iOS only (App Store guideline 4.8 requires this when offering Kakao) */}
+          {Platform.OS === 'ios' && (
+            <TouchableOpacity
+              style={styles.appleButton}
+              onPress={handleAppleLogin}
+              disabled={appleLoading}
+              accessibilityLabel="Apple로 계속하기"
+              accessibilityRole="button"
+            >
+              {appleLoading ? (
+                <ActivityIndicator color={COLORS.bone} />
+              ) : (
+                <Text style={styles.appleButtonText}> Apple로 계속하기</Text>
+              )}
+            </TouchableOpacity>
+          )}
+
           {/* Kakao Login */}
           <TouchableOpacity
             style={styles.kakaoButton}
@@ -653,6 +683,21 @@ const styles = StyleSheet.create({
     color: COLORS.bone,
   },
   languageOptionTextActive: {
+    fontWeight: TYPOGRAPHY.weights.semiBold,
+  },
+  appleButton: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: '#000000',
+    paddingVertical: SPACING.md,
+    borderRadius: 8,
+    marginBottom: SPACING.sm,
+    minHeight: 48,
+  },
+  appleButtonText: {
+    color: COLORS.bone,
+    fontSize: TYPOGRAPHY.sizes.body,
     fontWeight: TYPOGRAPHY.weights.semiBold,
   },
   donateButton: {

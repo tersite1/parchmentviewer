@@ -4,11 +4,21 @@ import * as Haptics from '../utils/haptics';
 import { COLORS, TYPOGRAPHY, SPACING } from '../config/constants';
 
 const TOSS_PAY_URL = 'https://toss.me/parchment';
+// TODO: 출시 전 실제 호스팅된 URL로 교체 (GitHub Pages, Notion, Vercel 등)
+const PRIVACY_POLICY_URL = 'https://github.com/tersite1/parchment/blob/main/PRIVACY.md';
+const TERMS_URL = 'https://github.com/tersite1/parchment/blob/main/TERMS.md';
 
 export function AboutScreen() {
   const handleDonate = async () => {
     await Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Heavy);
     await Linking.openURL(TOSS_PAY_URL);
+  };
+
+  const openLink = async (url: string) => {
+    await Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
+    try {
+      await Linking.openURL(url);
+    } catch {}
   };
 
   return (
@@ -45,6 +55,16 @@ export function AboutScreen() {
 
         <TouchableOpacity style={styles.donateButton} onPress={handleDonate} activeOpacity={0.7}>
           <Text style={styles.donateText}>DONATE VIA TOSS</Text>
+        </TouchableOpacity>
+      </View>
+
+      <View style={styles.legalRow}>
+        <TouchableOpacity onPress={() => openLink(PRIVACY_POLICY_URL)} accessibilityRole="link">
+          <Text style={styles.legalLink}>개인정보처리방침</Text>
+        </TouchableOpacity>
+        <Text style={styles.legalDivider}>·</Text>
+        <TouchableOpacity onPress={() => openLink(TERMS_URL)} accessibilityRole="link">
+          <Text style={styles.legalLink}>이용약관</Text>
         </TouchableOpacity>
       </View>
 
@@ -107,6 +127,26 @@ const styles = StyleSheet.create({
     fontSize: TYPOGRAPHY.sizes.caption,
     color: COLORS.bone,
     letterSpacing: 2,
+  },
+  legalRow: {
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
+    gap: SPACING.sm,
+    marginTop: SPACING.lg,
+  },
+  legalLink: {
+    fontFamily: TYPOGRAPHY.fontFamily,
+    fontSize: TYPOGRAPHY.sizes.caption,
+    color: COLORS.bone,
+    opacity: 0.6,
+    letterSpacing: 1,
+    textDecorationLine: 'underline',
+  },
+  legalDivider: {
+    color: COLORS.bone,
+    opacity: 0.3,
+    fontSize: TYPOGRAPHY.sizes.caption,
   },
   footer: {
     marginTop: SPACING.xl * 2,

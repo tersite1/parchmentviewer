@@ -13,6 +13,7 @@ interface AuthState {
   initialize: () => Promise<void>;
   signUp: (email: string, password: string, name: string) => Promise<{ error: string | null }>;
   signIn: (email: string, password: string) => Promise<{ error: string | null }>;
+  signInWithApple: () => Promise<{ error: string | null }>;
   signOut: () => Promise<void>;
   ensureSession: () => Promise<string | null>;
 }
@@ -164,6 +165,29 @@ export const useAuthStore = create<AuthState>((set, get) => ({
     } catch (error: any) {
       set({ loading: false });
       return { error: error.message || '로그인에 실패했습니다.' };
+    }
+  },
+
+  signInWithApple: async () => {
+    set({ loading: true });
+    try {
+      const { signInWithApple: appleSignIn } = await import('../utils/appleAuth');
+      const result = await appleSignIn();
+      set({
+        user: result.user,
+        session: result.session,
+        loading: false,
+        isAnonymous: false,
+      });
+      return { error: null };
+    } catch (error: any) {
+      set({ loading: false });
+      // 사용자가 시트를 닫은 경우는 에러 메시지를 띄우지 않음
+      const code = error?.code;
+      if (code === 'ERR_REQUEST_CANCELED' || code === 'ERR_CANCELED') {
+        return { error: null };
+      }
+      return { error: error?.message || 'Apple 로그인에 실패했습니다.' };
     }
   },
 
