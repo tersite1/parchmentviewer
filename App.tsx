@@ -17,6 +17,7 @@ import { ProfileScreen } from './src/screens/ProfileScreen';
 import { OnboardingScreen } from './src/screens/OnboardingScreen';
 import { ChatScreen } from './src/screens/ChatScreen';
 import { Icon } from './src/components/Icon';
+import { Logo } from './src/components/Logo';
 import { CenterActionSheet } from './src/components/CenterActionSheet';
 import { COLORS, SPACING, TYPOGRAPHY } from './src/config/constants';
 import { useAuthStore } from './src/stores/authStore';
@@ -161,11 +162,12 @@ export default function App() {
     setShowOnboarding(completed !== 'true');
   };
 
-  // Show nothing while checking onboarding status
+  // Show branded splash while checking onboarding status
   if (showOnboarding === null) {
     return (
-      <GestureHandlerRootView style={{ flex: 1, backgroundColor: COLORS.coal }}>
+      <GestureHandlerRootView style={styles.splash}>
         <StatusBar barStyle="light-content" backgroundColor={COLORS.coal} />
+        <Logo size={88} />
       </GestureHandlerRootView>
     );
   }
@@ -241,6 +243,12 @@ export default function App() {
 }
 
 const styles = StyleSheet.create({
+  splash: {
+    flex: 1,
+    backgroundColor: COLORS.coal,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
   addButton: {
     width: 48,
     height: 48,

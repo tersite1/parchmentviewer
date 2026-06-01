@@ -5,6 +5,7 @@ import * as Haptics from '../utils/haptics';
 import { COLORS, TYPOGRAPHY, SPACING, ANIMATION, CITIES, type CityName } from '../config/constants';
 import mapStyle from '../config/mapStyle.json';
 import { usePlaces } from '../hooks/usePlaces';
+import { useFitMapToPlaces } from '../hooks/useFitMapToPlaces';
 import { usePlacesStore } from '../stores/placesStore';
 import { useMapStore } from '../stores/mapStore';
 import { MapMarker } from '../components/MapMarker';
@@ -18,6 +19,7 @@ export function MapScreen() {
   const { isLoading, error, refetch } = usePlaces();
   const { places, selectedPlace, selectPlace } = usePlacesStore();
   const { region, setCurrentCity } = useMapStore();
+  const { onMapReady } = useFitMapToPlaces(mapRef, places);
 
   const handleMarkerPress = useCallback((place: Place) => {
     selectPlace(place);
@@ -61,6 +63,7 @@ export function MapScreen() {
         style={styles.map}
         customMapStyle={mapStyle}
         initialRegion={region}
+        onMapReady={onMapReady}
         showsUserLocation={false}
         showsMyLocationButton={false}
         showsCompass={false}

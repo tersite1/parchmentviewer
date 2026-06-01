@@ -16,6 +16,7 @@ import * as Haptics from '../utils/haptics';
 import { COLORS, SPACING, CATEGORIES, TYPOGRAPHY } from '../config/constants';
 import { storage } from '../utils/storage';
 import { Icon, IconName } from '../components/Icon';
+import { Logo } from '../components/Logo';
 
 const { width, height } = Dimensions.get('window');
 
@@ -154,6 +155,7 @@ export function OnboardingScreen({ onComplete }: OnboardingScreenProps) {
 
       {/* Brand */}
       <Animated.View entering={FadeIn.delay(500)} style={styles.brand}>
+        <Logo size={24} />
         <Text style={styles.brandText}>PARCHMENT</Text>
       </Animated.View>
     </View>
@@ -256,6 +258,9 @@ const styles = StyleSheet.create({
     position: 'absolute',
     bottom: SPACING.lg,
     alignSelf: 'center',
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: SPACING.sm,
   },
   brandText: {
     fontSize: TYPOGRAPHY.sizes.caption,

@@ -2,6 +2,7 @@ import React from 'react';
 import { View, Text, StyleSheet, ScrollView, TouchableOpacity, Linking } from 'react-native';
 import * as Haptics from '../utils/haptics';
 import { COLORS, TYPOGRAPHY, SPACING } from '../config/constants';
+import { Logo } from '../components/Logo';
 
 const TOSS_PAY_URL = 'https://toss.me/parchment';
 // TODO: 출시 전 실제 호스팅된 URL로 교체 (GitHub Pages, Notion, Vercel 등)
@@ -23,6 +24,9 @@ export function AboutScreen() {
 
   return (
     <ScrollView style={styles.container} contentContainerStyle={styles.content}>
+      <View style={styles.logoWrap}>
+        <Logo size={56} />
+      </View>
       <Text style={styles.tagline}>No Algorithms. Just Silence.</Text>
 
       <View style={styles.section}>
@@ -84,6 +88,10 @@ const styles = StyleSheet.create({
   content: {
     padding: SPACING.lg,
     paddingTop: SPACING.xl,
+  },
+  logoWrap: {
+    alignItems: 'center',
+    marginBottom: SPACING.lg,
   },
   tagline: {
     fontFamily: TYPOGRAPHY.fontFamily,

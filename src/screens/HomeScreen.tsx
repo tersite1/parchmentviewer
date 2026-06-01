@@ -29,6 +29,7 @@ import { useBookmarksStore } from '../stores/bookmarksStore';
 import { useAuthStore } from '../stores/authStore';
 import { useMapStore } from '../stores/mapStore';
 import { usePlaces } from '../hooks/usePlaces';
+import { useFitMapToPlaces } from '../hooks/useFitMapToPlaces';
 import { MapMarker } from '../components/MapMarker';
 import { SpaceCard } from '../components/SpaceCard';
 import { CityModal } from '../components/CityModal';
@@ -85,6 +86,8 @@ export function HomeScreen({ navigation }: HomeScreenProps) {
   const [userLocation, setUserLocation] = useState<{ lat: number; lng: number } | null>(null);
   const [isMapFullscreen, setIsMapFullscreen] = useState(false);
   const fullscreenMapRef = useRef<MapView>(null);
+  const { onMapReady } = useFitMapToPlaces(mapRef, places);
+  const { onMapReady: onFullscreenMapReady } = useFitMapToPlaces(fullscreenMapRef, places);
 
   // Auth store
   const { user } = useAuthStore();
@@ -403,6 +406,7 @@ export function HomeScreen({ navigation }: HomeScreenProps) {
             ref={mapRef}
             style={styles.map}
             initialRegion={CITIES.SEOUL}
+            onMapReady={onMapReady}
             customMapStyle={mapStyle}
             showsUserLocation={true}
             showsMyLocationButton={false}
@@ -526,6 +530,7 @@ export function HomeScreen({ navigation }: HomeScreenProps) {
             ref={fullscreenMapRef}
             style={styles.fullscreenMap}
             initialRegion={CITIES.SEOUL}
+            onMapReady={onFullscreenMapReady}
             customMapStyle={mapStyle}
             showsUserLocation={true}
             showsMyLocationButton={false}
