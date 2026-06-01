@@ -18,6 +18,7 @@ import { Toast } from '../components/Toast';
 import { supabase } from '../config/supabase';
 import { useAuthStore } from '../stores/authStore';
 import { useRegionsStore } from '../stores/regionsStore';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 const CATEGORY_LIST = [
   { id: 'cafe', label: '카페', icon: 'cafe', color: CATEGORIES.cafe.color },
@@ -39,6 +40,7 @@ interface MenuItem {
 export function AddReviewScreen({ navigation }: AddReviewScreenProps) {
   const { user, isAnonymous } = useAuthStore();
   const { regions, fetchRegions } = useRegionsStore();
+  const insets = useSafeAreaInsets();
 
   const [images, setImages] = useState<string[]>([]);
   const [name, setName] = useState('');
@@ -149,7 +151,7 @@ export function AddReviewScreen({ navigation }: AddReviewScreenProps) {
     return (
       <View style={styles.container}>
         <Toast {...toast} onHide={() => setToast(t => ({ ...t, visible: false }))} />
-        <View style={styles.header}>
+        <View style={[styles.header, { paddingTop: insets.top + SPACING.md }]}>
           <View style={{ width: 24 }} />
           <Text style={styles.headerTitle}>공간 추가</Text>
           <View style={{ width: 24 }} />
@@ -420,7 +422,6 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    paddingTop: SPACING.xl + SPACING.lg,
     paddingHorizontal: SPACING.lg,
     paddingBottom: SPACING.md,
     backgroundColor: COLORS.coal,

@@ -4,6 +4,7 @@ import { NavigationContainer, DefaultTheme, useNavigation } from '@react-navigat
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
+import { SafeAreaProvider } from 'react-native-safe-area-context';
 import * as Haptics from './src/utils/haptics';
 import { storage } from './src/utils/storage';
 
@@ -185,6 +186,7 @@ export default function App() {
   return (
     <GestureHandlerRootView style={{ flex: 1 }}>
       <StatusBar barStyle="light-content" backgroundColor={COLORS.coal} />
+      <SafeAreaProvider>
       <NavigationContainer theme={theme}>
         <Stack.Navigator
           screenOptions={{
@@ -238,6 +240,7 @@ export default function App() {
           />
         </Stack.Navigator>
       </NavigationContainer>
+      </SafeAreaProvider>
     </GestureHandlerRootView>
   );
 }

@@ -23,6 +23,7 @@ import { Toast } from '../components/Toast';
 import { useLanguageStore, LanguageOption } from '../stores/languageStore';
 import { useAuthStore } from '../stores/authStore';
 import { signInWithKakao } from '../utils/kakaoAuth';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 interface ProfileScreenProps {
   navigation: any;
@@ -36,6 +37,7 @@ export function ProfileScreen({ navigation }: ProfileScreenProps) {
   const [name, setName] = useState('');
   const { language, setLanguage } = useLanguageStore();
   const [showSettings, setShowSettings] = useState(false);
+  const insets = useSafeAreaInsets();
   const [rememberPassword, setRememberPassword] = useState(false);
   const [kakaoLoading, setKakaoLoading] = useState(false);
   const [appleLoading, setAppleLoading] = useState(false);
@@ -179,7 +181,7 @@ export function ProfileScreen({ navigation }: ProfileScreenProps) {
     return (
       <View style={styles.container}>
         {toastElement}
-        <View style={styles.header}>
+        <View style={[styles.header, { paddingTop: insets.top + SPACING.md }]}>
           <TouchableOpacity
             onPress={() => setShowSettings(false)}
             hitSlop={{ top: 10, bottom: 10, left: 10, right: 10 }}
@@ -259,7 +261,7 @@ export function ProfileScreen({ navigation }: ProfileScreenProps) {
     return (
       <View style={styles.container}>
         {toastElement}
-        <View style={styles.header}>
+        <View style={[styles.header, { paddingTop: insets.top + SPACING.md }]}>
           <Text style={styles.title}>프로필</Text>
         </View>
 
@@ -465,7 +467,6 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
-    paddingTop: SPACING.xl + SPACING.lg,
     paddingHorizontal: SPACING.lg,
     paddingBottom: SPACING.lg,
     backgroundColor: COLORS.coal,

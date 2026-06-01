@@ -18,6 +18,7 @@ import { Icon } from '../components/Icon';
 import { usePlacesStore } from '../stores/placesStore';
 import { useRegionsStore, Region } from '../stores/regionsStore';
 import type { Place } from '../types/database';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 interface SearchScreenProps {
   navigation: any;
@@ -190,6 +191,7 @@ const accordionAnim = {
 export function SearchScreen({ navigation }: SearchScreenProps) {
   const { places, selectPlace } = usePlacesStore();
   const { regions, isLoading: regionsLoading, fetchRegions } = useRegionsStore();
+  const insets = useSafeAreaInsets();
   const [searchQuery, setSearchQuery] = useState('');
   const [expandedCountry, setExpandedCountry] = useState<string | null>(null);
   const [expandedCity, setExpandedCity] = useState<string | null>(null);
@@ -264,7 +266,7 @@ export function SearchScreen({ navigation }: SearchScreenProps) {
   return (
     <View style={styles.container}>
       {/* Header */}
-      <View style={styles.header}>
+      <View style={[styles.header, { paddingTop: insets.top + SPACING.md }]}>
         <Text style={styles.title}>지역 검색</Text>
         <Text style={styles.subtitle}>큐레이팅된 {totalPlaces}개의 공간</Text>
       </View>
@@ -393,7 +395,6 @@ const styles = StyleSheet.create({
     backgroundColor: COLORS.bone,
   },
   header: {
-    paddingTop: SPACING.xl + SPACING.lg,
     paddingHorizontal: SPACING.lg,
     paddingBottom: SPACING.lg,
     backgroundColor: COLORS.bone,

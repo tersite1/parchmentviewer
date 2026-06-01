@@ -9,6 +9,7 @@ import { useAuthStore } from '../stores/authStore';
 import type { Place } from '../types/database';
 import { isSafeImageUrl } from '../utils/sanitizeUrl';
 import { Logo } from '../components/Logo';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 interface BookmarksScreenProps {
   navigation: any;
@@ -19,6 +20,7 @@ export function BookmarksScreen({ navigation }: BookmarksScreenProps) {
   const userId = user?.id || null;
   const { bookmarkedPlaces, loadBookmarks, removeBookmark } = useBookmarksStore();
   const { selectPlace } = usePlacesStore();
+  const insets = useSafeAreaInsets();
 
   useEffect(() => {
     loadBookmarks(userId);
@@ -68,7 +70,7 @@ export function BookmarksScreen({ navigation }: BookmarksScreenProps) {
 
   return (
     <View style={styles.container}>
-      <View style={styles.header}>
+      <View style={[styles.header, { paddingTop: insets.top + SPACING.md }]}>
         <View style={styles.titleRow}>
           <Logo size={20} />
           <Text style={styles.title}>북마크</Text>
@@ -97,7 +99,6 @@ const styles = StyleSheet.create({
     backgroundColor: COLORS.bone,
   },
   header: {
-    paddingTop: SPACING.xl + SPACING.lg,
     paddingHorizontal: SPACING.lg,
     paddingBottom: SPACING.lg,
     backgroundColor: COLORS.coal,

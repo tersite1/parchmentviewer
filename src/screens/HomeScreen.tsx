@@ -30,6 +30,7 @@ import { useAuthStore } from '../stores/authStore';
 import { useMapStore } from '../stores/mapStore';
 import { usePlaces } from '../hooks/usePlaces';
 import { useFitMapToPlaces } from '../hooks/useFitMapToPlaces';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { MapMarker } from '../components/MapMarker';
 import { SpaceCard } from '../components/SpaceCard';
 import { CityModal } from '../components/CityModal';
@@ -89,6 +90,7 @@ export function HomeScreen({ navigation }: HomeScreenProps) {
   const fullscreenMapRef = useRef<MapView>(null);
   const { onMapReady } = useFitMapToPlaces(mapRef, places);
   const { onMapReady: onFullscreenMapReady } = useFitMapToPlaces(fullscreenMapRef, places);
+  const insets = useSafeAreaInsets();
 
   // Auth store
   const { user } = useAuthStore();
@@ -345,7 +347,7 @@ export function HomeScreen({ navigation }: HomeScreenProps) {
   return (
     <View style={styles.container}>
       {/* Brand Bar */}
-      <View style={styles.brandBar}>
+      <View style={[styles.brandBar, { paddingTop: insets.top + SPACING.xs }]}>
         <Logo size={22} />
         <Text style={styles.brandWordmark}>PARCHMENT</Text>
       </View>
@@ -824,7 +826,6 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     gap: SPACING.sm,
     paddingHorizontal: SPACING.lg,
-    paddingTop: SPACING.xl + SPACING.sm,
     paddingBottom: SPACING.xs,
     backgroundColor: COLORS.coal,
   },
