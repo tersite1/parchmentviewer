@@ -19,6 +19,7 @@ export function useFitMapToPlaces(mapRef: React.RefObject<any>, places: Place[])
       .filter((p) => Number.isFinite(p?.lat) && Number.isFinite(p?.lng))
       .map((p) => ({ latitude: p.lat, longitude: p.lng }));
     if (coords.length === 0) return;
+    if (typeof mapRef.current?.fitToCoordinates !== 'function') return;
     fitted.current = true;
     requestAnimationFrame(() => {
       mapRef.current?.fitToCoordinates(coords, {

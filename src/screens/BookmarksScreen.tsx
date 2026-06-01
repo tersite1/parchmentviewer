@@ -8,6 +8,7 @@ import { usePlacesStore } from '../stores/placesStore';
 import { useAuthStore } from '../stores/authStore';
 import type { Place } from '../types/database';
 import { isSafeImageUrl } from '../utils/sanitizeUrl';
+import { Logo } from '../components/Logo';
 
 interface BookmarksScreenProps {
   navigation: any;
@@ -68,7 +69,10 @@ export function BookmarksScreen({ navigation }: BookmarksScreenProps) {
   return (
     <View style={styles.container}>
       <View style={styles.header}>
-        <Text style={styles.title}>북마크</Text>
+        <View style={styles.titleRow}>
+          <Logo size={20} />
+          <Text style={styles.title}>북마크</Text>
+        </View>
         <Text style={styles.subtitle}>저장한 공간 {bookmarkedPlaces.length}곳</Text>
       </View>
 
@@ -97,6 +101,11 @@ const styles = StyleSheet.create({
     paddingHorizontal: SPACING.lg,
     paddingBottom: SPACING.lg,
     backgroundColor: COLORS.coal,
+  },
+  titleRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: SPACING.sm,
   },
   title: {
     fontSize: TYPOGRAPHY.sizes.xxl,

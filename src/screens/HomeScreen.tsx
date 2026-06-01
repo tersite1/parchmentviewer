@@ -34,6 +34,7 @@ import { MapMarker } from '../components/MapMarker';
 import { SpaceCard } from '../components/SpaceCard';
 import { CityModal } from '../components/CityModal';
 import { Icon } from '../components/Icon';
+import { Logo } from '../components/Logo';
 import { HomeScreenSkeleton } from '../components/SkeletonLoader';
 import { SearchEmptyState } from '../components/EmptyState';
 import mapStyle from '../config/mapStyle.json';
@@ -343,6 +344,12 @@ export function HomeScreen({ navigation }: HomeScreenProps) {
 
   return (
     <View style={styles.container}>
+      {/* Brand Bar */}
+      <View style={styles.brandBar}>
+        <Logo size={22} />
+        <Text style={styles.brandWordmark}>PARCHMENT</Text>
+      </View>
+
       {/* City Header */}
       <TouchableOpacity
         style={styles.cityHeader}
@@ -811,6 +818,21 @@ const styles = StyleSheet.create({
     fontWeight: TYPOGRAPHY.weights.semiBold,
     color: COLORS.coal,
     letterSpacing: -0.2,
+  },
+  brandBar: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: SPACING.sm,
+    paddingHorizontal: SPACING.lg,
+    paddingTop: SPACING.xl + SPACING.sm,
+    paddingBottom: SPACING.xs,
+    backgroundColor: COLORS.coal,
+  },
+  brandWordmark: {
+    fontSize: TYPOGRAPHY.sizes.body,
+    color: COLORS.bone,
+    fontWeight: TYPOGRAPHY.weights.semiBold,
+    letterSpacing: 3,
   },
   cityHeader: {
     flexDirection: 'row',

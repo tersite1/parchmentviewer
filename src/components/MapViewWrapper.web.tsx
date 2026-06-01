@@ -54,7 +54,7 @@ interface MapViewProps {
 }
 
 export const MapViewWrapper = forwardRef<any, MapViewProps>(function MapViewWrapper(
-  { style, region, initialRegion, onRegionChangeComplete, children },
+  { style, region, initialRegion, onRegionChangeComplete, onMapReady, children },
   ref,
 ) {
   const containerRef = useRef<HTMLDivElement | null>(null);
@@ -71,6 +71,21 @@ export const MapViewWrapper = forwardRef<any, MapViewProps>(function MapViewWrap
           deltaToZoom(target.latitudeDelta),
           { duration: Math.max(0.1, durationMs / 1000) },
         );
+      },
+      // native react-native-maps와 동일 인터페이스 — 모든 마커가 보이게 맞춤
+      fitToCoordinates: (
+        coords: { latitude: number; longitude: number }[],
+        opts?: { edgePadding?: { top: number; right: number; bottom: number; left: number }; animated?: boolean },
+      ) => {
+        if (!mapRef.current || !coords || coords.length === 0) return;
+        const bounds = L.latLngBounds(coords.map((c) => [c.latitude, c.longitude] as [number, number]));
+        const ep = opts?.edgePadding;
+        mapRef.current.fitBounds(bounds, {
+          paddingTopLeft: ep ? [ep.left, ep.top] : [40, 40],
+          paddingBottomRight: ep ? [ep.right, ep.bottom] : [40, 40],
+          animate: opts?.animated ?? false,
+          maxZoom: 15,
+        });
       },
     }),
     [],
@@ -103,6 +118,9 @@ export const MapViewWrapper = forwardRef<any, MapViewProps>(function MapViewWrap
 
     markersLayerRef.current = L.layerGroup().addTo(map);
     mapRef.current = map;
+
+    // native와 동일하게 지도 준비 알림 → useFitMapToPlaces가 마커에 맞춤
+    onMapReady?.();
 
     map.on('moveend', () => {
       const c = map.getCenter();
@@ -149,19 +167,25 @@ export const MapViewWrapper = forwardRef<any, MapViewProps>(function MapViewWrap
       const color = props.markerColor || '#E3DAC9';
       const label = props.label;
       const onPress = props.onPress;
+      const category = props.category;
 
       const labelHtml = label
-        ? `<div style="position:absolute;top:18px;left:50%;transform:translateX(-50%);background:rgba(26,26,26,0.85);color:#E3DAC9;padding:2px 6px;border-radius:4px;font-size:10px;white-space:nowrap;font-family:Inter,-apple-system,sans-serif;pointer-events:none">${escapeHtml(
+        ? `<div style="position:absolute;top:34px;left:50%;transform:translateX(-50%);background:rgba(26,26,26,0.85);color:#E3DAC9;padding:2px 6px;border-radius:4px;font-size:10px;white-space:nowrap;font-family:Inter,-apple-system,sans-serif;pointer-events:none">${escapeHtml(
             String(label),
           )}</div>`
         : '';
-      const html = `<div style="position:relative;width:14px;height:14px"><div style="width:14px;height:14px;border-radius:50%;background:${color};border:2px solid #1a1a1a;box-shadow:0 2px 6px rgba(0,0,0,0.4)"></div>${labelHtml}</div>`;
+      // native MapMarker와 동일한 외형: 색 원 핀 + 카테고리 아이콘(coal)
+      const glyph = categoryGlyph(category);
+      const html = `<div style="position:relative;width:28px;height:28px">` +
+        `<div style="width:28px;height:28px;border-radius:50%;background:${color};border:2px solid #fff;box-shadow:0 2px 6px rgba(0,0,0,0.4);display:flex;align-items:center;justify-content:center">` +
+        `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#1A1A1A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">${glyph}</svg>` +
+        `</div>${labelHtml}</div>`;
 
       const icon = L.divIcon({
         html,
         className: 'parchment-marker',
-        iconSize: [14, 14],
-        iconAnchor: [7, 7],
+        iconSize: [28, 28],
+        iconAnchor: [14, 14],
       });
 
       const marker = L.marker([coord.latitude, coord.longitude], { icon });
@@ -184,6 +208,23 @@ export const MapViewWrapper = forwardRef<any, MapViewProps>(function MapViewWrap
 });
 
 MapViewWrapper.displayName = 'MapViewWrapper';
+
+// native Icon.tsx의 카테고리 path와 동일 — Leaflet divIcon용 inner SVG markup
+function categoryGlyph(category?: string): string {
+  switch (category) {
+    case 'restaurant':
+      return '<path d="M7 3v18M7 3C5.5 3 5 5 5 7s.5 4 2 4M7 3c1.5 0 2 2 2 4s-.5 4-2 4"/><path d="M17 3v8a3 3 0 01-3 3v7"/>';
+    case 'culture':
+      return '<path d="M3 21h18M5 21V8l7-5 7 5v13"/><rect x="9" y="12" width="6" height="9"/>';
+    case 'bar':
+      return '<path d="M8 3h8l-4 7v8M7 21h10M12 18v-1"/><circle cx="12" cy="7" r="1" fill="#1A1A1A"/>';
+    case 'stay':
+      return '<path d="M3 18v-5a2 2 0 012-2h14a2 2 0 012 2v5M3 18v2M21 18v2"/><path d="M5 11V7a2 2 0 012-2h3a2 2 0 012 2v4"/><circle cx="7.5" cy="7" r="1.5"/>';
+    case 'cafe':
+    default:
+      return '<path d="M5 9h12v6a4 4 0 01-4 4H9a4 4 0 01-4-4V9z"/><path d="M17 10h1a2 2 0 012 2v0a2 2 0 01-2 2h-1"/><line x1="5" y1="21" x2="17" y2="21"/>';
+  }
+}
 
 function escapeHtml(s: string) {
   return s
